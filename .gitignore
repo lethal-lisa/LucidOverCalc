@@ -1,0 +1,17 @@
+## Ignore project files:
+*.geany
+*.fbp
+
+## Ignore archive files:
+*.tar
+*.gz
+*.zip
+
+## Ignore binaries:
+*.a
+*.o
+lib*
+*.exe
+
+## EOF
+

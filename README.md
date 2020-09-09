@@ -1,2 +1,2 @@
 # LucidOverCalc
-Resources for overclocking LSDj
+Tools and resources for overclocking the Nintendo GameBoy tracker, LSDj.
