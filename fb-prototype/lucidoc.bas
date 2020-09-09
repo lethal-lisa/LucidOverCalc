@@ -29,66 +29,67 @@
 	
 '/
 
-#Include "lsdj-am-freq-calc.bi"
+#Include "lucidoc.bi"
 
-Sub CheckExit (ByVal strPrompt As String Ptr)
+Function CheckError (ByVal uErrCode As Const ULong, ByRef bQuit As Boolean = FALSE) As ULong
 	
-	If (LCase(Trim(*strPrompt)) = "exit") Then Error(FB_ERR_QUITREQUEST)
+	If ((uErrCode = FB_ERR_QUITREQ) OrElse (uErrCode = FB_ERR_TERMREQ)) Then
+		bQuit = TRUE
+		Return(FB_ERR_SUCCESS)
+	EndIf
 	
-End Sub
+	Return(uErrCode)
+	
+End Function
 
-''makes sure puTempo is a valid tempo
-Function ValidTempo (ByVal puTempo As UInteger Ptr) As Boolean
+''makes sure uTempo is a valid tempo
+Function ValidTempo (ByRef uTempo As Const UInteger) As Boolean
 	
-	If ((*puTempo < LSDJ_MIN_TEMPO) AndAlso (*puTempo > LSDJ_MAX_TEMPO)) Then
-		? Using "% is an invalid tempo."; *puTempo
+	If ((uTempo < LSDJ_MIN_TEMPO) OrElse (uTempo > LSDJ_MAX_TEMPO)) Then
+		? Using "& is an invalid tempo."; uTempo
 		Return(FALSE)
 	EndIf
 	Return(TRUE)
 	
 End Function
 
-Function PromptUser (ByRef strPrompt As String, ByRef szPrompt As ZString*2 = !">\0") As String
+Function LogBaseX (ByVal dblNumber As Double, ByVal dblBase As Double) As Double
 	
-	Static strResponse As String
-	
-	Input strPrompt + szPrompt, strResponse
-	
-	
-
-''obtains the tempo value from the user
-Function GetTempo () As UInteger
-	
-	Dim strTemp As String	''temporary buffer for user input
-	Dim uTempo As UInteger	''tempo to return
-	
-	? Using "Valid tempos are integers between % and %."; LSDJ_MIN_TEMPO; LSDJ_MAX_TEMPO
-	Do
-		Input "Input valid LSDj tempo (without overclock) or ""exit"" to exit.", uTempo
-		CheckExit(@strTemp)
-		uTempo = ValUInt(strTemp)
-	Loop Until ValidTempo(@uTempo)
-	
-	Return uTempo
-	
-End Function
-
-''gets the frequency of the first, highest note, where length of OFF time is 1.0
-Function GetMainHz (ByVal uTempo As UInteger) As UInteger
-	
-	Return(uTempo * OVERCLOCK_MULT * 0.4)
-	
+    Return(Log(dblNumber) / Log(dblBase))
+    
 End Function
 
 ''main:
-On Error GoTo FAIL
+On Error GoTo FATAL_ERROR
 
-Dim uTempo As UInteger = GetTempo()
-? Using "Tempo = %"; uTempo
-? Using "Overclocked tempo = %"; (uTempo * LSDJ_SOFT_OVERCLOCK)
+Dim uTempo As UInteger = CUInt(Command(1))
+Do Until ValidTempo(uTempo)
+	? Using !"Valid tempos are integers between & and &."; LSDJ_MIN_TEMPO; LSDJ_MAX_TEMPO
+	Input "Tempo"; uTempo
+Loop
 
-FAIL:
-If (Err() = FB_ERR_QUITREQ) Then End(FB_ERR_SUCCESS)
-End(FB_ERR_SUCCESS)
+Dim dblMainHz As Double = (uTempo * OVERCLOCK_MULT * 0.4)
+
+? "Step"; Tab(10); "Frequency"
+For iStep As Double = OFFTIME_MAX To OFFTIME_MIN Step -0.5
+	? iStep; Tab(10); (1.9 * uTempo * LogBaseX(iStep, 1 / uTempo)) + dblMainHz
+Next iStep
+
+Err = FB_ERR_SUCCESS
+
+FATAL_ERROR:
+Scope
+	
+	''get the error code
+	Dim uErr As ULong = Err()
+	
+	''check for a valid error
+	If (CheckError(uErr) = FB_ERR_SUCCESS) Then End(FB_ERR_SUCCESS)
+	
+	''print out an error message
+	? Using "Fatal Error: _&h& (&)."; Hex(uErr); Str(uErr)
+	
+	End(uErr)
+End Scope
 
 ''EOF

@@ -23,18 +23,17 @@
 
 #Pragma Once
 
-#Include Once "fberrors.bi"
+#Include Once "inc/fberrors.bi"
 
 #IfnDef NULL
 	#Define NULL 0
 #EndIf
 
+#Define CCH_PROMPT 128
+
 Const LSDJ_MIN_TEMPO = 40		''minimum engine tempo for LSDj
 Const LSDJ_MAX_TEMPO = 295		''maximum engine tempo for LSDj
 Const OVERCLOCK_MULT = 2		''LSDj software overclock multiplier
-
-''frequency of first, highest note, where length of OFF time = 1.0
-''Const MAINHZ = 188
 
 ''TODO: Check OFFTIME_MAX value with infu.
 Const OFFTIME_MIN = 1.0			''min value for OFFtime
