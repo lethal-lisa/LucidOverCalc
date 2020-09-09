@@ -1,6 +1,6 @@
 /'
 	
-	lsdj-am-freq-calc.bas
+	lucidoc.bas
 	
 	Copyright (c) 2020 Lisa Murray
 	
@@ -48,14 +48,22 @@ Function ValidTempo (ByVal puTempo As UInteger Ptr) As Boolean
 	
 End Function
 
+Function PromptUser (ByRef strPrompt As String, ByRef szPrompt As ZString*2 = !">\0") As String
+	
+	Static strResponse As String
+	
+	Input strPrompt + szPrompt, strResponse
+	
+	
+
 ''obtains the tempo value from the user
 Function GetTempo () As UInteger
 	
-	Dim strTemp As String
-	Dim uTempo As UInteger
+	Dim strTemp As String	''temporary buffer for user input
+	Dim uTempo As UInteger	''tempo to return
 	
+	? Using "Valid tempos are integers between % and %."; LSDJ_MIN_TEMPO; LSDJ_MAX_TEMPO
 	Do
-		? Using "Valid tempos are integers between % and %."; LSDJ_MIN_TEMPO; LSDJ_MAX_TEMPO
 		Input "Input valid LSDj tempo (without overclock) or ""exit"" to exit.", uTempo
 		CheckExit(@strTemp)
 		uTempo = ValUInt(strTemp)
@@ -65,6 +73,7 @@ Function GetTempo () As UInteger
 	
 End Function
 
+''gets the frequency of the first, highest note, where length of OFF time is 1.0
 Function GetMainHz (ByVal uTempo As UInteger) As UInteger
 	
 	Return(uTempo * OVERCLOCK_MULT * 0.4)

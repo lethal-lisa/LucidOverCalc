@@ -1,6 +1,6 @@
 /'
 	
-	lsdj-am-freq-calc.bi
+	lucidoc.bi
 	
 	Copyright (c) 2020 Lisa Murray
 	
