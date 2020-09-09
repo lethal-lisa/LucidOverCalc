@@ -1,0 +1,13 @@
+## Ignore binaries:
+*.a
+*.o
+lib*
+*.exe
+
+## Ignore archives:
+*.tar
+*.gz
+*.zip
+
+## EOF
+
