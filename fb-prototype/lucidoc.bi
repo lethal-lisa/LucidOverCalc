@@ -29,14 +29,22 @@
 	#Define NULL 0
 #EndIf
 
-#Define CCH_PROMPT 128
+'' Constant values used by LSDj:
+Const LSDJ_MIN_TEMPO = 40		'' Min engine tempo for LSDj.
+Const LSDJ_MAX_TEMPO = 295		'' Max engine tempo for LSDj.
+Const LSDJ_OVERCLOCK_MULT = 2	'' LSDj software overclock multiplier.
 
-Const LSDJ_MIN_TEMPO = 40		''minimum engine tempo for LSDj
-Const LSDJ_MAX_TEMPO = 295		''maximum engine tempo for LSDj
-Const OVERCLOCK_MULT = 2		''LSDj software overclock multiplier
+'' Constants related to calculations:
+Const OFFTIME_MIN = 1.0			'' Min value for OFFtime.
+Const OFFTIME_MAX = 5.0			'' Max value for OFFtime.
 
-''TODO: Check OFFTIME_MAX value with infu.
-Const OFFTIME_MIN = 1.0			''min value for OFFtime
-Const OFFTIME_MAX = 5.0			''max value for OFFtime
+'' Constants used by this program:
+Const MAX_CLI_PARAMS = 2
+
+'' Function declarations:
+Declare Function ValidTempo (ByRef uTempo As Const UInteger) As Boolean
+Declare Function LogBaseX (ByVal dblNumber As Double, ByVal dblBase As Double) As Double
+Declare Function CalcMainHz (ByVal uTempo As Const UInteger) As Double
+Declare Function CalcFreq (ByVal uTempo As Const UInteger, ByVal uStep As Const Double) As Double
 
 ''EOF

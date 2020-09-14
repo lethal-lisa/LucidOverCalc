@@ -6,11 +6,11 @@
 	
 	Build With:
 		Windows:
-		>fbc -s console lucidoc.bas -x lucid.exe
+		>fbc -s console lucidoc.bas
 		DOS:
-		>fbc LUCIDOC.BAS -x LUCIDOC.EXE
+		>fbc LUCIDOC.BAS
 		Linux:
-		$fbc lucidoc.bas -x lucid
+		$fbc lucidoc.bas
 	
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -31,18 +31,7 @@
 
 #Include "lucidoc.bi"
 
-Function CheckError (ByVal uErrCode As Const ULong, ByRef bQuit As Boolean = FALSE) As ULong
-	
-	If ((uErrCode = FB_ERR_QUITREQ) OrElse (uErrCode = FB_ERR_TERMREQ)) Then
-		bQuit = TRUE
-		Return(FB_ERR_SUCCESS)
-	EndIf
-	
-	Return(uErrCode)
-	
-End Function
-
-''makes sure uTempo is a valid tempo
+'' Makes sure uTempo is a valid tempo.
 Function ValidTempo (ByRef uTempo As Const UInteger) As Boolean
 	
 	If ((uTempo < LSDJ_MIN_TEMPO) OrElse (uTempo > LSDJ_MAX_TEMPO)) Then
@@ -53,26 +42,51 @@ Function ValidTempo (ByRef uTempo As Const UInteger) As Boolean
 	
 End Function
 
+'' Calculates a logaritm with a base of dblBase multiplied by dblNumber.
 Function LogBaseX (ByVal dblNumber As Double, ByVal dblBase As Double) As Double
 	
     Return(Log(dblNumber) / Log(dblBase))
     
 End Function
 
+'' Calculates the mainHz value used in the freq(step, tempo) function.
+Function CalcMainHz (ByVal uTempo As Const UInteger) As Double
+	
+	If (ValidTempo(uTempo) = FALSE) Then Error(FB_ERR_ILLEGALFUNCTION)
+	
+	Return(uTempo * 0.4 * LSDJ_OVERCLOCK_MULT)
+	
+End Function
+
+'' Implements the freq(step, tempo) function.
+Function CalcFreq (ByVal uTempo As Const UInteger, ByVal uStep As Const Double) As Double
+	
+	If (ValidTempo(uTempo) = FALSE) Then Error(FB_ERR_ILLEGALFUNCTION)
+	If ((uStep < OFFTIME_MIN) OrElse (uStep > OFFTIME_MAX)) Then Error(FB_ERR_ILLEGALFUNCTION)
+	
+	Return((1.85 * uTempo * LogBaseX(uStep, (1 / uTempo))) + CalcMainHz(uTempo))
+	
+End Function
+
 ''main:
 On Error GoTo FATAL_ERROR
 
+'' Get tempo from command line, if present.
 Dim uTempo As UInteger = CUInt(Command(1))
+
+'' Get tempo from prompting the user if command line isn't present.
 Do Until ValidTempo(uTempo)
-	? Using !"Valid tempos are integers between & and &."; LSDJ_MIN_TEMPO; LSDJ_MAX_TEMPO
+	? Using "Valid tempos are integers between & and &."; LSDJ_MIN_TEMPO; LSDJ_MAX_TEMPO
 	Input "Tempo"; uTempo
 Loop
 
-Dim dblMainHz As Double = (uTempo * OVERCLOCK_MULT * 0.4)
+'' Print out data header:
+? "Tempo: "; uTempo
+? "Step"; Tab(10); "Frequency (Hz)"
 
-? "Step"; Tab(10); "Frequency"
+'' Print out data:
 For iStep As Double = OFFTIME_MAX To OFFTIME_MIN Step -0.5
-	? iStep; Tab(10); (1.9 * uTempo * LogBaseX(iStep, 1 / uTempo)) + dblMainHz
+	? iStep; Tab(10); CalcFreq(uTempo, iStep); " Hz"
 Next iStep
 
 Err = FB_ERR_SUCCESS
@@ -80,16 +94,12 @@ Err = FB_ERR_SUCCESS
 FATAL_ERROR:
 Scope
 	
-	''get the error code
 	Dim uErr As ULong = Err()
 	
-	''check for a valid error
-	If (CheckError(uErr) = FB_ERR_SUCCESS) Then End(FB_ERR_SUCCESS)
-	
-	''print out an error message
-	? Using "Fatal Error: _&h& (&)."; Hex(uErr); Str(uErr)
+	If uErr Then ? Using "Fatal Error: FB RunTime error code: _&h& (&)"; Hex(uErr); uErr
 	
 	End(uErr)
+	
 End Scope
 
 ''EOF
