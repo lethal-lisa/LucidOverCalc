@@ -3,6 +3,8 @@
 *.o
 lib*
 *.exe
+lucid
+lucidoc
 
 ## Ignore archives:
 *.tar
