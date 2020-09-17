@@ -35,15 +35,26 @@ Const LSDJ_MAX_TEMPO = 295		'' Max engine tempo for LSDj.
 Const LSDJ_OVERCLOCK_MULT = 2	'' LSDj software overclock multiplier.
 
 '' Constants related to calculations:
-Const OFFTIME_MIN = 1.0			'' Min value for OFFtime.
-Const OFFTIME_MAX = 5.0			'' Max value for OFFtime.
+Const OFFTIME_MIN = 1			'' Min value for OFFtime.
+Const OFFTIME_MAX = 5			'' Max value for OFFtime.
 
 '' Constants used by this program:
-Const MAX_CLI_PARAMS = 2
+#IfnDef STEP_SIZE
+	#Define STEP_SIZE -0.5		'' Size used to iterate through steps.
+#EndIf
+#IfnDef TABS_COUNT
+	#Define TABS_COUNT 10		'' Value used in Tab() command to space out output.
+#EndIf
+#IfnDef NEGATIVE_OUTPUT
+	#Define NEGATIVE_OUTPUT 0	'' Controls the negative output state.
+#EndIf
+#IfnDef USE_COLOR
+	#Define USE_COLOR FALSE		'' Controls the usage of colored output.
+#EndIf
 
 '' Function declarations:
 Declare Function ValidTempo (ByRef uTempo As Const UInteger) As Boolean
-Declare Function LogBaseX (ByVal dblNumber As Double, ByVal dblBase As Double) As Double
+Declare Function LogBaseX (ByVal dblNumber As Const Double, ByVal dblBase As Const Double) As Double
 Declare Function CalcMainHz (ByVal uTempo As Const UInteger) As Double
 Declare Function CalcFreq (ByVal uTempo As Const UInteger, ByVal uStep As Const Double) As Double
 
