@@ -14,8 +14,8 @@ Navigate to the FB version's source directory (`LucidOverCalc/fb-version`). Make
 Name | Effect | Values | Default
 ---- | ----- | ------ | -------
 `STEP_SIZE` | Changes the amount used to iterate steps. | Any number between -1 and 1. | -0.5
-`TABS_COUNT` | Changes the amount of whitespace characters placed between columns of the output. | Any integer > 9 | 10
-`NEGATIVE_OUTPUT` | Enables or disables the program from outputting negative frequencies. | "all", "hide" (places an "N/A" in the frequency column), and "omit" | "none"
-`ENABLE_COLOR` | Enables color output. | TRUE/FALSE | FALSE
+`TABS_COUNT` | Changes the amount of whitespace characters placed between columns of the output. | Any integer >= 15 | 15
+`NEGATIVE_OUTPUT` | Enables or disables the program from outputting negative frequencies. | "all", "hide" (places an "N/A" in the frequency column), and "omit" | "hide"
+`ENABLE_COLOR` | Enables color output. | TRUE/FALSE | TRUE
 
 In order to use these additional parameters add `-d <parameter name>=<value>` to your build command after `fbc` and before `lucidoc.bas`.
