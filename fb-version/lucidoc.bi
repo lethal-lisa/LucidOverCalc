@@ -2,6 +2,8 @@
 	
 	lucidoc.bi
 	
+	Lucid OverCalc - Main Header
+	
 	Copyright (c) 2020 Lisa Murray
 	
 	This program is free software; you can redistribute it and/or modify
@@ -24,6 +26,9 @@
 #Pragma Once
 
 #Include Once "inc/fberrors.bi"
+#Include Once "inc/fbcolors.bi"
+
+#Include "inc/exopts.bi"
 
 #IfnDef NULL
 	#Define NULL 0
@@ -39,23 +44,22 @@ Const OFFTIME_MIN = 1			'' Min value for OFFtime.
 Const OFFTIME_MAX = 5			'' Max value for OFFtime.
 
 '' Constants used by this program:
-#IfnDef STEP_SIZE
-	#Define STEP_SIZE -0.5		'' Size used to iterate through steps.
-#EndIf
-#IfnDef TABS_COUNT
-	#Define TABS_COUNT 10		'' Value used in Tab() command to space out output.
-#EndIf
-#IfnDef NEGATIVE_OUTPUT
-	#Define NEGATIVE_OUTPUT 0	'' Controls the negative output state.
-#EndIf
-#IfnDef USE_COLOR
-	#Define USE_COLOR FALSE		'' Controls the usage of colored output.
+#Define DEF_COLOR 	&hFF
+#Define COL_HEADER	(COL_BRIGHT Or COL_GREY)
+#Define COL_GOOD		(COL_BRIGHT Or COL_GREEN)
+#Define COL_WARN		(COL_BRIGHT Or COL_YELLOW)
+#Define COL_ERROR 	(COL_BRIGHT Or COL_RED)
+
+#If __FB_DEBUG__
+	Dim Shared hDbgLog As Long
 #EndIf
 
 '' Function declarations:
-Declare Function ValidTempo (ByRef uTempo As Const UInteger) As Boolean
+Declare Function SetColor (ByRef colFore As UByte = DEF_COLOR, ByRef colBack As UByte = DEF_COLOR) As ULong
+Declare Sub RestoreColor (ByVal uColor As Const ULong)
+Declare Function ValidTempo (ByVal uTempo As Const UInteger) As Boolean
 Declare Function LogBaseX (ByVal dblNumber As Const Double, ByVal dblBase As Const Double) As Double
 Declare Function CalcMainHz (ByVal uTempo As Const UInteger) As Double
-Declare Function CalcFreq (ByVal uTempo As Const UInteger, ByVal uStep As Const Double) As Double
+Declare Function CalcFreq (ByVal uTempo As Const UInteger, ByVal dblOffTime As Const Double) As Double
 
 ''EOF
