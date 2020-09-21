@@ -14,5 +14,9 @@ lucidoc
 ## Ignore log files:
 *.log
 
+## Ignore scripts:
+*.sh
+*.bat
+
 ## EOF
 
