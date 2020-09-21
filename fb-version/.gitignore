@@ -11,5 +11,8 @@ lucidoc
 *.gz
 *.zip
 
+## Ignore log files:
+*.log
+
 ## EOF
 
