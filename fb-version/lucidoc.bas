@@ -532,6 +532,7 @@ Scope
 		#If __FB_DEBUG__
 			? #hDbgLog, Using "Fatal Error: FreeBASIC RunTime error code: _&h& (&)"; Hex(uErr); uErr
 		#EndIf
+		RestoreColor uColor
 	EndIf
 	
 	'' Close opened file handles.
