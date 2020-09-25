@@ -125,7 +125,6 @@ Sub ShowVersion (ByVal hOut As Const Long)
 	
 	
 	'' FPU information:
-	''? #hOut, Using !"\tFPU Used:\t\t&"; UCase(__FB_FPU__)
 	#IfDef __FB_SSE__
 		? #hOut, !"\tFPU Used:\t\tSSE"
 		? #hOut, Using !"\tFP Mode:\t\t&"; __FB_FPMODE__
@@ -212,7 +211,6 @@ Function ParseCmdLine (ByVal pParams As RUNTIME_PARAMS Const Ptr) As Integer
 				
 				'' Get stepsize.
 				If Not(pbParam[0]) Then
-					''pParams->sngStepSize = CSng(Mid(strCmd, nValOffset - 1))
 					iCmd += 1
 					pParams->sngStepSize = CSng(Command(iCmd))
 					pbParam[0] = TRUE
@@ -226,7 +224,6 @@ Function ParseCmdLine (ByVal pParams As RUNTIME_PARAMS Const Ptr) As Integer
 				
 				'' Get minimum OFFtime
 				If Not(pbParam[1]) Then
-					''pParams->sngOffMin = CSng(Mid(strCmd, nValOffset + 1))
 					iCmd += 1
 					pParams->sngOffMin = CSng(Command(iCmd))
 					pbParam[1] = TRUE
@@ -240,7 +237,6 @@ Function ParseCmdLine (ByVal pParams As RUNTIME_PARAMS Const Ptr) As Integer
 				
 				'' Get maximum OFFtime
 				If Not(pbParam[2]) Then
-					''pParams ->sngOffMax = CSng(Mid(strCmd, nValOffset + 1))
 					iCmd += 1
 					pParams->sngOffMax = CSng(Command(iCmd))
 					pbParam[2] = TRUE
@@ -475,11 +471,11 @@ With *s_prtParams
 		If (.sngOffMin < .sngOffMax) Then Swap .sngOffMin, .sngOffMax
 	End If
 	
-	'' TODO: Clean up the block below.
 	'' TODO: Remove preprocessor statements and replace them with values in s_prtParams.
 	'' Print out formatted data:
 	For iStep As Double = .sngOffMin To .sngOffMax Step .sngStepSize	
 		
+		'' Stores the resulting frequency.
 		Static dblFreq As Double
 		
 		'' Reset color.
@@ -525,7 +521,6 @@ Scope
 	Dim uErr As ULong = Err()
 	
 	'' Print an error message if uErr is an error code.
-	''If uErr Then
 	If Not(CBool((uErr = FB_ERR_SUCCESS) OrElse (uErr = FB_ERR_TERMREQ) OrElse (uErr = FB_ERR_QUITREQ))) Then
 		uColor = SetColor COL_ERROR
 		? #s_hErr, Using "Fatal Error: FreeBASIC RunTime error code: _&h& (&)"; Hex(uErr); uErr
