@@ -26,7 +26,7 @@
 #Pragma Once
 
 '' Default values for if none are defined at compile-time.
-#Define DEF_STEP_SIZE		-0.5
+#Define DEF_STEP_SIZE		0.5
 #Define DEF_TABS_COUNT		15
 #Define DEF_NEGATIVE_OUTPUT	"hide"
 #Define DEF_ENABLE_COLOR		TRUE
