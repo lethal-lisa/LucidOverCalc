@@ -40,8 +40,8 @@ Const LSDJ_MAX_TEMPO = 295		'' Max engine tempo for LSDj.
 Const LSDJ_OVERCLOCK_MULT = 2	'' LSDj software overclock multiplier.
 
 '' Constants related to calculations:
-Const OFFTIME_MIN = 1			'' Min value for OFFtime.
-Const OFFTIME_MAX = 5			'' Max value for OFFtime.
+''Const OFFTIME_MIN = 1			'' Min value for OFFtime.
+''Const OFFTIME_MAX = 5			'' Max value for OFFtime.
 
 '' Constants used by this program:
 #Define DEF_COLOR 	&hFF
