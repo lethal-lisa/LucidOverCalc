@@ -1,3 +1,6 @@
+## Ignore project files:
+*.fbp
+
 ## Ignore binaries:
 *.a
 *.o
