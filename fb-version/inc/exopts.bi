@@ -27,15 +27,25 @@
 
 '' Default values for if none are defined at compile-time.
 #Define DEF_STEP_SIZE		0.5
+#Define DEF_OFFTIME_MIN		1
+#Define DEF_OFFTIME_MAX		8
 #Define DEF_TABS_COUNT		15
 #Define DEF_NEGATIVE_OUTPUT	"hide"
 #Define DEF_ENABLE_COLOR		TRUE
-#Define DEF_OFFTIME_MIN		1
-#Define DEF_OFFTIME_MAX		8
 
 '' Size used to iterate through steps.
 #IfnDef STEP_SIZE
 	#Define STEP_SIZE DEF_STEP_SIZE
+#EndIf
+
+'' Controls the minimum offtime.
+#IfnDef OFFTIME_MIN
+	#Define OFFTIME_MIN
+#EndIf
+
+'' Controls the maximum offtime.
+#IfnDef OFFTIME_MAX
+	#Define OFFTIME_MAX
 #EndIf
 
 '' Value used in Tab() command to space out output.
@@ -53,20 +63,12 @@
 	#Define ENABLE_COLOR DEF_ENABLE_COLOR
 #EndIf
 
-'' Controls the minimum offtime.
-#IfnDef OFFTIME_MIN
-	#Define OFFTIME_MIN
-#EndIf
-
-'' Controls the maximum offtime.
-#IfnDef OFFTIME_MAX
-	#Define OFFTIME_MAX
-#EndIf
-
 '' Print out used values if debug mode is enabled.
 #If __FB_DEBUG__
 	#Print Compile-time Parameters:
 	#Print STEP_SIZE = STEP_SIZE
+	#Print OFFTIME_MAX = OFFTIME_MAX
+	#Print OFFTIME_MIN = OFFTIME_MIN
 	#Print TABS_COUNT = TABS_COUNT
 	#Print NEGATIVE_OUTPUT = NEGATIVE_OUTPUT
 	#Print ENABLE_COLOR = ENABLE_COLOR
