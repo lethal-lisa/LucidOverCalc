@@ -25,11 +25,25 @@
 
 #Pragma Once
 
+'' Include headers:
 #Include Once "inc/fberrors.bi"
 #Include Once "inc/fbcolors.bi"
 
 #Include "inc/exopts.bi"
 
+'' Define UDTs and structures:
+'' Parameters used at runtime:
+Type RUNTIME_PARAMS
+	uTempo As UInteger						'' Tempo to use.
+	sngStepSize As Single = STEP_SIZE		'' Step size.
+	sngOffMin As Single	= OFFTIME_MIN		'' Minimum OFFtime.
+	sngOffMax As Single	= OFFTIME_MAX		'' Maximum OFFtime.
+	uTabsCount As UInteger = TABS_COUNT		'' Whitespace between output columns.
+	strNegOut As String*4 = NEGATIVE_OUTPUT	'' Negative output mode.
+	bColor As Boolean = ENABLE_COLOR		'' Color enable or disable.
+End Type
+
+'' Define constants:
 #IfnDef NULL
 	#Define NULL 0
 #EndIf
@@ -44,15 +58,22 @@ Const LSDJ_OVERCLOCK_MULT = 2	'' LSDj software overclock multiplier.
 ''Const OFFTIME_MAX = 5			'' Max value for OFFtime.
 
 '' Constants used by this program:
+Const MAX_CLI_PARAMS = 7
+Const MAX_CLI_PARAM_LEN = 12
+
+'' Colors:
 #Define DEF_COLOR 	&hFF
 #Define COL_HEADER	(COL_BRIGHT Or COL_GREY)
 #Define COL_GOOD		(COL_BRIGHT Or COL_GREEN)
 #Define COL_WARN		(COL_BRIGHT Or COL_YELLOW)
 #Define COL_ERROR 	(COL_BRIGHT Or COL_RED)
 
+'' Define shared variables:
 #If __FB_DEBUG__
-	Dim Shared hDbgLog As Long
+	Dim Shared hDbgLog As Long	'' Debug log handle.
 #EndIf
+Dim Shared s_hErr As Long	'' Standard Error handle.
+Dim Shared s_prtParams As RUNTIME_PARAMS Ptr	'' Parameters used at runtime.
 
 '' Function declarations:
 Declare Function SetColor (ByRef colFore As UByte = DEF_COLOR, ByRef colBack As UByte = DEF_COLOR) As ULong

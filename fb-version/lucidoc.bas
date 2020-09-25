@@ -36,7 +36,7 @@
 
 '' Assert valid values from header:
 #IfnDef __FB_MAIN__
-	#Error __FILE_NQ__: This file must be the main module!
+	#Error __FILE_NQ__ must be the main module!
 #EndIf
 
 #Assert LSDJ_MIN_TEMPO < LSDJ_MAX_TEMPO
@@ -54,11 +54,222 @@
 	#Error NEGATIVE_OUTPUT is an invalid NEGATIVE_OUTPUT value.
 #EndIf
 
+Sub ShowHelp ()
+	
+	#If __FB_DEBUG__
+		? #hDbgLog, Using "&: Calling: &/&"; Time(); __FILE__; __FUNCTION__
+	#EndIf
+	
+	'' Print out help to stderr.
+	? #s_hErr, !"Lucid OverCalc - FreeBASIC Version\nHelp:\n"
+	? #s_hErr, !"Syntax:\n\tlucidoc [{help|{ver|version}|{defs|defaults}|[<tempo>] [stepsize=<stepsize>] [mintime=<offtime>] [maxtime=<offtime>] [enablecolor={true|false}] [tabs=<tabcount>] [negativeout=<outputmode>]}]\n"
+	? #s_hErr, !"\thelp\tShow this help message."
+	? #s_hErr, !"\tver, version\tShow version information."
+	? #s_hErr, !"\tdefs, defaults\tShow default settings for this build of Lucid."
+	? #s_hErr, !"\t<tempo>\tTempo to use."
+	? #s_hErr, !"\tstepsize\tSet the step size to <stepsize>."
+	? #s_hErr, !"\tmintime\tSets the minimum OFFtime to calculate."
+	? #s_hErr, !"\tmaxtime\tSets the maximum OFFtime to calculate."
+	? #s_hErr, !"\tenablecolor\tEnables colored output."
+	? #s_hErr, !"\ttabs\tSets the amount of whitespace between output columns."
+	? #s_hErr, !"\tnegativeout\tSpecifies what to do if a frequency value is negative."
+	? #s_hErr, !"\t\tAvailable values for <outputmode>: ""all"" does nothing, ""hide"" shows an ""N/A"", and ""omit"" disables output entirely.";
+	? #s_hErr, !"\n"
+	
+End Sub
+
+Sub ShowVersion (ByVal hOut As Const Long)
+	
+	#If __FB_DEBUG__
+		? #hDbgLog, Using "&: Calling: &/&"; Time(); __FILE__; __FUNCTION__
+		? #hDbgLog, Using !"\tByVal Const Long:hOut = _&h& (&)"; Hex(hOut); Str(hOut)
+	#EndIf
+	
+	'' Make sure hOut is a valid handle.
+	If Not(CBool(hOut)) Then Error(FB_ERR_ILLEGALINSTRUCTION)
+	
+	'' Print out version information.
+	? #hOut, Using !"Lucid OverCalc from: & &\n"; __DATE__; __TIME__
+	? #hOut, "Build Information:"
+	
+	'' Compiler information:
+	? #hOut, Using !"\tCompiler Signature:\t&"; __FB_SIGNATURE__
+	#If Len(__FB_BUILD_SHA1__)
+		? #hOut, Using !"\tCompiler SHA-1:\t&"; __FB_BUILD_SHA1__
+	#EndIf
+	? #hOut, Using !"\tCompiler Build Date:\t&"; __FB_BUILD_DATE__
+	? #hOut, Using !"\tCompiler Back End:\t&"; __FB_BACKEND__
+	
+	'' CPU & OS information:
+	? #hOut, !"\tBuild Architecture: ";
+	#IfDef __FB_ARM__
+		#IfDef __FB_64BIT__
+			? #hOut, !"64-bit";
+		#Else
+			? #hOut, !"32-bit";
+		#EndIf
+		? #hOut, !" ARM";
+	#Else
+		#IfDef __FB_64BIT__
+			? #hOut, !"x86_64";
+		#Else
+			? #hOut, !"x86";
+		#EndIf
+	#EndIf
+	#IfDef __FB_BIGENDIAN__
+		? #hOut, " (Big";
+	#Else
+		? #hOut, " (Little";
+	#EndIf
+	? #hOut, " endian)"
+	
+	
+	'' FPU information:
+	''? #hOut, Using !"\tFPU Used:\t\t&"; UCase(__FB_FPU__)
+	#IfDef __FB_SSE__
+		? #hOut, !"\tFPU Used:\t\tSSE"
+		? #hOut, Using !"\tFP Mode:\t\t&"; __FB_FPMODE__
+	#Else
+		? #hOut, !"\tFPU Used:\t\tx87"
+	#EndIf
+	
+	? #hOut, !"\n"
+	
+End Sub
+
+Sub ShowDefaults (ByVal hOut As Const Long)
+	
+	#If __FB_DEBUG__
+		? #hDbgLog, Using "&: Calling: &/&"; Time(); __FILE__; __FUNCTION__
+		? #hDbgLog, Using !"\tByVal Const Long:hOut = _&h& (&)"; Hex(hOut); Str(hOut)
+	#EndIf
+	
+	'' Make sure hOut is a valid handle.
+	If Not(CBool(hOut)) Then Error(FB_ERR_ILLEGALINSTRUCTION)
+	
+	'' Print out default settings.
+	? #hOut, "Default settings:"
+	? #hOut, Using !"\tStep size:\t\t&"; Str(STEP_SIZE)
+	? #hOut, Using !"\tMinimum OFFtime:\t&"; Str(OFFTIME_MIN) 
+	? #hOut, Using !"\tMaximum OFFtime:\t&"; Str(OFFTIME_MAX)
+	? #hOut, Using !"\tColor:\t\t&"; IIf(ENABLE_COLOR, "Enabled", "Disabled")
+	? #hOut, Using !"\tColumn distance:\t&"; Str(TABS_COUNT)
+	? #hOut, Using !"\tNegative output mode:\t&"; Str(NEGATIVE_OUTPUT)
+	? #hOut, !"\n"
+	
+End Sub
+
+'' Parses the command line.
+Function ParseCmdLine (ByVal pParams As RUNTIME_PARAMS Const Ptr) As Integer
+	
+	#If __FB_DEBUG__
+		? #hDbgLog, Using "&: Calling: &/&"; Time(); __FILE__; __FUNCTION__
+		? #hDbgLog, Using !"\tByVal Const RUNTIME_PARAMS Ptr:pParams = @_&h&"; Hex(pParams)
+	#EndIf
+	
+	If (pParams = NULL) Then Error(FB_ERR_NULLPTRACCESS)
+	
+	Dim iCmd As UInteger = 1	'' Parameter index.
+	Dim strCmd As String		'' Buffer for parameter.
+	Dim cchCmd As UInteger		'' Size in characters of parameter.
+	Dim nValOffset As UInteger	'' Offset of "=" if one is present, zero otherwise.
+	Dim pbParam As Boolean Ptr	'' Array of booleans showing which parameters have already been set.
+	
+	/'	pbParam index values:
+		0 = "stepsize"
+		1 = "mintime"
+		2 = "maxtime"
+		3 = ""
+	'/
+	
+	pbParam = New Boolean[MAX_CLI_PARAMS-1]
+	
+	Do
+		
+		'' Get parameter and parameter length.
+		strCmd = Command(iCmd)
+		cchCmd = Len(strCmd)
+		
+		'' Make sure length is valid.
+		If Not((cchCmd > 0) And (cchCmd <= MAX_CLI_PARAM_LEN)) Then Exit Do
+		
+		nValOffset = InStr(strCmd, "=")
+		
+		Select Case LCase(Mid(strCmd, 1, (cchCmd - nValOffset)))
+			Case "help"
+				
+				ShowHelp() : Error(FB_ERR_SUCCESS)
+				
+			Case "ver", "version"
+				
+				ShowVersion(s_hErr) : Error(FB_ERR_SUCCESS)
+				
+			Case "defs", "defaults"
+				
+				ShowDefaults(s_hErr) : Error(FB_ERR_SUCCESS)
+				
+			Case "stepsize"
+				
+				'' Get stepsize.
+				If Not(pbParam[0]) Then
+					pParams->sngStepSize = CInt(Mid(strCmd, nValOffset + 1))
+					pbParam[0] = TRUE
+					#If __FB_DEBUG__
+						? #hDbgLog, !"\t\tGot: step size."
+						? #hDbgLog, Using !"\t\tpParams->sngStepSize = _&h& (&)"; Hex(pParams->sngStepSize); Str(pParams->sngStepSize)
+					#EndIf
+				EndIf
+				
+			Case "mintime"
+				
+				'' Get minimum OFFtime
+				If Not(pbParam[1]) Then
+					pParams->sngOffMin = CInt(Mid(strCmd, nValOffset + 1))
+					pbParam[1] = TRUE
+					#If __FB_DEBUG__
+						? #hDbgLog, !"\t\tGot: min OFFtime."
+						? #hDbgLog, Using !"\t\tpParams->sngOffMin = _&h& (&)"; Hex(pParams->sngOffMin); Str(pParams->sngOffMin)
+					#EndIf
+				EndIf
+				
+			Case "maxtime"
+				
+				'' Get maximum OFFtime
+				If Not(pbParam[2]) Then
+					pParams ->sngOffMax = CInt(Mid(strCmd, nValOffset + 1))
+					pbParam[2] = TRUE
+					#If __FB_DEBUG__
+						? #hDbgLog, !"\t\tGot: max OFFtime."
+						? #hDbgLog, Using !"\t\tpParams->sngOffMax = _&h& (&)"; Hex(pParams->sngOffMax); Str(pParams->sngOffMax)
+					#EndIf
+				End If
+				
+			Case "enablecolor", "tabs", "negativeout"
+				
+				? #s_hErr, Using """&"" functionality not yet implemented."
+				
+			Case Else
+				
+				'' Assume unknown parameter is a tempo.
+				pParams->uTempo = CUInt(strCmd)
+				
+		End Select
+		
+		iCmd += 1
+		
+	Loop While (iCmd < MAX_CLI_PARAMS)
+	
+	Delete[] pbParam
+	
+	Return iCmd
+	
+End Function
+
 '' Sets the console color only if ENABLE_COLOR is TRUE.
 Function SetColor (ByRef colFore As UByte = DEF_COLOR, ByRef colBack As UByte = DEF_COLOR) As ULong
 	
 	#If __FB_DEBUG__
-		? #hDbgLog, Using "Calling: &/& (&)"; __FILE__; __FUNCTION__; Time()
+		? #hDbgLog, Using "&: Calling: &/&"; Time(); __FILE__; __FUNCTION__
 		? #hDbgLog, Using !"\tByRef UByte:colFore = _&h& (&)"; Hex(colFore); colFore
 		? #hDbgLog, Using !"\tByRef UByte:colBack = _&h& (&)"; Hex(colBack); colBack
 	#EndIf
@@ -66,7 +277,7 @@ Function SetColor (ByRef colFore As UByte = DEF_COLOR, ByRef colBack As UByte = 
 	'' Preserve the old color.
 	Dim uColor As ULong = Color
 	
-	#If ENABLE_COLOR
+	If s_prtParams->bColor
 		
 		'' Check for default colors, and use them if needed.
 		If (colFore = DEF_COLOR) Then colFore = CUByte(LoWord(uColor))
@@ -75,7 +286,7 @@ Function SetColor (ByRef colFore As UByte = DEF_COLOR, ByRef colBack As UByte = 
 		'' Set the new color.
 		Color colFore, colBack
 		
-	#EndIf
+	EndIf
 	
 	'' Return the old color.
 	Return uColor
@@ -86,13 +297,11 @@ End Function
 Sub RestoreColor (ByVal uColor As Const ULong)
 	
 	#If __FB_DEBUG__
-		? #hDbgLog, Using "Calling: &/& (&)"; __FILE__; __FUNCTION__; Time()
+		? #hDbgLog, Using "&: Calling: &/&"; Time(); __FILE__; __FUNCTION__
 		? #hDbgLog, Using !"\tByVal Const ULong:uColor = _&h& (&)"; Hex(uColor); uColor
 	#EndIf
 	
-	#If ENABLE_COLOR
-		Color LoWord(uColor), HiWord(uColor)
-	#EndIf
+	If s_prtParams->bColor Then	Color LoWord(uColor), HiWord(uColor)
 	
 End Sub
 
@@ -100,7 +309,7 @@ End Sub
 Function ValidTempo (ByVal uTempo As Const UInteger) As Boolean
 	
 	#If __FB_DEBUG__
-		? #hDbgLog, Using "Calling: &/& (&)"; __FILE__; __FUNCTION__; Time()
+		? #hDbgLog, Using "&: Calling: &/&"; Time(); __FILE__; __FUNCTION__
 		? #hDbgLog, Using !"\tByVal Const UInteger:uTempo = _&h& (&)"; Hex(uTempo); uTempo
 	#EndIf
 	
@@ -115,7 +324,7 @@ End Function
 Function LogBaseX (ByVal dblNumber As Const Double, ByVal dblBase As Const Double) As Double
 	
 	#If __FB_DEBUG__
-		? #hDbgLog, Using "Calling: &/& (&)"; __FILE__; __FUNCTION__; Time()
+		? #hDbgLog, Using "&: Calling: &/&"; Time(); __FILE__; __FUNCTION__
 		? #hDbgLog, Using !"\tByVal Const Double:dblNumber = &"; dblNumber
 		? #hDbgLog, Using !"\tByVal Const Double:dblBase = &"; dblBase
 	#EndIf
@@ -128,7 +337,7 @@ End Function
 Function CalcMainHz (ByVal uTempo As Const UInteger) As Double
 	
 	#If __FB_DEBUG__
-		? #hDbgLog, Using "Calling: &/& (&)"; __FILE__; __FUNCTION__; Time()
+		? #hDbgLog, Using "&: Calling: &/&"; Time(); __FILE__; __FUNCTION__
 		? #hDbgLog, Using !"\tByVal Const UInteger:uTempo = _&h& (&)"; Hex(uTempo); uTempo
 	#EndIf
 	
@@ -144,7 +353,7 @@ End Function
 Function CalcFreq (ByVal uTempo As Const UInteger, ByVal dblOffTime As Const Double) As Double
 	
 	#If __FB_DEBUG__
-		? #hDbgLog, Using "Calling: &/& (&)"; __FILE__; __FUNCTION__; Time()
+		? #hDbgLog, Using "&: Calling: &/&"; Time(); __FILE__; __FUNCTION__
 		? #hDbgLog, Using !"\tByVal Const UInteger:uTempo = _&h& (&)"; Hex(uTempo); uTempo
 		? #hDbgLog, Using !"\tByVal Const Double:dblOffTime = &"; dblOffTime
 	#EndIf
@@ -161,15 +370,15 @@ End Function
 Function GetTempo (ByRef uColor As ULong) As UInteger
 	
 	#If __FB_DEBUG__
-		? #hDbgLog, Using "Calling: &/& (&)"; __FILE__; __FUNCTION__; Time()
+		? #hDbgLog, Using "&: Calling: &/&"; Time(); __FILE__; __FUNCTION__
 		? #hDbgLog, Using !"\tByVal Const ULong:uColor = _&h& (&)"; Hex(uColor); uColor
 	#EndIf
 	
 	'' Try to get tempo from command line.
-	Dim uTempo As UInteger = CUInt(Command(1))
+	''Dim uTempo As UInteger = CUInt(Command(1))
 	
 	'' Get tempo by prompting the user if the command line is invalid.
-	If Not(ValidTempo(uTempo)) Then
+	''If Not(ValidTempo(uTempo)) Then
 		Do
 			
 			'' Display valid tempos and prompt user.
@@ -187,9 +396,7 @@ Function GetTempo (ByRef uColor As ULong) As UInteger
 			RestoreColor uColor
 			
 		Loop
-	EndIf
-	
-	Return uTempo
+	''EndIf
 	
 End Function
 
@@ -208,7 +415,7 @@ On Error GoTo FATAL_ERROR
 	If Err() Then Error(Err())
 	
 	'' Print out a header message to the log file.
-	? #hDbgLog, Using !"Lucid OverCalc from: & &\n"; __DATE__; __TIME__
+	/'? #hDbgLog, Using !"Lucid OverCalc from: & &\n"; __DATE__; __TIME__
 	? #hDbgLog, "Build Information:"
 	? #hDbgLog, Using !"\tCompiler Signature:\t&"; __FB_SIGNATURE__
 	? #hDbgLog, Using !"\tFPU Used:\t\t&"; UCase(__FB_FPU__)
@@ -224,64 +431,93 @@ On Error GoTo FATAL_ERROR
 	? #hDbgLog, Using !"\tSTEP_SIZE = &"; STEP_SIZE
 	? #hDbgLog, Using !"\tTABS_COUNT = &"; TABS_COUNT
 	? #hDbgLog, Using !"\tNEGATIVE_OUTPUT = &"; NEGATIVE_OUTPUT
-	? #hDbgLog, Using !"\tENABLE_COLOR = &"; ENABLE_COLOR
+	? #hDbgLog, Using !"\tENABLE_COLOR = &"; ENABLE_COLOR'/
+	ShowVersion(hDbgLog)
+	ShowDefaults(hDbgLog)
 	? #hDbgLog, Using !"\nRun time: & &\nBegin Log:\n"; Date(); Time()
 	
 #EndIf
 
+'' Open standard error.
+s_hErr = FreeFile()
+If Not(CBool(s_hErr)) Then Error(FB_ERR_FILEIO)
+Open Err As #s_hErr
+If Err() Then Error(Err())
+#If __FB_DEBUG__
+	? #hDbgLog, Using "Opened standard error as _&h& (&)"; Hex(s_hErr); Str(s_hErr)
+#EndIf
+
+'' Allocate space for runtime parameters.
+s_prtParams = CAllocate(1, SizeOf(RUNTIME_PARAMS))
+If (s_prtParams = NULL) Then Error(FB_ERR_OUTOFMEMORY)
+
 Dim uColor As ULong		'' Stores the current color.
-Dim uTempo As UInteger	'' Stores the tempo we're checking.
-Dim dblFreq As Double	'' Stores the result frequency.
+''Dim uTempo As UInteger	'' Stores the tempo we're checking.
+''Dim dblFreq As Double	'' Stores the result frequency.
 
 '' Obtain default color.
 uColor = Color
 
+'' Parse the command line.
+ParseCmdLine(s_prtParams)
+
 '' Get tempo from user.
-uTempo = GetTempo(uColor)
+rtParams.uTempo = GetTempo(uColor)
 
 '' Print out header for formatted data:
 uColor = SetColor COL_HEADER
-? Using "Tempo: &"; uTempo
-? "OFF Time"; Tab(TABS_COUNT); "Frequency (Hz)"
+? Using "Tempo: &"; s_prtParams->uTempo
+? "OFF Time"; Tab(s_prtParams->uTabsCount); "Frequency (Hz)"
 RestoreColor uColor
 
-'' TODO: Clean up the block below.
-'' Print out formatted data:
-#If (STEP_SIZE < 0)
-	For iStep As Double = OFFTIME_MAX To OFFTIME_MIN Step STEP_SIZE
-#ElseIf (STEP_SIZE > 0)
-	For iStep As Double = OFFTIME_MIN To OFFTIME_MAX Step STEP_SIZE
-#EndIf
+With *s_prtParams
 	
-	'' Reset color.
-	RestoreColor uColor
+	'' Validate parameters for the For...Next loop.
+	If ((.sngOffMin = .sngOffMax) OrElse (.sngStepSize = 0)) Then
+		Error(FB_ERR_ILLEGALFUNCTION)
+	ElseIf (.sngStepSize > 0) Then
+		If (.sngOffMin > .sngOffMax) Then Swap(.sngOffMin, .sngOffMax)
+	ElseIf (.sngStepSize < 0) Then
+		If (.sngOffMin < .sngOffMax) Then Swap(.sngOffMin, .sngOffMax)
+	End If
 	
-	'' Calculate next frequency in the sequence.
-	dblFreq = CalcFreq(uTempo, iStep)
-	
-	'' Set output color to 
-	If (dblFreq < 0) Then uColor = SetColor COL_ERROR
-	
-	#If NEGATIVE_OUTPUT = "hide"
+	'' TODO: Clean up the block below.
+	'' TODO: Remove preprocessor statements and replace them with values in s_prtParams.
+	'' Print out formatted data:
+	For iStep As Double = rtParams.sngOffMin To rtParams.sngOffMax Step rtParams.sngStepSize	
 		
-		'' Place an "N/A" here, and calculate the next frequency.
-		If (dblFreq < 0) Then
-			? Str(iStep); Tab(TABS_COUNT); "N/A"
-			Continue For
-		EndIf
-		
-	#ElseIf NEGATIVE_OUTPUT = "omit"
-		
-		'' Skip this step.
-		If (dblFreq < 0) Then Continue For
-		
-	#EndIf
+		Static dblFreq As Double
+			
+			'' Reset color.
+			RestoreColor uColor
+			
+			'' Calculate next frequency in the sequence.
+			dblFreq = CalcFreq(uTempo, iStep)
+			
+			'' Set output color to 
+			If (dblFreq < 0) Then uColor = SetColor COL_ERROR
+			
+			#If NEGATIVE_OUTPUT = "hide"
+				
+				'' Place an "N/A" here, and calculate the next frequency.
+				If (dblFreq < 0) Then		
+					? Str(iStep); Tab(TABS_COUNT); "N/A"		
+					Continue For
+				EndIf
+				
+			#ElseIf NEGATIVE_OUTPUT = "omit"
+				
+				'' Skip this step.
+				If (dblFreq < 0) Then Continue For
+				
+			#EndIf
+			
+			'' Print out a row of frequency information.
+			? Str(iStep); Tab(TABS_COUNT); Str(dblFreq); " Hz"
+			
+	Next iStep
 	
-	'' Print out a row of frequency information.
-	? Str(iStep); Tab(TABS_COUNT); Str(dblFreq); " Hz"
-	
-Next iStep
-
+End With
 '' Set success error code.
 Err = FB_ERR_SUCCESS
 
@@ -291,19 +527,23 @@ Scope
 	'' Get error code.
 	Dim uErr As ULong = Err()
 	
-	'' Print an error message if code is nonzero.
-	If uErr Then
+	'' Print an error message if uErr is an error code.
+	''If uErr Then
+	If Not(CBool((uErr = FB_ERR_SUCCESS) OrElse (uErr = FB_ERR_TERMREQ) OrElse (uErr = FB_ERR_QUITREQ))) Then
 		uColor = SetColor COL_ERROR
-		? Using "Fatal Error: FB RunTime error code: _&h& (&)"; Hex(uErr); uErr
+		? #s_hErr, Using "Fatal Error: FreeBASIC RunTime error code: _&h& (&)"; Hex(uErr); uErr
 		#If __FB_DEBUG__
-			? #hDbgLog, Using "Fatal Error: FB RunTime error code: _&h& (&)"; Hex(uErr); uErr
+			? #hDbgLog, Using "Fatal Error: FreeBASIC RunTime error code: _&h& (&)"; Hex(uErr); uErr
 		#EndIf
 	EndIf
 	
-	'' End the program.
+	'' Close opened file handles.
 	#If __FB_DEBUG__
 		Close #hDbgLog
 	#EndIf
+	Close #s_hErr
+	
+	'' End the program.
 	End(uErr)
 	
 End Scope

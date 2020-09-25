@@ -40,12 +40,12 @@
 
 '' Controls the minimum offtime.
 #IfnDef OFFTIME_MIN
-	#Define OFFTIME_MIN
+	#Define OFFTIME_MIN DEF_OFFTIME_MIN
 #EndIf
 
 '' Controls the maximum offtime.
 #IfnDef OFFTIME_MAX
-	#Define OFFTIME_MAX
+	#Define OFFTIME_MAX DEF_OFFTIME_MAX
 #EndIf
 
 '' Value used in Tab() command to space out output.
