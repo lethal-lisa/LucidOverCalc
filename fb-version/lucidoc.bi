@@ -34,13 +34,13 @@
 '' Define UDTs and structures:
 '' Parameters used at runtime:
 Type RUNTIME_PARAMS
-	uTempo As UInteger						'' Tempo to use.
-	sngStepSize As Single = STEP_SIZE		'' Step size.
-	sngOffMin As Single	= OFFTIME_MIN		'' Minimum OFFtime.
-	sngOffMax As Single	= OFFTIME_MAX		'' Maximum OFFtime.
-	uTabsCount As UInteger = TABS_COUNT		'' Whitespace between output columns.
-	strNegOut As String*4 = NEGATIVE_OUTPUT	'' Negative output mode.
-	bColor As Boolean = ENABLE_COLOR		'' Color enable or disable.
+	uTempo As UInteger		'' Tempo to use.
+	sngStepSize As Single	'' Step size.
+	sngOffMin As Single		'' Minimum OFFtime.
+	sngOffMax As Single		'' Maximum OFFtime.
+	uTabsCount As UInteger	'' Whitespace between output columns.
+	strNegOut As String*4	'' Negative output mode.
+	bColor As Boolean		'' Color enable or disable.
 End Type
 
 '' Define constants:
@@ -58,7 +58,7 @@ Const LSDJ_OVERCLOCK_MULT = 2	'' LSDj software overclock multiplier.
 ''Const OFFTIME_MAX = 5			'' Max value for OFFtime.
 
 '' Constants used by this program:
-Const MAX_CLI_PARAMS = 7
+Const MAX_CLI_PARAMS = 13
 Const MAX_CLI_PARAM_LEN = 12
 
 '' Colors:
