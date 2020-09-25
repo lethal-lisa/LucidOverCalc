@@ -30,6 +30,8 @@
 #Define DEF_TABS_COUNT		15
 #Define DEF_NEGATIVE_OUTPUT	"hide"
 #Define DEF_ENABLE_COLOR		TRUE
+#Define DEF_OFFTIME_MIN		1
+#Define DEF_OFFTIME_MAX		8
 
 '' Size used to iterate through steps.
 #IfnDef STEP_SIZE
@@ -49,6 +51,16 @@
 '' Controls the usage of colored output.
 #IfnDef ENABLE_COLOR
 	#Define ENABLE_COLOR DEF_ENABLE_COLOR
+#EndIf
+
+'' Controls the minimum offtime.
+#IfnDef OFFTIME_MIN
+	#Define OFFTIME_MIN
+#EndIf
+
+'' Controls the maximum offtime.
+#IfnDef OFFTIME_MAX
+	#Define OFFTIME_MAX
 #EndIf
 
 '' Print out used values if debug mode is enabled.
