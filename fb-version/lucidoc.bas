@@ -389,7 +389,7 @@ Function CalcFreq (ByVal uTempo As Const UInteger, ByVal dblOffTime As Const Dou
 End Function
 
 '' Get tempo by prompting the user.
-Function GetTempo (ByRef uColor As ULong) As UInteger
+Function GetTempo () As UInteger
 	
 	#If __FB_DEBUG__
 		? #hDbgLog, Using "&: Calling: &/&"; Time(); __FILE__; __FUNCTION__
@@ -403,18 +403,18 @@ Function GetTempo (ByRef uColor As ULong) As UInteger
 	Do
 		
 		'' Display valid tempos and prompt user.
-		uColor = SetColor COL_GOOD
+		s_uColor = SetColor COL_GOOD
 		? Using "Valid tempos are integers between & and &."; LSDJ_MIN_TEMPO; LSDJ_MAX_TEMPO
-		RestoreColor uColor
+		RestoreColor s_uColor
 		Input "Tempo"; uTempo
 		
 		'' Continue if provided tempo is valid.
 		If ValidTempo(uTempo) Then Exit Do
 		
 		'' Issue warning about invalid tempo and prompt again.
-		uColor = SetColor COL_WARN
+		s_uColor = SetColor COL_WARN
 		? Using "& is an invalid tempo."; uTempo
-		RestoreColor uColor
+		RestoreColor s_uColor
 		
 	Loop
 	
@@ -459,7 +459,7 @@ If (s_prtParams = NULL) Then Error(FB_ERR_OUTOFMEMORY)
 '' Obtain default color.
 Dim uColor As ULong = Color
 
-'' Set default parameters.
+'' Set default parameters and parse the command line.
 With *s_prtParams
 	.sngStepSize = STEP_SIZE
 	.sngOffMin = OFFTIME_MIN
@@ -468,18 +468,16 @@ With *s_prtParams
 	.strNegOut = NEGATIVE_OUTPUT
 	.bColor = ENABLE_COLOR
 End With
-
-'' Parse the command line.
 ParseCmdLine(s_prtParams)
 
 '' Get tempo from user.
-If Not(ValidTempo(s_prtParams->uTempo)) Then s_prtParams->uTempo = GetTempo(uColor)
+If Not(ValidTempo(s_prtParams->uTempo)) Then s_prtParams->uTempo = GetTempo()
 
 '' Print out header for formatted data:
-uColor = SetColor COL_HEADER
+s_uColor = SetColor COL_HEADER
 ? Using "Tempo: &"; s_prtParams->uTempo
 ? "OFF Time"; Tab(s_prtParams->uTabsCount); "Frequency (Hz)"
-RestoreColor uColor
+RestoreColor s_uColor
 
 With *s_prtParams
 	
@@ -499,13 +497,13 @@ With *s_prtParams
 		Static dblFreq As Double
 		
 		'' Reset color.
-		RestoreColor uColor
+		RestoreColor s_uColor
 		
 		'' Calculate next frequency in the sequence.
 		dblFreq = CalcFreq(.uTempo, iStep)
 		
 		'' Set output color to 
-		If (dblFreq < 0) Then uColor = SetColor COL_ERROR
+		If (dblFreq < 0) Then s_uColor = SetColor COL_ERROR
 		
 		If (.strNegOut = "hide") Then
 			
@@ -540,12 +538,11 @@ Scope
 	
 	'' Print an error message if uErr is an error code.
 	If Not(CBool((uErr = FB_ERR_SUCCESS) OrElse (uErr = FB_ERR_TERMREQ) OrElse (uErr = FB_ERR_QUITREQ))) Then
-		uColor = SetColor COL_ERROR
+		SetColor COL_ERROR
 		? #s_hErr, Using "Fatal Error: FreeBASIC RunTime error code: _&h& (&)"; Hex(uErr); uErr
 		#If __FB_DEBUG__
 			? #hDbgLog, Using "Fatal Error: FreeBASIC RunTime error code: _&h& (&)"; Hex(uErr); uErr
 		#EndIf
-		RestoreColor uColor
 	EndIf
 	
 	'' Close opened file handles.
@@ -554,7 +551,11 @@ Scope
 	#EndIf
 	Close #s_hErr
 	
+	'' Free used resources.
 	DeAllocate(s_prtParams)
+	
+	'' Restore default color.
+	RestoreColor uColor
 	
 	'' End the program.
 	End(uErr)

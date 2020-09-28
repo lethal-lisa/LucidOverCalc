@@ -53,9 +53,8 @@ Const LSDJ_MIN_TEMPO = 40		'' Min engine tempo for LSDj.
 Const LSDJ_MAX_TEMPO = 295		'' Max engine tempo for LSDj.
 Const LSDJ_OVERCLOCK_MULT = 2	'' LSDj software overclock multiplier.
 
-'' Constants used by this program:
+'' Maximum count of command line parameters used by this program.
 Const MAX_CLI_PARAMS = 13
-Const MAX_CLI_PARAM_LEN = 12
 
 '' Colors:
 #Define DEF_COLOR 	&hFF
@@ -70,13 +69,22 @@ Const MAX_CLI_PARAM_LEN = 12
 #EndIf
 Dim Shared s_hErr As Long	'' Standard Error handle.
 Dim Shared s_prtParams As RUNTIME_PARAMS Ptr	'' Parameters used at runtime.
+Dim Shared s_uColor As ULong	'' Buffer for global color.
 
 '' Function declarations:
+Declare Sub ShowHelp ()
+Declare Sub ShowVersion (ByVal hOut As Const Long)
+Declare Sub ShowDefaults (ByVal hOut As Const Long)
+
+Declare Sub ParseCmdLine (ByVal pParams As RUNTIME_PARAMS Const Ptr)
+
 Declare Function SetColor (ByRef colFore As UByte = DEF_COLOR, ByRef colBack As UByte = DEF_COLOR) As ULong
 Declare Sub RestoreColor (ByVal uColor As Const ULong)
+
 Declare Function ValidTempo (ByVal uTempo As Const UInteger) As Boolean
 Declare Function LogBaseX (ByVal dblNumber As Const Double, ByVal dblBase As Const Double) As Double
 Declare Function CalcMainHz (ByVal uTempo As Const UInteger) As Double
 Declare Function CalcFreq (ByVal uTempo As Const UInteger, ByVal dblOffTime As Const Double) As Double
+Declare Function GetTempo () As UInteger
 
 ''EOF
