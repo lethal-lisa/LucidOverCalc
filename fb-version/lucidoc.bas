@@ -68,13 +68,13 @@ Sub ShowHelp ()
 	? #s_hErr, !"\tdefs, defaults\tShow default settings for this build of Lucid."
 	? #s_hErr, !"\t<tempo>\t\tTempo to use."
 	? #s_hErr, !"\tstepsize\tSet the step size to <stepsize>."
-	? #s_hErr, !"\tmintime\tSets the minimum OFFtime to calculate."
-	? #s_hErr, !"\tmaxtime\tSets the maximum OFFtime to calculate."
+	? #s_hErr, !"\tmintime\t\tSets the minimum OFFtime to calculate."
+	? #s_hErr, !"\tmaxtime\t\tSets the maximum OFFtime to calculate."
 	? #s_hErr, !"\tenablecolor\tEnables colored output."
 	? #s_hErr, !"\ttabs\t\tSets the amount of whitespace between output columns."
 	? #s_hErr, !"\tnegativeout\tSpecifies what to do if a frequency value is negative."
-	? #s_hErr, !"\t\tAvailable values for <outputmode>: ""all"" does nothing, ""hide"" shows an ""N/A"", and ""omit"" disables output entirely.";
-	? #s_hErr, !"\n"
+	? #s_hErr, !"\t\tAvailable values for <outputmode>: ""all"" does nothing, ""hide"" shows an ""N/A"", and ""omit"" disables output entirely."
+	? #s_hErr, !"\n";
 	
 End Sub
 
@@ -89,8 +89,8 @@ Sub ShowVersion (ByVal hOut As Const Long)
 	If Not(CBool(hOut)) Then Error(FB_ERR_ILLEGALINSTRUCTION)
 	
 	'' Print out version information.
-	? #hOut, Using !"Lucid OverCalc from: & &\n"; __DATE__; __TIME__
 	? #hOut, "Build Information:"
+	? #hOut, Using !"\tBuild Date:\t\t& &"; __DATE__; __TIME__
 	
 	'' Compiler information:
 	? #hOut, Using !"\tCompiler Signature:\t&"; __FB_SIGNATURE__
@@ -131,7 +131,7 @@ Sub ShowVersion (ByVal hOut As Const Long)
 		? #hOut, !"\tFPU Used:\t\tx87"
 	#EndIf
 	
-	? #hOut, !"\n"
+	? #hOut, !"\n";
 	
 End Sub
 
@@ -148,12 +148,12 @@ Sub ShowDefaults (ByVal hOut As Const Long)
 	'' Print out default settings.
 	? #hOut, "Default settings:"
 	? #hOut, Using !"\tStep size:\t\t&"; Str(STEP_SIZE)
-	? #hOut, Using !"\tMinimum OFFtime:\t&"; Str(OFFTIME_MIN) 
-	? #hOut, Using !"\tMaximum OFFtime:\t&"; Str(OFFTIME_MAX)
+	? #hOut, Using !"\tMinimum OFF time:\t&"; Str(OFFTIME_MIN) 
+	? #hOut, Using !"\tMaximum OFF time:\t&"; Str(OFFTIME_MAX)
 	? #hOut, Using !"\tColor:\t\t\t&"; IIf(ENABLE_COLOR, "Enabled", "Disabled")
 	? #hOut, Using !"\tColumn distance:\t&"; Str(TABS_COUNT)
 	? #hOut, Using !"\tNegative output mode:\t&"; Str(NEGATIVE_OUTPUT)
-	? #hOut, !"\n"
+	? #hOut, !"\n";
 	
 End Sub
 
@@ -507,7 +507,6 @@ With *s_prtParams
 		'' Set output color to 
 		If (dblFreq < 0) Then uColor = SetColor COL_ERROR
 		
-		''#If NEGATIVE_OUTPUT = "hide"
 		If (.strNegOut = "hide") Then
 			
 			'' Place an "N/A" here, and calculate the next frequency.
