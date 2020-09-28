@@ -1,0 +1,12 @@
+## 
+## Lucid AM Frequency Calculator - R Version - .gitignore
+## 
+
+## Ignore R output files:
+*.pdf
+*.txt
+*.prn
+*.csv
+
+## EOF
+
