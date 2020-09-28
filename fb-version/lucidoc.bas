@@ -123,7 +123,6 @@ Sub ShowVersion (ByVal hOut As Const Long)
 	#EndIf
 	? #hOut, " endian)"
 	
-	
 	'' FPU information:
 	#IfDef __FB_SSE__
 		? #hOut, !"\tFPU Used:\t\tSSE"
@@ -159,22 +158,36 @@ Sub ShowDefaults (ByVal hOut As Const Long)
 End Sub
 
 '' Parses the command line.
-Function ParseCmdLine (ByVal pParams As RUNTIME_PARAMS Const Ptr) As Integer
+Sub ParseCmdLine (ByVal pParams As RUNTIME_PARAMS Const Ptr)
 	
 	#If __FB_DEBUG__
 		? #hDbgLog, Using "&: Calling: &/&"; Time(); __FILE__; __FUNCTION__
 		? #hDbgLog, Using !"\tByVal Const RUNTIME__PARAMS Ptr:pParams = @_&h&"; Hex(pParams)
 	#EndIf
 	
+	#Macro INC_SET_CMD(index)
+		If pbParam[index] Then Continue Do
+		iCmd += 1
+		pbParam[index] = TRUE
+	#EndMacro
+	
+	#Macro INFO_BRK
+		DeAllocate pbParam
+		Error FB_ERR_QUITREQUEST
+	#EndMacro
+	
 	If (pParams = NULL) Then Error(FB_ERR_NULLPTRACCESS)
 	
 	Dim iCmd As UInteger = 1	'' Parameter index.
 	Dim strCmd As String		'' Buffer for parameter.
-	Dim cchCmd As UInteger		'' Size in characters of parameter.
-	Dim nValOffset As UInteger	'' Offset of "=" if one is present, zero otherwise.
 	Dim pbParam As Boolean Ptr	'' Array of booleans showing which parameters have already been set.
 	
-	/'	pbParam index values:
+	/'	pbParam Info:
+		
+			Values in pbParam are set to TRUE once a parameter has been
+		checked.
+		
+		Index Values:
 		0 = "stepsize"
 		1 = "mintime"
 		2 = "maxtime"
@@ -183,90 +196,98 @@ Function ParseCmdLine (ByVal pParams As RUNTIME_PARAMS Const Ptr) As Integer
 		5 = "negativeout"
 	'/
 	
-	pbParam = New Boolean[6]
+	'' Allocate space for pbParam
+	''pbParam = New Boolean[6]
+	pbParam = CAllocate(6, SizeOf(Boolean))
+	If (pbParam = NULL) Then Error(FB_ERR_OUTOFMEMORY)
 	
 	Do
 		
-		'' Get parameter and parameter length.
-		strCmd = Command(iCmd)
-		cchCmd = Len(strCmd)
+		#If __FB_DEBUG__
+			? #hDbgLog, Using !"\tChecking parameter #&"; iCmd
+		#EndIf
 		
-		'' Make sure length is valid.
-		If Not((cchCmd > 0) And (cchCmd <= MAX_CLI_PARAM_LEN)) Then Exit Do
+		'' Get parameter and convert to lowercase.
+		strCmd = LCase(Command(iCmd))
 		
-		Select Case LCase(strCmd)
+		'' Make sure a parameter is present.
+		If (Len(strCmd) <= 0) Then Exit Do
+		
+		#If __FB_DEBUG__
+			? #hDbgLog, Using !"&\tFound: ""&""."; strCmd
+		#EndIf
+		
+		Select Case strCmd
 			Case "help"
 				
-				ShowHelp() : Error(FB_ERR_SUCCESS)
+				'' Show help and exit.
+				ShowHelp()
+				INFO_BRK
 				
 			Case "ver", "version"
 				
-				ShowVersion(s_hErr) : Error(FB_ERR_SUCCESS)
+				'' Show version information and exit.
+				ShowVersion(s_hErr)
+				INFO_BRK
 				
 			Case "defs", "defaults"
 				
-				ShowDefaults(s_hErr) : Error(FB_ERR_SUCCESS)
+				'' Show default settings and exit.
+				ShowDefaults(s_hErr)
+				INFO_BRK
 				
 			Case "stepsize"
 				
 				'' Get stepsize.
-				If Not(pbParam[0]) Then
-					iCmd += 1
-					pParams->sngStepSize = CSng(Command(iCmd))
-					pbParam[0] = TRUE
-					#If __FB_DEBUG__
-						? #hDbgLog, !"\t\tGot: step size."
-						? #hDbgLog, Using !"\t\tpParams->sngStepSize = &"; pParams->sngStepSize
-					#EndIf
-				EndIf
+				INC_SET_CMD(0)
+				pParams->sngStepSize = CSng(Command(iCmd))
 				
 			Case "mintime"
 				
-				'' Get minimum OFFtime
-				If Not(pbParam[1]) Then
-					iCmd += 1
-					pParams->sngOffMin = CSng(Command(iCmd))
-					pbParam[1] = TRUE
-					#If __FB_DEBUG__
-						? #hDbgLog, !"\t\tGot: min OFFtime."
-						? #hDbgLog, Using !"\t\tpParams->sngOffMin = _&h& (&)"; Hex(pParams->sngOffMin); Str(pParams->sngOffMin)
-					#EndIf
-				EndIf
+				'' Get minimum OFF time.
+				INC_SET_CMD(1)
+				pParams->sngOffMin = CSng(Command(iCmd))
 				
 			Case "maxtime"
 				
-				'' Get maximum OFFtime
-				If Not(pbParam[2]) Then
-					iCmd += 1
-					pParams->sngOffMax = CSng(Command(iCmd))
-					pbParam[2] = TRUE
-					#If __FB_DEBUG__
-						? #hDbgLog, !"\t\tGot: max OFFtime."
-						? #hDbgLog, Using !"\t\tpParams->sngOffMax = _&h& (&)"; Hex(pParams->sngOffMax); Str(pParams->sngOffMax)
-					#EndIf
-				End If
+				'' Get maximum OFF time.
+				INC_SET_CMD(2)
+				pParams->sngOffMax = CSng(Command(iCmd))
 				
-			Case "enablecolor", "tabs", "negativeout"
+			Case "enablecolor"
 				
-				'' TODO: Implement "enablecolor", "tabs", and "negativeout"
-				? #s_hErr, Using """&"" functionality not yet implemented."; strCmd
+				'' Get color settings.
+				INC_SET_CMD(3)
+				pParams->bColor = CBool(Command(iCmd))
+				
+			Case "tabs"
+				
+				'' Get tab settings.
+				INC_SET_CMD(4)
+				pParams->uTabsCount = CUInt(Command(iCmd))
+				
+			Case "negativeout"
+				
+				'' Get negative output settings.
+				INC_SET_CMD(5)
+				pParams->strNegOut = LCase(Command(iCmd))
 				
 			Case Else
 				
-				'' Assume unknown parameter is a tempo.
+				'' Assume any unknown parameter is a tempo.
 				pParams->uTempo = CUInt(strCmd)
 				
 		End Select
 		
+		'' Get the next parameter.
 		iCmd += 1
 		
 	Loop While (iCmd < MAX_CLI_PARAMS)
 	
-	Delete[] pbParam
+	'' Free used resources.
+	DeAllocate pbParam
 	
-	Return iCmd
-	
-End Function
+End Sub
 
 '' Sets the console color only if ENABLE_COLOR is TRUE.
 Function SetColor (ByRef colFore As UByte = DEF_COLOR, ByRef colBack As UByte = DEF_COLOR) As ULong
@@ -375,7 +396,7 @@ Function GetTempo (ByRef uColor As ULong) As UInteger
 		? #hDbgLog, Using !"\tByVal Const ULong:uColor = _&h& (&)"; Hex(uColor); uColor
 	#EndIf
 	
-	
+	'' Temporary storage for tempo.
 	Dim uTempo As UInteger
 	
 	'' Get tempo by prompting the user if the command line is invalid.
@@ -409,7 +430,7 @@ On Error GoTo FATAL_ERROR
 	
 	'' Get log file handle.
 	hDbgLog = FreeFile()
-	If Not(CBool(hDbgLog)) Then Error(FB_ERR_FILEIO)
+	If (hDbgLog = NULL) Then Error(FB_ERR_FILEIO)
 	
 	'' Open up the log file.
 	Open "lucidoc.log" For Output As #hDbgLog
@@ -424,7 +445,7 @@ On Error GoTo FATAL_ERROR
 
 '' Open standard error.
 s_hErr = FreeFile()
-If Not(CBool(s_hErr)) Then Error(FB_ERR_FILEIO)
+If (s_hErr = NULL) Then Error(FB_ERR_FILEIO)
 Open Err As #s_hErr
 If Err() Then Error(Err())
 #If __FB_DEBUG__
@@ -471,7 +492,6 @@ With *s_prtParams
 		If (.sngOffMin < .sngOffMax) Then Swap .sngOffMin, .sngOffMax
 	End If
 	
-	'' TODO: Remove preprocessor statements and replace them with values in s_prtParams.
 	'' Print out formatted data:
 	For iStep As Double = .sngOffMin To .sngOffMax Step .sngStepSize	
 		
@@ -496,7 +516,6 @@ With *s_prtParams
 				Continue For
 			EndIf
 			
-		''#ElseIf NEGATIVE_OUTPUT = "omit"
 		ElseIf (.strNegOut = "omit") Then
 			
 			'' Skip this step.
@@ -506,7 +525,7 @@ With *s_prtParams
 		
 		'' Print out a row of frequency information.
 		? Str(iStep); Tab(.uTabsCount); Str(dblFreq); " Hz"
-			
+		
 	Next iStep
 	
 End With
