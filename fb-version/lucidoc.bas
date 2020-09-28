@@ -194,11 +194,11 @@ Sub ParseCmdLine (ByVal pParams As RUNTIME_PARAMS Const Ptr)
 		3 = "enablecolor"
 		4 = "tabs"
 		5 = "negativeout"
+		6 = "bareout"
 	'/
 	
 	'' Allocate space for pbParam
-	''pbParam = New Boolean[6]
-	pbParam = CAllocate(6, SizeOf(Boolean))
+	pbParam = CAllocate(7, SizeOf(Boolean))
 	If (pbParam = NULL) Then Error(FB_ERR_OUTOFMEMORY)
 	
 	Do
@@ -271,6 +271,17 @@ Sub ParseCmdLine (ByVal pParams As RUNTIME_PARAMS Const Ptr)
 				'' Get negative output settings.
 				INC_SET_CMD(5)
 				pParams->strNegOut = LCase(Command(iCmd))
+				'' TODO: Write a routine that checks valid negativeout values.
+				
+			Case "bareout"
+				
+				'' TODO: Implement this fully.
+				? #s_hErr, """&"" is not yet implemented."; strCmd
+				INFO_BRK
+				
+				'' Get bare output mode.
+				''INC_SET_CMD(6)
+				''pParams->bBareOut = TRUE
 				
 			Case Else
 				
@@ -470,7 +481,7 @@ With *s_prtParams
 End With
 ParseCmdLine(s_prtParams)
 
-'' Get tempo from user.
+'' Get tempo from user if necessary.
 If Not(ValidTempo(s_prtParams->uTempo)) Then s_prtParams->uTempo = GetTempo()
 
 '' Print out header for formatted data:
