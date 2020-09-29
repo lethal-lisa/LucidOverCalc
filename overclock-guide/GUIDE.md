@@ -24,16 +24,43 @@ Won't play correctly any of your non-OC saves (gonna be 4x too fast)
 
 4x speed of whole engine means that every table modulation, grooves and whole sequencer will play 4times faster. Guide below will explain you many tips and tricks regarding OC, but it's designed for advanced LSDj users who are confident in normal LSDj operation and seek to get out more out of it.
 
-[to add: ask Pain perdu to fuse both guides]
+[to add: ask Pain perdu to fuse both guides] = OOP THEIR GUIDE IS DEAD MIGHT AS WELL WRITE EVERYTHING ON MY OWN
 
-### Amplitude Modulation Synthesis, grooves
+## Amplitude Modulation Synthesis, grooves
 
-Magic of OC is dependant mostly on LSDj's `TEMPO`. When performing extremely rapid modulation of particular commands/effects (For example, table with O`--`, O`LR` and H`00`) you will hear hum of specific pitch. This hum is generated with *"Amplitude Modulation"* type synthesis (or simply, *AM*). The higher the tempo, the higher the initial pitch. *Initial*, because you can achieve even more by manipulating with the table (increasing the OFF/O`--` time)
+Magic of OC is dependant mostly on LSDj's `TEMPO`. When performing extremely rapid modulation of particular commands/effects (For example, table with O`--`, O`LR` and H`00`) you will hear hum of specific pitch. LSDj between each E,O,W command generates a click, which when done in rapid succession generates the hum you can hear. This hum is generated with *"Amplitude Modulation"* type synthesis (or simply, *AM*), think of it as an extra oscillator in in the channel! The higher the tempo, the higher the initial pitch. *Initial*, because you can achieve even more by manipulating with the table (increasing the OFF/O`--` time). 
 
 Because of that, simply multiplying your grooves from `06/06` to `18/18` tho would even out with the multiplied tempo, it's probably not gonna be compatible with the tempo setting you selected, so adjust grooves til you achieve tempo you desire (good practice is to make sure your grooves are divisible by 2 to achieve half tempo if desired)
 [note: is there an way to calculate ACTUAL song BPM with those crazy grooves? :thinking:]
 
-### Choosing your version: word about Pre-8.8.0 - ADSR Tempo Related Drift
+# Controlling the Extra Hum
+
+Commands below enable you to create extra hum sharing the channel you're using it on. They need to be placed in the table and tightly looped with `H` command. 
+
+## O command
+
+`O` command generates hum **idependently** from the instrument's ADSR. Note may be silent, but as long as instrument is still on, the *hum will continue*. Can be stopped when you change instrument, `K`ill it or direct it to `A`20.
+Hum will even apear if you pan left or right side, creating stereo hum.
+`O` command hum will duck in the volume if wave width is set to 75%, therefore **works best with wave width 12.5%**
+
+## W command (pulse channel only)
+
+`W` command generates hum **tied to** instrument's ADSR. If your note goes silent, the *hum will go silent too*.
+Changing from thin to wide waveform will result in the loudest and grittest hum. Adjust the width to your liking.
+
+## E command
+
+`E` command generates hum **overwriting** instrument's ADSR. Hum will be louder as  between `E` command values. **Works best on the wave width 75%**
+
+## Transpose
+
+Using the transpose column in the table will split the instrument pitch into 3, creating FM kinda sound. 3, because you have *Transposed* part, *Untransposed* one AND *tempo dependant hum* inbetween.
+
+## Multihum
+
+Using combinations of W and O can yeld you multiple hums
+
+## Choosing your version: word about Pre-8.8.0 - ADSR Tempo Related Drift
 
 While using v8 I noticed that ADSR tends to not be consistent, and *drifts* in relation to the engine's tempo (user might hear ADSR being slightly shorter in regular, LFO like manner).
 
@@ -43,7 +70,7 @@ It is mostly undesired and not very controllable unless the user tunes the TEMPO
 
 Version 8.8.0 and onwards keeps the envelopes very stable.
 
-### `T` Command
+## `T` Command
 
 LSDj allows the user to change the engine tempo, therefore affecting the OC hum pitch.
 The problem is that whole sequencer needs to be properly adjusted.
@@ -55,7 +82,7 @@ I would recommend placing extra `G` commands before `T` to even out the tempo ch
 (pre `T` groove with old and new groove timing for the smoothest effect - Placing new groove before/after tempo change can make song hiccup for a brief moment)
 and put the new proper groove in all patterns when there's an empty space in the sequencer.
 
-### CPU USAGE
+## CPU USAGE
 
 * `V` command is much more resource intensive than having transpose done in the table.
 * Longer tables are easier on the CPU.
