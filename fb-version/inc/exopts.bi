@@ -30,8 +30,10 @@
 #Define DEF_OFFTIME_MIN		1
 #Define DEF_OFFTIME_MAX		8
 #Define DEF_TABS_COUNT		15
-#Define DEF_NEGATIVE_OUTPUT	"hide"
+''#Define DEF_NEGATIVE_OUTPUT	"hide"	
+#Define DEF_NEGATIVE_OUTPUT	2	
 #Define DEF_ENABLE_COLOR		TRUE
+#Define DEF_BARE_OUTPUT		FALSE
 
 '' Size used to iterate through steps.
 #IfnDef STEP_SIZE
@@ -61,6 +63,11 @@
 '' Controls the usage of colored output.
 #IfnDef ENABLE_COLOR
 	#Define ENABLE_COLOR DEF_ENABLE_COLOR
+#EndIf
+
+'' Controls bare output mode.
+#IfnDef BARE_OUTPUT
+	#Define BARE_OUTPUT DEF_BARE_OUTPUT
 #EndIf
 
 '' Print out used values if debug mode is enabled.

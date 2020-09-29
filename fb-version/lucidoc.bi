@@ -39,8 +39,10 @@ Type RUNTIME_PARAMS
 	sngOffMin As Single		'' Minimum OFFtime.
 	sngOffMax As Single		'' Maximum OFFtime.
 	uTabsCount As UInteger	'' Whitespace between output columns.
-	strNegOut As String*4	'' Negative output mode.
+	''strNegOut As String*4	'' Negative output mode.
+	uNegOut As UByte		'' Negative output mode.
 	bColor As Boolean		'' Color enable or disable.
+	bBareOut As Boolean		'' Bare output enable.
 End Type
 
 '' Define constants:
@@ -54,7 +56,14 @@ Const LSDJ_MAX_TEMPO = 295		'' Max engine tempo for LSDj.
 Const LSDJ_OVERCLOCK_MULT = 2	'' LSDj software overclock multiplier.
 
 '' Maximum count of command line parameters used by this program.
-Const MAX_CLI_PARAMS = 13
+Const MAX_CLI_PARAMS = 14
+
+'' Values for different negative output modes.
+Enum NEGOUT Explicit
+	ALL = 1
+	HIDE
+	OMIT
+End Enum
 
 '' Colors:
 #Define DEF_COLOR 	&hFF
@@ -68,15 +77,19 @@ Const MAX_CLI_PARAMS = 13
 	Dim Shared hDbgLog As Long	'' Debug log handle.
 #EndIf
 Dim Shared s_hErr As Long	'' Standard Error handle.
+Dim Shared s_hOut As Long	'' Standard Output handle.
 Dim Shared s_prtParams As RUNTIME_PARAMS Ptr	'' Parameters used at runtime.
 Dim Shared s_uColor As ULong	'' Buffer for global color.
 
 '' Function declarations:
-Declare Sub ShowHelp ()
+Declare Sub ShowHelp (ByVal hOut As Const Long)
 Declare Sub ShowVersion (ByVal hOut As Const Long)
 Declare Sub ShowDefaults (ByVal hOut As Const Long)
 
-Declare Sub ParseCmdLine (ByVal pParams As RUNTIME_PARAMS Const Ptr)
+Declare Function ParseCmdLine (ByVal pParams As RUNTIME_PARAMS Const Ptr) As ULong
+
+Declare Function GetNegOutMode (ByRef strNegOut As Const String) As UByte
+Declare Function CheckNegOutMode (ByVal uNegOut As Const UByte) As Boolean
 
 Declare Function SetColor (ByRef colFore As UByte = DEF_COLOR, ByRef colBack As UByte = DEF_COLOR) As ULong
 Declare Sub RestoreColor (ByVal uColor As Const ULong)
@@ -85,6 +98,10 @@ Declare Function ValidTempo (ByVal uTempo As Const UInteger) As Boolean
 Declare Function LogBaseX (ByVal dblNumber As Const Double, ByVal dblBase As Const Double) As Double
 Declare Function CalcMainHz (ByVal uTempo As Const UInteger) As Double
 Declare Function CalcFreq (ByVal uTempo As Const UInteger, ByVal dblOffTime As Const Double) As Double
+
 Declare Function GetTempo () As UInteger
+
+Declare Sub PrintHeader ()
+Declare Sub PrintFormattedRow (ByVal iStep As Const Single, ByVal dblFreq As Const Double)
 
 ''EOF
