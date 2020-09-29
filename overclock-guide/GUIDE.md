@@ -31,7 +31,7 @@ Four times engine speed means that every table modulation, grooves, and whole se
 The guide below will explain many tips and tricks regarding overclocking,
 but it is designed for advanced LSDj users who are confident in normal LSDj operation and seek to get out more out of it.
 
-[To add: Ask Pain Perdu to fuse both guides.]
+[To add: Ask Pain Perdu to fuse both guides. = OOP THEIR GUIDE IS DEAD MIGHT AS WELL WRITE EVERYTHING ON MY OWN]
 
 ### Amplitude Modulation Synthesis and Grooves
 
@@ -39,7 +39,9 @@ The magic of overclocking is largely dependant on LSDj's `TEMPO` parameter.
 When performing extremely rapid modulation of particular commands/effects
 (for example: a table with O`--`, O`LR` and H`00`)
 a hum of a specific pitch will be produced.
-This hum is generated with *Amplitude Modulation* synthesis, or simply, AM synthesis.
+LSDj between each E,O,W command generates a click,
+which when done in rapid succession generates the hum you can hear.
+This hum is generated with *Amplitude Modulation* synthesis, or simply, AM synthesis, which can be thought of as an extra oscillator in the channel.
 AM synthesis, in the context of LSDj, works by rapidly turning a channel on and off at a certain frequency.
 This frequency is created by using a looping table.
 The rate at which the table loops is dependent on the `TEMPO` parameter,
@@ -47,6 +49,7 @@ but the actual produced frequency is dependent on how long the table is.
 The higher the tempo, the faster the table will be cycled through,
 thus the higher the initial pitch.
 *Initial*, because you can achieve even more by manipulating the table by increasing/decreasing the OFF/O`--` time.
+[To add: ask Pain Perdu to fuse both guides] = OOP THEIR GUIDE IS DEAD MIGHT AS WELL WRITE EVERYTHING ON MY OWN
 
 Because of that, simply multiplying your grooves from `06/06` to `18/18` would even out with the multiplied tempo,
 it probably won't be compatible with the actual selected tempo setting,
@@ -56,10 +59,37 @@ A good practice is to make sure your grooves are divisible by two in order to ac
 [Note: Is there a way to calculate ACTUAL song BPM with those crazy grooves?]
 [To add: breif explanation of "grooves".]
 
+# Controlling the Extra Hum
+
+Commands below enable you to create extra hum sharing the channel you're using it on. They need to be placed in the table and tightly looped with `H` command. 
+
+## O command
+
+`O` command generates hum **idependently** from the instrument's ADSR. Note may be silent, but as long as instrument is still on, the *hum will continue*. Can be stopped when you change instrument, `K`ill it or direct it to `A`20.
+Hum will even apear if you pan left or right side, creating stereo hum.
+`O` command hum will duck in the volume if wave width is set to 75%, therefore **works best with wave width 12.5%**
+
+## W command (pulse channel only)
+
+`W` command generates hum **tied to** instrument's ADSR. If your note goes silent, the *hum will go silent too*.
+Changing from thin to wide waveform will result in the loudest and grittest hum. Adjust the width to your liking.
+
+## E command
+
+`E` command generates hum **overwriting** instrument's ADSR. Hum will be louder as  between `E` command values. **Works best on the wave width 75%**
+
+## Transpose
+
+Using the transpose column in the table will split the instrument pitch into 3, creating FM kinda sound. 3, because you have *Transposed* part, *Untransposed* one AND *tempo dependant hum* inbetween.
+
+## Multihum
+
+Using combinations of W and O can yeld you multiple hums
+
 #### Tempo Command `T`
 
 LSDj allows the user to change the engine tempo on the fly using the `T` command.
-This affects the entire sequencer, 
+This affects the entire sequencer,
 therefore affecting the overclock hum pitch.
 The problem is that whole sequencer needs to be properly adjusted for this to work.
 
@@ -79,6 +109,8 @@ The user might hear the ADSR being slightly shorter in a regular, LFO-like manne
 This behaviour is more noticeable when using the overclocked version.
 
 [To add: Reproducing instructions here.]
+
+## CPU USAGE
 
 This effect is mostly undesired and somewhat uncontrollable unless the user tunes the `TEMPO` *and* starts the song at a very specific moment.
 
