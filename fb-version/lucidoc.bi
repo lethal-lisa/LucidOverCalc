@@ -39,7 +39,6 @@ Type RUNTIME_PARAMS
 	sngOffMin As Single		'' Minimum OFFtime.
 	sngOffMax As Single		'' Maximum OFFtime.
 	uTabsCount As UInteger	'' Whitespace between output columns.
-	''strNegOut As String*4	'' Negative output mode.
 	uNegOut As UByte		'' Negative output mode.
 	bColor As Boolean		'' Color enable or disable.
 	bBareOut As Boolean		'' Bare output enable.
