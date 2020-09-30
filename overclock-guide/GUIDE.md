@@ -13,7 +13,7 @@ This works with all LSDj versions from from 2.6.0 (included) all the way up to t
 
 ## History and the Benefits of Overclocking Nowadays
 
-Software overclocking of LSDj was first explored by Pain Perdu in 2017 using version 5.3.5. [Citation needed: Add a link to one of these early examples.]
+Software overclocking of LSDj was first explored by Pain Perdu in 2017 using version 5.3.5. https://web.archive.org/web/20200601005830/https://chiptuneswin.com/blog/pauls-tech-talk-lsdj-5-3-5_4x-part-2-sandpaper-vs-eardrums/
 Results were impressive, but due to heavier CPU usage while overclocked,
 users would experience serious drawbacks,
 making usage less than desirable.
@@ -33,7 +33,21 @@ but it is designed for advanced LSDj users who are confident in normal LSDj oper
 
 [To add: Ask Pain Perdu to fuse both guides. = OOP THEIR GUIDE IS DEAD MIGHT AS WELL WRITE EVERYTHING ON MY OWN]
 
-### Amplitude Modulation Synthesis and Grooves
+## Choosing Your Version: A Word About Pre-8.8.0 - ADSR Tempo Related Drift
+
+While using version 8 I noticed that the ADSR envelope tends to not be consistent,
+and "drifts" in relation to the engine's tempo.
+The user might hear the ADSR being slightly shorter in a regular, LFO-like manner.
+This behaviour is more noticeable when using the overclocked version.
+[To add: Reproducing instructions here.]
+This effect is mostly undesired and somewhat uncontrollable unless the user tunes the `TEMPO` *and* starts the song at a very specific moment.
+Version 8.8.0 and onwards keeps the envelopes very stable,
+so this becomes a non-issue when using those versions.
+Use version 8.8.7 if you wish to retain the old ADSR system, that is compatible with plenty of emulators and all Gameboy consoles.
+
+[Check the hardware compatibility of the new ADSR version, does GBC actually work?]
+
+### Amplitude Modulation Synthesis and Groove/Tempo/BPM relation
 
 The magic of overclocking is largely dependant on LSDj's `TEMPO` parameter.
 When performing extremely rapid modulation of particular commands/effects
@@ -51,32 +65,32 @@ thus the higher the initial pitch.
 *Initial*, because you can achieve even more by manipulating the table by increasing/decreasing the OFF/O`--` time.
 [To add: ask Pain Perdu to fuse both guides] = OOP THEIR GUIDE IS DEAD MIGHT AS WELL WRITE EVERYTHING ON MY OWN
 
-Because of that, simply multiplying your grooves from `06/06` to `18/18` would even out with the multiplied tempo,
-it probably won't be compatible with the actual selected tempo setting,
-so adjust grooves until you achieve a tempo you desire.
+Because the tempo dictates the actual pitch of the hum, simply multiplying your grooves 4 times may not be satisfactory, so it's best to separate the `TEMPO = BPM` workflow. Instead, to actually achieve BPM you want (or precisely tell which one you're using) use following formula:
+`BPM = (Tempo x 96)/[4 rows of your groove setting]`
+[Note: 96 comes from having default 6 ticks per step groove, times 4 to achieve `ticks per beat`(24), then times 4 to reach actual value that OverClocked LSDj is using (96)]
 A good practice is to make sure your grooves are divisible by two in order to achieve half tempo if desired.
-
-[Note: Is there a way to calculate ACTUAL song BPM with those crazy grooves?]
-[To add: breif explanation of "grooves".]
 
 # Controlling the Extra Hum
 
-Commands below enable you to create extra hum sharing the channel you're using it on. They need to be placed in the table and tightly looped with `H` command. 
+Commands below enable you to create extra hum sharing the channel you're using it on. The lenght of the modulation will decide the pitch of the hum. Use loops like H`10` to achieve modulation in between rows.
 
-## O command
+## O command (any channel)
 
 `O` command generates hum **idependently** from the instrument's ADSR. Note may be silent, but as long as instrument is still on, the *hum will continue*. Can be stopped when you change instrument, `K`ill it or direct it to `A`20.
 Hum will even apear if you pan left or right side, creating stereo hum.
 `O` command hum will duck in the volume if wave width is set to 75%, therefore **works best with wave width 12.5%**
+The `O` command may be used on **any** channel you like.
+One of the ways to control the hum's volume is to move around the steps where the `O` is active and where it's not. Another way to look at the hum effect, think that every O`LR` step represents square wave at it's top, and every O`--` is square at it's bottom.
 
-## W command (pulse channel only)
+## W command (pulse channels only)
 
 `W` command generates hum **tied to** instrument's ADSR. If your note goes silent, the *hum will go silent too*.
-Changing from thin to wide waveform will result in the loudest and grittest hum. Adjust the width to your liking.
+Changing from thin to wide waveform will result in the loudest and grittest hum. Adjust the width to your liking. `W` command also will produce high overtones that sounds like clicking.
 
-## E command
 
-`E` command generates hum **overwriting** instrument's ADSR. Hum will be louder as  between `E` command values. **Works best on the wave width 75%**
+## E command (any channel)
+
+`E` command generates hum **overwriting** instrument's ADSR. Hum will be louder as the distance between lowest and highest `E` command values rises. **Works best on the wave width 75%**
 
 ## Transpose
 
@@ -84,7 +98,7 @@ Using the transpose column in the table will split the instrument pitch into 3, 
 
 ## Multihum
 
-Using combinations of W and O can yeld you multiple hums
+Using combinations of W and O can yeld you multiple hums, but beware that this technique makes the tuning even more difficult, and is extra taxing on the CPU. Adding Transpose in the table adds ever more harmonics. When using both `W` and `O` commands, make sure the *active* O`LR` commands hit thinner waves if we want the hum to be quieter.
 
 #### Tempo Command `T`
 
@@ -101,33 +115,16 @@ I would recommend placing extra `G` commands before `T` in order to even out the
 (pre `T` groove with old and new groove timing for the smoothest effect - Placing new groove before/after tempo change can make song hiccup for a brief moment)
 and put the new proper groove in all patterns when there's an empty space in the sequencer.
 
-## Choosing Your Version: A Word About Pre-8.8.0 - ADSR Tempo Related Drift
-
-While using version 8 I noticed that the ADSR envelope tends to not be consistent,
-and "drifts" in relation to the engine's tempo.
-The user might hear the ADSR being slightly shorter in a regular, LFO-like manner.
-This behaviour is more noticeable when using the overclocked version.
-
-[To add: Reproducing instructions here.]
 
 ## CPU USAGE
 
-This effect is mostly undesired and somewhat uncontrollable unless the user tunes the `TEMPO` *and* starts the song at a very specific moment.
+Overclocking is very taxing on the Gameboy's CPU, and reaching the "TOO BUSY!" state is more than easy.
+The faster the actual tempo, the faster the modulation, therefore CPU has to work harder to keep up.
 
-Version 8.8.0 and onwards keeps the envelopes very stable,
-so this becomes a non-issue when using those versions.
-
-## Notes on CPU Usage
-
-* The `V` command is much more resource intensive than having transpose done in the table.
+`E` command next to `V`are most CPU taxing commands. O and W don't put as much pressure.
+* The `V` command is much more resource intensive than having transpose done in the table, no matter how intense the modulation is.
 * Longer tables are easier on the CPU.
-* Modulation using the `O` command looks like a pulse waveform.
-* Is influenced by the width of the pulse - shortest one - best sound for hum, whereas 75% makes it sound almost inaudible.
-* One of the ways to control the AM effect's volume is to move around the steps where the `O` is active and where it's not,
-and make sure it hits thinner waves if we want the hum to be quieter.
-* The `O` command may be used anywhere.
-* Using the `W` command adds overtones and hum.
-* The `E` command is heavy on CPU usage.
+* If you can, try to end tables with A20 instead of doing H0E
 
 ##### Other Pages
 * **[Back to Main Page](/README.md)**
