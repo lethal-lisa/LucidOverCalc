@@ -6,6 +6,7 @@ but should also work on anything that can run FreeBASIC 1.07.1.
 So far it has been tested with:
 * Manjaro Linux x86_64
 * Windows 10 Home 64-bit
+* MS-DOS 6.22
 
 ## Minimum Requirements
 
@@ -20,7 +21,7 @@ Disk Space | About 100KB
 
 * [FreeBASIC 1.07.1 or newer.](https://www.freebasic.net/)
 * Intel 386 or higher CPU.
-* (DOS Version Only) A *DOS Protected Mode Interface* (DPMI) such as CWSDPMI, or DOS32A.
+* (DOS Version Only) CWSDPMI.
 
 ### To Build:
 
@@ -50,3 +51,4 @@ Name | Effect | Values | Default
 While by default, Lucid uses the traditional x87 FPU,
 it can also make usage of SSE instructions on i686 or greater platforms.
 In order to enable support for SSE, add the flag `-fpu sse` to your build command.
+SSE does not work under DOS.
