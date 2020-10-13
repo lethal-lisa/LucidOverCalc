@@ -4,12 +4,17 @@
 
 1. Open up your LSDj ROM in the hexadecimal editor of your choice.
 
-2. Find sequence of hex vaules "`3E04E007`" and change it to "`3E07E007`" (second value `04` to `07`). [To add: ROM address(es) for this value.]
+2. Find sequence of hex vaules "`3E04E007`" and change it to "`3E07E007`" (second value `04` to `07`).
 
 3. Your LSDj's tempo should be multiplied by four now!
 This works with all LSDj versions from from 2.6.0 (included) all the way up to the latest one available!
 
-[To add: Pictures of this process (ex: picture of a hex editor showing the addresses and the old value)]
+Step by step instructions:
+1. Open up hex editor of your choice
+2. Search hex-value string `3E04E007`
+3. Replace it with `3E07E007`
+4. Save
+Enjoy your overclocked LSDj!
 
 ## History and the Benefits of Overclocking Nowadays
 
@@ -31,7 +36,6 @@ Four times engine speed means that every table modulation, grooves, and whole se
 The guide below will explain many tips and tricks regarding overclocking,
 but it is designed for advanced LSDj users who are confident in normal LSDj operation and seek to get out more out of it.
 
-[To add: Ask Pain Perdu to fuse both guides. = OOP THEIR GUIDE IS DEAD MIGHT AS WELL WRITE EVERYTHING ON MY OWN]
 
 ## Choosing Your Version: A Word About Pre-8.8.0 - ADSR Tempo Related Drift
 
@@ -39,10 +43,11 @@ While using version 8 I noticed that the ADSR envelope tends to not be consisten
 and "drifts" in relation to the engine's tempo.
 The user might hear the ADSR being slightly shorter in a regular, LFO-like manner.
 This behaviour is more noticeable when using the overclocked version.
-[To add: Reproducing instructions here.]
+To reproduce on LSDj 
 This effect is mostly undesired and somewhat uncontrollable unless the user tunes the `TEMPO` *and* starts the song at a very specific moment.
 Version 8.8.0 and onwards keeps the envelopes very stable,
 so this becomes a non-issue when using those versions.
+
 Use version 8.8.7 if you wish to retain the old ADSR system, that is compatible with plenty of emulators and all Gameboy consoles.
 
 [Check the hardware compatibility of the new ADSR version, does GBC actually work?]
@@ -100,7 +105,15 @@ Using the transpose column in the table will split the instrument pitch into 3, 
 
 Using combinations of W and O can yeld you multiple hums, but beware that this technique makes the tuning even more difficult, and is extra taxing on the CPU. Adding Transpose in the table adds ever more harmonics. When using both `W` and `O` commands, make sure the *active* O`LR` commands hit thinner waves if we want the hum to be quieter.
 
-#### Tempo Command `T`
+
+# Other Commands
+
+## R command (any channel)
+
+Use `R`00-0F in phrase to retrigger the long hum tables, giving you additional control over them without changing the table itself!
+First F digits of `R` commands will play the table up to chosen digit of the command (i.e. R04 will play first 4 steps of the table and *hop* back to the beginning)
+
+### Tempo Command `T`
 
 LSDj allows the user to change the engine tempo on the fly using the `T` command.
 This affects the entire sequencer,
