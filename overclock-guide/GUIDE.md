@@ -1,21 +1,5 @@
 # Guide to Overclocked LSDj by Infu
 
-## How to Create an Overclocked LSDj ROM
-
-1. Open up your LSDj ROM in the hexadecimal editor of your choice.
-
-2. Find sequence of hex vaules "`3E04E007`" and change it to "`3E07E007`" (second value `04` to `07`).
-
-3. Your LSDj's tempo should be multiplied by four now!
-This works with all LSDj versions from from 2.6.0 (included) all the way up to the latest one available!
-
-Step by step instructions:
-1. Open up hex editor of your choice
-2. Search hex-value string `3E04E007`
-3. Replace it with `3E07E007`
-4. Save
-Enjoy your overclocked LSDj!
-
 ## History and the Benefits of Overclocking Nowadays
 
 Software overclocking of LSDj was first explored by Pain Perdu in 2017 using version 5.3.5. https://web.archive.org/web/20200601005830/https://chiptuneswin.com/blog/pauls-tech-talk-lsdj-5-3-5_4x-part-2-sandpaper-vs-eardrums/
@@ -36,21 +20,38 @@ Four times engine speed means that every table modulation, grooves, and whole se
 The guide below will explain many tips and tricks regarding overclocking,
 but it is designed for advanced LSDj users who are confident in normal LSDj operation and seek to get out more out of it.
 
+## Choosing Your Version
 
-## Choosing Your Version: A Word About Pre-8.8.0 - ADSR Tempo Related Drift
+### Pre-8.8.0 - ADSR Tempo Related Drift
 
 While using version 8 I noticed that the ADSR envelope tends to not be consistent,
 and "drifts" in relation to the engine's tempo.
-The user might hear the ADSR being slightly shorter in a regular, LFO-like manner.
+
+To reproduce on LSDj (8.7.7):
+-In Noise Channel create phrase with 16 steps of FD hihats
+-Make ADSR for that instrument 61/00/--
+-Set tempo to 195
+The user might hear the ADSR getting slightly shorter or longer in a regular, LFO-like manner.
+
 This behaviour is more noticeable when using the overclocked version.
-To reproduce on LSDj 
-This effect is mostly undesired and somewhat uncontrollable unless the user tunes the `TEMPO` *and* starts the song at a very specific moment.
-Version 8.8.0 and onwards keeps the envelopes very stable,
-so this becomes a non-issue when using those versions.
+This effect is mostly undesired and somewhat uncontrollable unless the user tunes the `TEMPO` *and* starts the song at a very specific moment (Tho extremely not recommended)
+
+Version 8.8.0 and onwards keeps the envelopes very stable, and is drift is not an issue anymore
 
 Use version 8.8.7 if you wish to retain the old ADSR system, that is compatible with plenty of emulators and all Gameboy consoles.
 
 [Check the hardware compatibility of the new ADSR version, does GBC actually work?]
+
+## How to Create an Overclocked LSDj ROM
+
+Step by step instructions:
+  1. Open up your LSDj ROM in the hexadecimal editor of your choice (I used HxD on Windows);
+  2. Search *hex-value* string `3E04E007`;
+  3. Replace it with `3E07E007`; (Notice: We are changing esensially only second value `04` to `07`)
+  4. Save;
+
+Your LSDj's tempo should be multiplied by four now!
+This works with all LSDj versions from from 2.6.0 (included) all the way up to the latest one available!
 
 ### Amplitude Modulation Synthesis and Groove/Tempo/BPM relation
 
