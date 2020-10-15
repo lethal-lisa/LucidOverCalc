@@ -6,7 +6,8 @@ class lsdj {
 	maxTempo: 295;
 	overclockMult: 2;
 	validTempo (tempo) {
-		if ((tempo < this.minTempo) || (tempo > this.maxTempo)) throw new RangeError(`${tempo} is an invalid tempo.`);
+		if ((tempo < this.minTempo) || (tempo > this.maxTempo)) return false;
+		return true;
 	}
 }
 
