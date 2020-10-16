@@ -119,19 +119,6 @@
 	#Define COL_ERROR (COL_BRIGHT Or COL_RED)
 #EndIf
 	
-
-'' Print out used values if debug mode is enabled.
-/'#If __FB_DEBUG__
-	#Print Compile-time Parameters:
-	#Print STEP_SIZE = STEP_SIZE
-	#Print OFFTIME_MAX = OFFTIME_MAX
-	#Print OFFTIME_MIN = OFFTIME_MIN
-	#Print TABS_COUNT = TABS_COUNT
-	#Print NEGATIVE_OUTPUT = NEGATIVE_OUTPUT
-	#Print ENABLE_COLOR = ENABLE_COLOR
-	#Print BARE_OUTPUT = BARE_OUTPUT
-#EndIf'/
-
 #EndIf
 
 ''EOF

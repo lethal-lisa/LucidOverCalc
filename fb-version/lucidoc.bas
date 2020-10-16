@@ -50,17 +50,9 @@ Constructor STDIO_HANDLES
 	
 	On Local Error GoTo FAIL
 	
-	''Clear This.hCons, NULL, SizeOf(STDIO_HANDLES)
-	
-	''Dim lRet As Long
-	
 	This.hOut = FreeFile()
 	Open Cons For Output As #This.hOut
 	If Err() Then Error(Err())
-	
-	/'This.hIn = FreeFile()
-	Open Cons For Input As #This.hIn
-	If Err() Then Error(Err())'/
 	
 	This.hErr = FreeFile()
 	Open Err As #This.hErr
@@ -77,7 +69,6 @@ Constructor STDIO_HANDLES
 	
 	FAIL:
 	If This.hOut Then Close #This.hOut
-	''If This.hIn Then Close #This.hIn
 	If This.hErr Then Close #This.hErr
 	#If __FB_DEBUG__
 		If This.hDbg Then Close #This.hDbg
@@ -89,7 +80,6 @@ End Constructor
 Destructor STDIO_HANDLES
 	
 	If This.hOut Then Close #This.hOut
-	''If This.hIn Then Close #This.hIn
 	If This.hErr Then Close #This.hErr
 	#If __FB_DEBUG__
 		If This.hDbg Then Close #This.hDbg
@@ -236,11 +226,6 @@ Scope
 	EndIf
 	
 	'' Close opened file handles.
-	/'#If __FB_DEBUG__
-		Close #g_pstdio->hDbg
-	#EndIf
-	Close #g_pstdio->hErr
-	Close #g_pstdio->hOut'/
 	If g_pstdio Then Delete g_pstdio
 	
 	'' Free used resources.

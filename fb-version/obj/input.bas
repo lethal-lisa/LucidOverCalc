@@ -216,12 +216,6 @@ Function GetTempo () As UInteger
 	#EndIf
 	
 	Dim uTempo As UInteger	'' Temporary storage for tempo.
-	''Dim hIn As Long			'' Standard input handle
-	
-	'' Get standard input handle.
-	/'hIn = FreeFile()
-	Open Cons For Input As #hIn
-	If Err() Then Error(Err())'/
 	
 	'' Get tempo by prompting the user if the command line is invalid.
 	Do
@@ -230,10 +224,7 @@ Function GetTempo () As UInteger
 		g_colCurrent = SetColor COL_GOOD
 		? #g_pstdio->hErr, Using "Valid tempos are integers between & and &."; Str(LSDJ.minTempo); Str(LSDJ.maxTempo)
 		RestoreColor g_colCurrent
-		''? #g_pstdio->hErr, "Tempo? ";
 		Input "Tempo? ", uTempo
-		''Input #g_pstdio->hIn, uTempo
-		
 		
 		'' Continue if provided tempo is valid.
 		If ValidTempo(uTempo) Then Exit Do
@@ -245,7 +236,6 @@ Function GetTempo () As UInteger
 		
 	Loop
 	
-	''Close #hIn
 	Return(uTempo)
 	
 End Function

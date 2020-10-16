@@ -37,9 +37,6 @@
 #EndIf
 
 '' Constant values used by LSDj:
-/'Const LSDJ_MIN_TEMPO = 40		'' Min engine tempo for LSDj.
-Const LSDJ_MAX_TEMPO = 295		'' Max engine tempo for LSDj.
-Const LSDJ_OVERCLOCK_MULT = 2	'' LSDj software overclock multiplier.'/
 Enum LSDJ Explicit
 	minTempo = 40
 	maxTempo = 295
@@ -58,10 +55,6 @@ End Enum
 
 '' Colors:
 #Define DEF_COLOR 	&hFF
-/'#Define COL_HEADER	(COL_BRIGHT Or COL_GREY)
-#Define COL_GOOD		(COL_BRIGHT Or COL_GREEN)
-#Define COL_WARN		(COL_BRIGHT Or COL_YELLOW)
-#Define COL_ERROR 	(COL_BRIGHT Or COL_RED)'/
 
 '' Define UDTs and structures:
 '' Parameters used at runtime:
@@ -78,8 +71,6 @@ End Type
 
 Type STDIO_HANDLES
 	hOut As Long
-	''hIn As Long
-	''hCons As Long
 	hErr As Long
 	#If __FB_DEBUG__
 		hDbg As Long
@@ -88,14 +79,7 @@ Type STDIO_HANDLES
 	Declare Destructor
 End Type
 
-'' Define shared variables:
-/'#If __FB_DEBUG__
-	Dim Shared g_pstdio->hDbg As Long	'' Debug log handle.
-#EndIf
-Dim Shared g_pstdio->hErr As Long	'' Standard Error handle.
-Dim Shared g_pstdio->hOut As Long	'' Standard Output handle.
-Dim Shared g_prtParams As RUNTIME_PARAMS Ptr	'' Parameters used at runtime.
-Dim Shared g_colCurrent As ULong	'' Buffer for global color.'/
+'' Define external variables:
 Extern g_prtParams As RUNTIME_PARAMS Ptr
 Extern g_pstdio As STDIO_HANDLES Ptr
 
