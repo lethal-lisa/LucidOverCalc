@@ -4,9 +4,28 @@
 	
 	FreeBASIC RunTime Error Codes
 	
+	Copyright 2020 Lisa Murray
+	
+	This program is free software; you can redistribute it and/or modify
+	it under the terms of the GNU General Public License as published by
+	the Free Software Foundation; either version 2 of the License, or
+	(at your option) any later version.
+	
+	This program is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
+	
+	You should have received a copy of the GNU General Public License
+	along with this program; if not, write to the Free Software
+	Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+	MA 02110-1301, USA.
+	
 '/
 
 #Pragma Once
+#IfnDef __FBERRORS__
+#Define __FBERRORS__
 
 ''FreeBASIC run time error codes
 #Define FB_ERR_SUCCESS				0
@@ -38,5 +57,7 @@
 #Define FB_ERR_ABNORMALTERM			FB_ERR_ABNORMALTERMINATION
 #Define FB_ERR_QUITREQ				FB_ERR_QUITREQUEST
 #Define FB_ERR_EOF					FB_ERR_ENDOFFILE
+
+#EndIf
 
 ''EOF
