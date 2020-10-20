@@ -43,6 +43,12 @@ Enum LSDJ Explicit
 	overclockMult = 2
 End Enum
 
+'' Constant values used by MIDI:
+Enum MIDI Explicit
+	minKeyNum = 21
+	maxKeyNum = 108
+End Enum
+
 '' Maximum count of command line parameters used by this program.
 Const MAX_CLI_PARAMS = 14
 
@@ -107,7 +113,11 @@ Declare Sub RestoreColor (ByVal uColor As Const ULong)
 
 '' From module obj/output.bas:
 Declare Sub PrintHeader ()
-Declare Sub PrintFormattedRow (ByVal iStep As Const Single, ByVal dblFreq As Const Double)
+Declare Sub PrintFormattedRow (ByVal iStep As Const Single, ByVal dblFreq As Const Double, ByVal uKeyNum As Const UByte)
+
+'' From module obj/midikey.bas:
+Declare Function GetMIDIKeyNum (ByVal nFreq As Const Integer) As UInteger
+Declare Function GetClosestFreq (ByVal dblTest As Const Double, ByVal dblLo As Const Double, ByVal dblHi As Const Double) As Double
 
 Declare Function LogBaseX (ByVal dblBase As Const Double, ByVal dblNumber As Const Double) As Double
 Declare Function CalcMainHz (ByVal uTempo As Const UInteger) As Double

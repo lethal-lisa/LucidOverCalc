@@ -35,10 +35,10 @@ Sub PrintHeader ()
 	
 	With *g_prtParams
 		If .bBareOut Then
-			? #g_pstdio->hOut, Using !"Tempo: &\nOFF Time\tFrequency (Hz)"; .uTempo
+			? #g_pstdio->hOut, Using !"Tempo: &\nOFF Time\tFrequency (Hz)\tClosest MIDI Key Number"; .uTempo
 		Else
 			? Using "Tempo: &"; .uTempo
-			? "OFF Time"; Tab(.uTabsCount); "Frequency (Hz)"
+			? "OFF Time"; Tab(.uTabsCount); "Frequency (Hz)"; Tab(.uTabsCount); "Closest MIDI Key Number"
 		EndIf
 	End With
 	
@@ -46,30 +46,32 @@ Sub PrintHeader ()
 	
 End Sub
 
-Private Sub PrintRow (ByRef strStep As Const String, ByRef strFreq As Const String)
+Private Sub PrintRow (ByRef strStep As Const String, ByRef strFreq As Const String, ByRef strMidiKey As Const String)
 	
 	#If __FB_DEBUG__
 		? #g_pstdio->hDbg, Using "&: Calling: &/&"; Time(); __FILE__; __FUNCTION__
 		? #g_pstdio->hDbg, Using !"\tByRef Const String:strStep = ""&"""; strStep
 		? #g_pstdio->hDbg, Using !"\tByRef Const String:strFreq = ""&"""; strFreq
+		? #g_pstdio->hDbg, Using !"\tByRef Const String:strMidiKey = ""&"""; strMidiKey
 	#EndIf
 	
 	If ((Len(strStep) <= 0) OrElse (Len(strFreq) <= 0)) Then Error(FB_ERR_ILLEGALFUNCTION)
 	
 	If g_prtParams->bBareOut Then
-		? #g_pstdio->hOut, Using !"&\t\t& Hz"; strStep; strFreq
+		? #g_pstdio->hOut, Using !"&\t\t& Hz\t&"; strStep; strFreq; strMidiKey
 	Else
-		? strStep; Tab(g_prtParams->uTabsCount); strFreq; " Hz" 
+		? strStep; Tab(g_prtParams->uTabsCount); strFreq; " Hz"; Tab(g_prtParams->uTabsCount); strMidiKey
 	EndIf
 	
 End Sub
 
-Sub PrintFormattedRow (ByVal iStep As Const Single, ByVal dblFreq As Const Double)
+Sub PrintFormattedRow (ByVal iStep As Const Single, ByVal dblFreq As Const Double, ByVal uKeyNum As Const UByte)
 	
 	#If __FB_DEBUG__
 		? #g_pstdio->hDbg, Using "&: Calling: &/&"; Time(); __FILE__; __FUNCTION__
 		? #g_pstdio->hDbg, Using !"\tByVal Const Single:iStep = &"; iStep
 		? #g_pstdio->hDbg, Using !"\tByVal Const Double:dblFreq = &"; dblFreq
+		? #g_pstdio->hDbg, Using !"\tByVal Const UByte:uKeyNum = &"; uKeyNum
 	#EndIf
 	
 	'' Static storage for strings.
