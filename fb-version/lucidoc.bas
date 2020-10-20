@@ -219,7 +219,11 @@ Scope
 	'' Print an error message if uErr is an error code.
 	If Not(CBool((uErr = FB_ERR_SUCCESS) OrElse (uErr = FB_ERR_TERMREQ) OrElse (uErr = FB_ERR_QUITREQ))) Then
 		SetColor COL_ERROR
-		? /'#g_pstdio->hErr,'/ Using "Fatal Error: FreeBASIC RunTime error code: _&h& (&)"; Hex(uErr); uErr
+		If g_pstdio->hErr Then
+			? #g_pstdio->hErr, Using "Fatal Error: FreeBASIC RunTime error code: _&h& (&)"; Hex(uErr); uErr
+		Else
+			? Using "Fatal Error: FreeBASIC RunTime error code: _&h& (&)"; Hex(uErr); uErr
+		EndIf
 		#If __FB_DEBUG__
 			If g_pstdio->hDbg Then ? #g_pstdio->hDbg, Using "Fatal Error: FreeBASIC RunTime error code: _&h& (&)"; Hex(uErr); uErr
 		#EndIf
