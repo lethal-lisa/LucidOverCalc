@@ -26,11 +26,18 @@
 #Include "lucidoc.bi"
 
 Function GetMIDIKeyNum (ByVal nFreq As Const Integer) As UByte
-	Return((12 * LogBaseX(2, (nFreq \ 440))) + 49)
+	Dim nRes As Integer = CUInt((12 * LogBaseX(2, (nFreq / 440))) + 49)
+	If (nRes < MIDI.minKeyNum) Then
+		Return MIDI.minKeyNum
+	ElseIf (nRes > MIDI.maxKeyNum) Then
+		Return MIDI.maxKeyNum
+	Else
+		Return CUByte(nRes)
+	EndIf
 End Function
 
 Function GetMIDIKeyFreq (ByVal uKeyNum As Const UByte) As Integer
-	Return((2 ^ (uKeyNum - 49) / 12) * 440)
+	Return(CInt((2 ^ (uKeyNum - 49) / 12) * 440))
 End Function
 
 Function GetClosestFreq (ByVal dblTest As Const Double, ByVal dblLo As Const Double, ByVal dblHi As Const Double) As Double

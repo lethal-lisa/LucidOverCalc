@@ -201,8 +201,11 @@ With *g_prtParams
 	PrintHeader()
 	
 	'' Print out formatted data:
+	Dim dblFreq As Double
 	For iStep As Single = .sngOffMin To .sngOffMax Step .sngStepSize
-		PrintFormattedRow(iStep, CalcFreq(.uTempo, iStep))
+		dblFreq = CalcFreq(.uTempo, iStep)
+		'' TODO: Implement accurate parameters for GetClosestFreq.
+		PrintFormattedRow(iStep, dblFreq, GetMIDIKeyNum(dblFreq)) '' GetClosestFreq(dblFreq, GetMIDIKeyFreq(MIDI.minKeyNum), GetMIDIKeyFreq(MIDI.maxKeyNum))))
 	Next iStep
 	
 End With

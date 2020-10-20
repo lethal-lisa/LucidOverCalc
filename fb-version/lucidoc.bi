@@ -116,7 +116,8 @@ Declare Sub PrintHeader ()
 Declare Sub PrintFormattedRow (ByVal iStep As Const Single, ByVal dblFreq As Const Double, ByVal uKeyNum As Const UByte)
 
 '' From module obj/midikey.bas:
-Declare Function GetMIDIKeyNum (ByVal nFreq As Const Integer) As UInteger
+Declare Function GetMIDIKeyNum (ByVal nFreq As Const Integer) As UByte
+Declare Function GetMIDIKeyFreq (ByVal uKeyNum As Const UByte) As Integer
 Declare Function GetClosestFreq (ByVal dblTest As Const Double, ByVal dblLo As Const Double, ByVal dblHi As Const Double) As Double
 
 Declare Function LogBaseX (ByVal dblBase As Const Double, ByVal dblNumber As Const Double) As Double

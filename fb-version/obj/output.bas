@@ -38,7 +38,7 @@ Sub PrintHeader ()
 			? #g_pstdio->hOut, Using !"Tempo: &\nOFF Time\tFrequency (Hz)\tClosest MIDI Key Number"; .uTempo
 		Else
 			? Using "Tempo: &"; .uTempo
-			? "OFF Time"; Tab(.uTabsCount); "Frequency (Hz)"; Tab(.uTabsCount); "Closest MIDI Key Number"
+			? "OFF Time"; Tab(.uTabsCount); "Frequency (Hz)"; Tab(.uTabsCount * 3); "Closest MIDI Key Number"
 		EndIf
 	End With
 	
@@ -60,7 +60,7 @@ Private Sub PrintRow (ByRef strStep As Const String, ByRef strFreq As Const Stri
 	If g_prtParams->bBareOut Then
 		? #g_pstdio->hOut, Using !"&\t\t& Hz\t&"; strStep; strFreq; strMidiKey
 	Else
-		? strStep; Tab(g_prtParams->uTabsCount); strFreq; " Hz"; Tab(g_prtParams->uTabsCount); strMidiKey
+		? strStep; Tab(g_prtParams->uTabsCount); strFreq; " Hz"; Tab(g_prtParams->uTabsCount * 3); strMidiKey
 	EndIf
 	
 End Sub
@@ -77,10 +77,12 @@ Sub PrintFormattedRow (ByVal iStep As Const Single, ByVal dblFreq As Const Doubl
 	'' Static storage for strings.
 	Static strStep As String*6
 	Static strFreq As String
+	Static strKeyNum As String
 	
 	'' Convert parameters to strings.
 	strStep = Str(iStep)
 	strFreq = Str(dblFreq)
+	strKeyNum = Str(uKeyNum)
 	
 	'' Print output.
 	If (dblFreq < 0) Then
@@ -91,7 +93,7 @@ Sub PrintFormattedRow (ByVal iStep As Const Single, ByVal dblFreq As Const Doubl
 			Case NEGOUT.ALL
 				
 				'' Print out the row anyways.
-				PrintRow(strStep, strFreq)
+				PrintRow(strStep, strFreq, strKeyNum)
 				
 			Case NEGOUT.HIDE
 				
@@ -118,7 +120,7 @@ Sub PrintFormattedRow (ByVal iStep As Const Single, ByVal dblFreq As Const Doubl
 		
 	Else
 		
-		PrintRow(strStep, strFreq)
+		PrintRow(strStep, strFreq, strKeyNum)
 		
 	EndIf
 	
