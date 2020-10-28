@@ -22,52 +22,61 @@
 	MA 02110-1301, USA.
 	
 '/
+
 #Include "lucidoc.bi"
+
+Enum CLI_PARAMS
+	MAX_CLI_PARAMS = 16
+	OPT_STEPSIZE = 0
+	OPT_MINTIME
+	OPT_MAXTIME
+	OPT_OCTSHIFT
+	OPT_COLOR
+	OPT_TABS
+	OPT_NEGOUT
+	OPT_BAREOUT
+	C_OPTS
+End Enum
 
 Declare Function GetNegOutMode (ByRef strNegOut As Const String) As UByte
 Declare Function CheckNegOutMode (ByVal uNegOut As Const UByte) As Boolean
 
-'' Parses the command line.
-Function ParseCmdLine (ByVal pParams As RUNTIME_PARAMS Const Ptr) As ULong
+Private Function CheckOption (ByVal uOption As UInteger, ByRef pbParam As Boolean Const Ptr) As Boolean
 	
 	#If __FB_DEBUG__
 		? #g_pstdio->hDbg, Using "&: Calling: &/&"; Time(); __FILE__; __FUNCTION__
-		? #g_pstdio->hDbg, Using !"\tByVal Const RUNTIME__PARAMS Ptr:pParams = @_&h&"; Hex(pParams)
+		? #g_pstdio->hDbg, Using !"\tByVal UInteger:uOption = _&h&"; Hex(uOption)
+		? #g_pstdio->hDbg, Using !"\tByRef Boolean Const Ptr:pbParam = @_&h&"; Hex(pbParam)
 	#EndIf
 	
-	#Macro INC_SET_CMD(index)
-		If pbParam[index] Then Exit Select
-		iCmd += 1
-		pbParam[index] = TRUE
-	#EndMacro
+	If (pbParam = NULL) Then Error(SetError(FB_ERR_NULLPTRACCESS))
+	If (uOption >= C_OPTS) Then Error(SetError(FB_ERR_ILLEGALFUNCTION))
 	
+	If pbParam[uOption] Then
+		Return TRUE
+	Else
+		pbParam[uOption] = TRUE
+		Return FALSE
+	EndIf
+	
+End Function
+
+'' Parses the command line.
+Function ParseCmdLine () As ULong
+	
+	#If __FB_DEBUG__
+		? #g_pstdio->hDbg, Using "&: Calling: &/&"; Time(); __FILE__; __FUNCTION__
+	#EndIf
+		
 	On Local Error GoTo FAIL
 	
-	'' Make sure pParams is a valid pointer.
-	If (pParams = NULL) Then Error(FB_ERR_NULLPTRACCESS)
-	
 	Dim iCmd As UInteger		'' Parameter index.
-	Dim strCmd As String		'' Buffer for parameter.
 	Dim pbParam As Boolean Ptr	'' Array of booleans showing which parameters have already been set.
-	
-	/'	pbParam Info:
-		
-			Values in pbParam are set to TRUE once a parameter has been
-		checked.
-		
-		Index Values:
-		0 = "stepsize"
-		1 = "mintime"
-		2 = "maxtime"
-		3 = "enablecolor"
-		4 = "tabs"
-		5 = "negativeout"
-		6 = "bareout"
-	'/
+	Dim strCmd As String		'' Buffer for option string.
 	
 	'' Allocate space for pbParam
-	pbParam = CAllocate(7, SizeOf(Boolean))
-	If (pbParam = NULL) Then Error(FB_ERR_OUTOFMEMORY)
+	pbParam = CAllocate(C_OPTS, SizeOf(Boolean))
+	If (pbParam = NULL) Then Error(SetError(FB_ERR_OUTOFMEMORY))
 	
 	Do
 		
@@ -90,75 +99,86 @@ Function ParseCmdLine (ByVal pParams As RUNTIME_PARAMS Const Ptr) As ULong
 				ShowHelp(g_pstdio->hOut)
 				Error FB_ERR_QUITREQUEST
 				
-			Case "ver", "version"
+			Case "version", "ver"
 				
 				'' Show version information and exit.
 				ShowVersion(g_pstdio->hOut)
 				Error FB_ERR_QUITREQUEST
 				
-			Case "defs", "defaults"
+			Case "defaults", "defs"
 				
 				'' Show default settings and exit.
 				ShowDefaults(g_pstdio->hOut)
 				Error FB_ERR_QUITREQUEST
 				
-			Case "stepsize"
+			Case "stepsize", "step"
 				
 				'' Get stepsize.
-				INC_SET_CMD(0)
-				pParams->sngStepSize = CSng(Command(iCmd))
+				If CheckOption(OPT_STEPSIZE, pbParam) Then Exit Select
+				iCmd += 1
+				g_prtParams->sngStepSize = CSng(Command(iCmd))
 				
 			Case "mintime"
 				
 				'' Get minimum OFF time.
-				INC_SET_CMD(1)
-				pParams->sngOffMin = CSng(Command(iCmd))
+				If CheckOption(OPT_MINTIME, pbParam) Then Exit Select
+				iCmd += 1
+				g_prtParams->sngOffMin = CSng(Command(iCmd))
 				
 			Case "maxtime"
 				
 				'' Get maximum OFF time.
-				INC_SET_CMD(2)
-				pParams->sngOffMax = CSng(Command(iCmd))
+				If CheckOption(OPT_MAXTIME, pbParam) Then Exit Select
+				g_prtParams->sngOffMax = CSng(Command(iCmd))
 				
-			Case "enablecolor"
+			Case "octaveshift", "octshift"
+				
+				'' Get octave-shift settings.
+				If CheckOption(OPT_OCTSHIFT, pbParam) Then Exit Select
+				iCmd += 1
+				g_prtParams->uOctShift = CUByte(Command(iCmd))
+				
+			Case "enablecolor", "color"
 				
 				'' Get color settings.
-				INC_SET_CMD(3)
-				pParams->bColor = CBool(Command(iCmd))
+				If CheckOption(OPT_COLOR, pbParam) Then Exit Select
+				iCmd += 1
+				g_prtParams->bColor = CBool(Command(iCmd))
 				
 			Case "tabs"
 				
 				'' Get tab settings.
-				INC_SET_CMD(4)
-				pParams->uTabsCount = CUInt(Command(iCmd))
+				If CheckOption(OPT_TABS, pbParam) Then Exit Select
+				iCmd += 1
+				g_prtParams->uTabsCount = CUInt(Command(iCmd))
 				
-			Case "negout", "negativeout"
+			Case "negativeoutput", "negativeout", "negout"
 				
 				'' Get negative output settings.
-				INC_SET_CMD(5)
-				pParams->uNegOut = GetNegOutMode(Command(iCmd))
-				If Not(CheckNegOutMode(pParams->uNegOut)) Then
+				If CheckOption(OPT_NEGOUT, pbParam) Then Exit Select
+				iCmd += 1
+				g_prtParams->uNegOut = GetNegOutMode(Command(iCmd))
+				If Not(CheckNegOutMode(g_prtParams->uNegOut)) Then
 					? #g_pstdio->hErr, Using """&"" is not a valid negative output mode."; Command(iCmd)
-					Error FB_ERR_ILLEGALINSTRUCTION
+					Error(SetError(FB_ERR_ILLEGALINSTRUCTION))
 				EndIf
 				
-			Case "bareout"
+			Case "bareoutput", "bareout", "bare"
 				
 				'' Get bare output mode.
-				If pbParam[6] Then Exit Select
-				pbParam[6] = TRUE
-				pParams->bBareOut = TRUE
+				If CheckOption(OPT_BAREOUT, pbParam) Then Exit Select
+				g_prtParams->bBareOut = TRUE
 				
 			Case Else
 				
 				'' Assume any unknown parameter is a tempo.
-				pParams->uTempo = CUInt(strCmd)
+				g_prtParams->uTempo = CUInt(strCmd)
 				
 		End Select
 		
 	Loop While (iCmd < MAX_CLI_PARAMS)
 	
-	Err = FB_ERR_SUCCESS
+	SetError FB_ERR_SUCCESS
 	
 	FAIL:
 	If pbParam Then DeAllocate pbParam

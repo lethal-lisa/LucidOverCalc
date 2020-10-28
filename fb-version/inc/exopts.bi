@@ -64,6 +64,16 @@
 
 #Assert OFFTIME_MIN < OFFTIME_MAX
 
+'' Controls the default octave-shift.
+#IfnDef OCTAVE_SHIFT
+	#Define OCTAVE_SHIFT 1
+#Else
+	#If __FB_DEBUG__
+		#Print __FILE_NQ__: Using custome OCTAVE_SHIFT default.
+		#Print OCTAVE_SHIFT = OCTAVE_SHIFT
+	#EndIf
+#EndIf
+
 '' Value used in Tab() command to space out output.
 #IfnDef TABS_COUNT
 	#Define TABS_COUNT 15

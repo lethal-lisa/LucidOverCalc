@@ -35,6 +35,8 @@ Sub ShowHelp (ByVal hOut As Const Long)
 	
 	If Not(CBool(hOut)) Then Error(FB_ERR_ILLEGALINSTRUCTION)
 	
+	'' TODO: Clean up this help message.
+	
 	'' Print out help to stderr.
 	? #hOut, !"Lucid OverCalc - FreeBASIC Version\nHelp:\n"
 	? #hOut, !"Syntax:\n\tlucidoc [{help|{ver|version}|{defs|defaults}|[<tempo>] [bareout] [stepsize <stepsize>] [mintime <offtime>] [maxtime <offtime>] [enablecolor {true|false}] [tabs <tabcount>] [negativeout <outputmode>]}]\n"
@@ -128,6 +130,7 @@ Sub ShowDefaults (ByVal hOut As Const Long)
 	? #hOut, Using !"\tStep size:\t\t&"; Str(STEP_SIZE)
 	? #hOut, Using !"\tMinimum OFF time:\t&"; Str(OFFTIME_MIN) 
 	? #hOut, Using !"\tMaximum OFF time:\t&"; Str(OFFTIME_MAX)
+	? #hOut, Using !"\tMIDI Octave shift:\t&"; Str(OCTAVE_SHIFT)
 	? #hOut, Using !"\tColor:\t\t\t&"; IIf(ENABLE_COLOR, "Enabled", "Disabled")
 	? #hOut, Using !"\tColumn distance:\t&"; Str(TABS_COUNT)
 	? #hOut, Using !"\tNegative output mode:\t&"; Str(NEGATIVE_OUTPUT)

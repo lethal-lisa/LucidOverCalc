@@ -31,14 +31,26 @@ Private Function ValidMidiKey (ByVal nKeyNum As Const Integer) As UByte
 	Return CUByte(nKeyNum)
 End Function
 
-'' TODO: Add octave-shift capability.
-
 Function GetMIDIKeyNum (ByVal nFreq As Const Integer) As UByte
-	Return ValidMidiKey(CInt(12 * LogBaseX(2, (nFreq / 440)) + 49))
+	
+	#If __FB_DEBUG__
+		? #g_pstdio->hDbg, Using "&: Calling: &/&"; Time(); __FILE__; __FUNCTION__
+		? #g_pstdio->hDbg, Using !"\tByVal Const Integer:nFreq = &"; Str(nFreq)
+	#EndIf
+	
+	Return ValidMidiKey(CInt(12 * LogBaseX(2, (nFreq / 440)) + 49) + (12 * g_prtParams->uOctShift))
+	
 End Function
 
 Function GetMIDIKeyFreq (ByVal uKeyNum As Const UByte) As Double
-	Return(((2 ^ (ValidMidiKey(uKeyNum) - 49)) / 12) * 440)
+	
+	#If __FB_DEBUG__
+		? #g_pstdio->hDbg, Using "&: Calling: &/&"; Time(); __FILE__; __FUNCTION__
+		? #g_pstdio->hDbg, Using !"\tByVal Const UByte:uKeyNum = &"; Str(uKeyNum)
+	#EndIf
+	
+	Return((((2 ^ (ValidMidiKey(uKeyNum) - 49)) / 12) * 440) * (2 * g_prtParams->uOctShift))
+	
 End Function
 
 ''EOF

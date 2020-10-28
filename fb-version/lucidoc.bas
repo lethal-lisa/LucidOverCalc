@@ -4,12 +4,6 @@
 	
 	Lucid OverCalc - Main Module
 	
-	Build With:
-		Windows/DOS:
-		>fbc lucidoc.bas
-		Linux:
-		$fbc lucidoc.bas
-	
 	Copyright (c) 2020 Lisa Murray
 	
 	This program is free software; you can redistribute it and/or modify
@@ -40,6 +34,7 @@
 #EndIf
 
 #Assert LSDJ.minTempo < LSDJ.maxTempo
+#Assert MIDI.minKeyNum < MIDI.maxKeyNum
 
 Dim Shared g_prtParams As RUNTIME_PARAMS Ptr
 Dim Shared g_pstdio As STDIO_HANDLES Ptr
@@ -166,13 +161,14 @@ g_colDefColor = Color()
 
 #If __FB_DEBUG__
 	? #g_pstdio->hDbg, Using "Allocated runtime parameters: & bytes @_&h&"; SizeOf(RUNTIME_PARAMS); Hex(g_prtParams)
-#EndIf 
+#EndIf
 
 '' Set default runtime parameters.
 With *g_prtParams
 	.sngStepSize = STEP_SIZE
 	.sngOffMin = OFFTIME_MIN
 	.sngOffMax = OFFTIME_MAX
+	.uOctShift = OCTAVE_SHIFT
 	.uTabsCount = TABS_COUNT
 	.uNegOut = NEGATIVE_OUTPUT
 	.bColor = ENABLE_COLOR
@@ -180,7 +176,7 @@ With *g_prtParams
 End With
 
 '' Parse the command line.
-SetError(ParseCmdLine(g_prtParams))
+SetError(ParseCmdLine())
 If Err() Then Error(Err())
 
 '' Get tempo from user if necessary.

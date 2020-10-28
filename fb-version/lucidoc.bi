@@ -49,9 +49,6 @@ Enum MIDI Explicit
 	maxKeyNum = 108
 End Enum
 
-'' Maximum count of command line parameters used by this program.
-Const MAX_CLI_PARAMS = 14
-
 '' Values for different negative output modes.
 Enum NEGOUT Explicit
 	ALL = 1
@@ -60,7 +57,7 @@ Enum NEGOUT Explicit
 End Enum
 
 '' Colors:
-#Define DEF_COLOR 	&hFF
+#Define DEF_COLOR &hFF
 
 '' Define UDTs and structures:
 '' Parameters used at runtime:
@@ -76,6 +73,7 @@ Type RUNTIME_PARAMS
 	bBareOut As Boolean		'' Bare output enable.
 End Type
 
+'' Standard I/O handles:
 Type STDIO_HANDLES
 	hOut As Long
 	hErr As Long
@@ -96,7 +94,13 @@ Extern g_colDefColor As ULong
 Extern g_uLastError As ULong
 
 '' Function declarations:
+
+'' From main module lucidoc.bas:
 Declare Function SetError (ByVal uError As Const ULong) As ULong
+
+Declare Function LogBaseX (ByVal dblBase As Const Double, ByVal dblNumber As Const Double) As Double
+Declare Function CalcMainHz (ByVal uTempo As Const UInteger) As Double
+Declare Function CalcFreq (ByVal uTempo As Const UInteger, ByVal dblOffTime As Const Double) As Double
 
 '' From module obj/messages.bas:
 Declare Sub ShowHelp (ByVal hOut As Const Long)
@@ -104,7 +108,7 @@ Declare Sub ShowVersion (ByVal hOut As Const Long)
 Declare Sub ShowDefaults (ByVal hOut As Const Long)
 
 '' From module obj/input.bas:
-Declare Function ParseCmdLine (ByVal pParams As RUNTIME_PARAMS Const Ptr) As ULong
+Declare Function ParseCmdLine () As ULong
 Declare Function ValidTempo (ByVal uTempo As Const UInteger) As Boolean
 Declare Function GetTempo () As UInteger
 
@@ -118,11 +122,6 @@ Declare Sub PrintFormattedRow (ByVal iStep As Const Single, ByVal dblFreq As Con
 
 '' From module obj/midikey.bas:
 Declare Function GetMIDIKeyNum (ByVal nFreq As Const Integer) As UByte
-Declare Function GetMIDIKeyFreq (ByVal uKeyNum As Const UByte) As Double
-''Declare Function GetClosestFreq (ByVal dblTest As Const Double, ByVal dblLo As Const Double, ByVal dblHi As Const Double) As Double
-
-Declare Function LogBaseX (ByVal dblBase As Const Double, ByVal dblNumber As Const Double) As Double
-Declare Function CalcMainHz (ByVal uTempo As Const UInteger) As Double
-Declare Function CalcFreq (ByVal uTempo As Const UInteger, ByVal dblOffTime As Const Double) As Double
+Declare Function GetMIDIKeyFreq (ByVal uKeyNum As Const UByte) As Double 
 
 ''EOF

@@ -35,9 +35,10 @@ Sub PrintHeader ()
 	
 	With *g_prtParams
 		If .bBareOut Then
-			? #g_pstdio->hOut, Using !"Tempo: &\nOFF Time\tFrequency (Hz)\tClosest MIDI Key Number"; .uTempo
+			? #g_pstdio->hOut, Using !"Tempo: &\nMIDI Octave Shift: &\nOFF Time\tFrequency (Hz)\tClosest MIDI Key Number"; .uTempo; .uOctShift
 		Else
 			? Using "Tempo: &"; .uTempo
+			? Using "MIDI Octave Shift: &"; .uOctShift
 			? "OFF Time"; Tab(.uTabsCount); "Frequency (Hz)"; Tab(.uTabsCount * 3); "Closest MIDI Key Number"
 		EndIf
 	End With
