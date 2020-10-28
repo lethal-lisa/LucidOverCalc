@@ -1,7 +1,0 @@
-Lucid OverCalc - FB Version - Changelog
-
-2020-09-21:
-	+	Updated default settings for compile-time options.
-	+	Added support for creating debug logs.
-	*	Fixed various bugs and took note of some new ones (see doc/BUGS for more details).
-

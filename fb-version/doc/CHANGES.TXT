@@ -1,0 +1,16 @@
+Lucid OverCalc - FB Version - Changelog
+
+Key:
+	+ = Addition to the program.
+	- = Removal from the program.
+	* = Change to the program.
+
+2020-09-21:
+	+		Updated default settings for compile-time options.
+	+		Added support for creating debug logs.
+	*		Fixed various bugs and took note of some new ones
+		(see doc/BUGS.TXT for more details).
+
+2020-10-28:
+	*		Optimized midikey module.
+	+		Updated doc/ directory.

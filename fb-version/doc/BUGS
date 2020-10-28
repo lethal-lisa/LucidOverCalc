@@ -1,7 +1,0 @@
-Lucid OverCalc - FB Version - Bug Tracker
-
-2020-09-21:
-	+	No longer fails to compile if NEGATIVE_OUTPUT is not specified.
-	+	NEGATIVE_OUTPUT mode "omit" now functions properly.
-	*	Noticed that Standard I/O redirection of the program's output does not work as intended.
-
