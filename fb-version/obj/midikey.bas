@@ -25,27 +25,20 @@
 
 #Include "lucidoc.bi"
 
+Private Function ValidMidiKey (ByVal nKeyNum As Const Integer) As UByte
+	If (nKeyNum < MIDI.minKeyNum) Then Return MIDI.minKeyNum
+	If (nKeyNum > MIDI.maxKeyNum) Then Return MIDI.maxKeyNum
+	Return CUByte(nKeyNum)
+End Function
+
+'' TODO: Add octave-shift capability.
+
 Function GetMIDIKeyNum (ByVal nFreq As Const Integer) As UByte
-	Dim nRes As Integer = CUInt((12 * LogBaseX(2, (nFreq / 440))) + 49)
-	If (nRes < MIDI.minKeyNum) Then
-		Return MIDI.minKeyNum
-	ElseIf (nRes > MIDI.maxKeyNum) Then
-		Return MIDI.maxKeyNum
-	Else
-		Return CUByte(nRes)
-	EndIf
+	Return ValidMidiKey(CInt(12 * LogBaseX(2, (nFreq / 440)) + 49))
 End Function
 
-Function GetMIDIKeyFreq (ByVal uKeyNum As Const UByte) As Integer
-	Return(CInt((2 ^ (uKeyNum - 49) / 12) * 440))
-End Function
-
-Function GetClosestFreq (ByVal dblTest As Const Double, ByVal dblLo As Const Double, ByVal dblHi As Const Double) As Double
-	If ((Abs(dblTest - dblLo) > Abs(dblTest - dblHi))) Then
-		Return dblHi
-	Else
-		Return dblLo
-	EndIf
+Function GetMIDIKeyFreq (ByVal uKeyNum As Const UByte) As Double
+	Return(((2 ^ (ValidMidiKey(uKeyNum) - 49)) / 12) * 440)
 End Function
 
 ''EOF

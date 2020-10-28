@@ -69,6 +69,7 @@ Type RUNTIME_PARAMS
 	sngStepSize As Single	'' Step size.
 	sngOffMin As Single		'' Minimum OFFtime.
 	sngOffMax As Single		'' Maximum OFFtime.
+	uOctShift As UByte		'' Amount of octaves to shift MIDI notes up.
 	uTabsCount As UInteger	'' Whitespace between output columns.
 	uNegOut As UByte		'' Negative output mode.
 	bColor As Boolean		'' Color enable or disable.
@@ -117,8 +118,8 @@ Declare Sub PrintFormattedRow (ByVal iStep As Const Single, ByVal dblFreq As Con
 
 '' From module obj/midikey.bas:
 Declare Function GetMIDIKeyNum (ByVal nFreq As Const Integer) As UByte
-Declare Function GetMIDIKeyFreq (ByVal uKeyNum As Const UByte) As Integer
-Declare Function GetClosestFreq (ByVal dblTest As Const Double, ByVal dblLo As Const Double, ByVal dblHi As Const Double) As Double
+Declare Function GetMIDIKeyFreq (ByVal uKeyNum As Const UByte) As Double
+''Declare Function GetClosestFreq (ByVal dblTest As Const Double, ByVal dblLo As Const Double, ByVal dblHi As Const Double) As Double
 
 Declare Function LogBaseX (ByVal dblBase As Const Double, ByVal dblNumber As Const Double) As Double
 Declare Function CalcMainHz (ByVal uTempo As Const UInteger) As Double
