@@ -33,6 +33,8 @@ Sub ShowHelp (ByVal hOut As Const Long)
 		? #g_pstdio->hDbg, Using !"\tByVal Const Long:hOut = _&h& (&)"; Hex(hOut); hOut
 	#EndIf
 	
+	If Not(CBool(hOut)) Then Error(FB_ERR_ILLEGALINSTRUCTION)
+	
 	'' Print out help to stderr.
 	? #hOut, !"Lucid OverCalc - FreeBASIC Version\nHelp:\n"
 	? #hOut, !"Syntax:\n\tlucidoc [{help|{ver|version}|{defs|defaults}|[<tempo>] [bareout] [stepsize <stepsize>] [mintime <offtime>] [maxtime <offtime>] [enablecolor {true|false}] [tabs <tabcount>] [negativeout <outputmode>]}]\n"
@@ -45,7 +47,7 @@ Sub ShowHelp (ByVal hOut As Const Long)
 	? #hOut, !"\tmintime\t\tSets the minimum OFFtime to calculate."
 	? #hOut, !"\tmaxtime\t\tSets the maximum OFFtime to calculate."
 	? #hOut, !"\tenablecolor\tEnables colored output."
-	? #hOut, !"\ttabs\t\tSets the amount of whitespace between output columns."
+	? #hOut, !"\ttabs\t\tSets the amount of whitespace between output columns (disabled if bareout is specified)."
 	? #hOut, !"\tnegativeout\tSpecifies what to do if a frequency value is negative."
 	? #hOut, !"\t\tAvailable values for <outputmode>: ""all"" does nothing, ""hide"" shows an ""N/A"", and ""omit"" disables output entirely."
 	? #hOut, !"\n";
