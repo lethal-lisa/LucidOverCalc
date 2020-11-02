@@ -1,5 +1,13 @@
 # Guide to Overclocked LSDj by Infu
 
+Chapters as they are naturally ordered:
+1-History and the Benefits of Overclocking Nowadays
+2-How to Create an Overclocked LSDj
+  --Choosing Your Version
+3-ROM Amplitude Modulation Synthesis and Groove/Tempo/BPM relation (commands)
+  --Other commands
+4-CPU usage
+
 ## History and the Benefits of Overclocking Nowadays
 
 Software overclocking of LSDj was first explored by Pain Perdu in 2017 using version 5.3.5. https://web.archive.org/web/20200601005830/https://chiptuneswin.com/blog/pauls-tech-talk-lsdj-5-3-5_4x-part-2-sandpaper-vs-eardrums/
@@ -20,28 +28,6 @@ Four times engine speed means that every table modulation, grooves, and whole se
 The guide below will explain many tips and tricks regarding overclocking,
 but it is designed for advanced LSDj users who are confident in normal LSDj operation and seek to get out more out of it.
 
-## Choosing Your Version
-
-### Pre-8.8.0 - ADSR Tempo Related Drift
-
-While using version 8 I noticed that the ADSR envelope tends to not be consistent,
-and "drifts" in relation to the engine's tempo.
-
-To reproduce on LSDj (8.7.7):
--In Noise Channel create phrase with 16 steps of FD hihats
--Make ADSR for that instrument 61/00/--
--Set tempo to 195
-The user might hear the ADSR getting slightly shorter or longer in a regular, LFO-like manner.
-
-This behaviour is more noticeable when using the overclocked version.
-This effect is mostly undesired and somewhat uncontrollable unless the user tunes the `TEMPO` *and* starts the song at a very specific moment (Tho extremely not recommended)
-
-Version 8.8.0 and onwards keeps the envelopes very stable, and is drift is not an issue anymore
-
-Use version 8.8.7 if you wish to retain the old ADSR system, that is compatible with plenty of emulators and all Gameboy consoles.
-
-[Check the hardware compatibility of the new ADSR version, does GBC actually work?]
-
 ## How to Create an Overclocked LSDj ROM
 
 Step by step instructions:
@@ -52,6 +38,25 @@ Step by step instructions:
 
 Your LSDj's tempo should be multiplied by four now!
 This works with all LSDj versions from from 2.6.0 (included) all the way up to the latest one available!
+
+## Choosing Your Version
+### Pre-8.8.0 - ADSR Tempo Related Drift
+
+While using version 8 I noticed that the ADSR envelope tends to not be consistent,
+and "drifts" in relation to the engine's tempo.
+
+``To reproduce on LSDj (8.7.7):
+-In Noise Channel create phrase with 16 steps of FD hihats
+-Make ADSR for that instrument 61/00/--
+-Set tempo to 195
+The user might hear the ADSR getting slightly shorter or longer in a regular, LFO-like manner.``
+
+This behaviour is more noticeable when using the overclocked version.
+This effect is mostly undesired and somewhat uncontrollable unless the user tunes the `TEMPO` *and* starts the song at a very specific moment (Tho extremely not recommended)
+
+Version 8.8.0 and onwards keeps the envelopes very stable, and is drift is not an issue anymore
+
+Use version 8.8.7 if you wish to retain the old ADSR system, that is compatible with plenty of emulators and all Gameboy consoles.
 
 ### Amplitude Modulation Synthesis and Groove/Tempo/BPM relation
 
@@ -86,7 +91,8 @@ Commands below enable you to create extra hum sharing the channel you're using i
 Hum will even apear if you pan left or right side, creating stereo hum.
 `O` command hum will duck in the volume if wave width is set to 75%, therefore **works best with wave width 12.5%**
 The `O` command may be used on **any** channel you like.
-One of the ways to control the hum's volume is to move around the steps where the `O` is active and where it's not. Another way to look at the hum effect, think that every O`LR` step represents square wave at it's top, and every O`--` is square at it's bottom.
+One of the ways to control the hum's volume is to move around the steps where the `O` is active and where it's not.
+Another way to look at the hum effect, think that every O`LR` step represents square wave at it's top, and every O`--` is square at it's bottom.
 
 ## W command (pulse channels only)
 
@@ -117,14 +123,11 @@ First F digits of `R` commands will play the table up to chosen digit of the com
 ### Tempo Command `T`
 
 LSDj allows the user to change the engine tempo on the fly using the `T` command.
-This affects the entire sequencer,
-therefore affecting the overclock hum pitch.
+This affects the entire sequencer, therefore affecting the overclock hum pitch.
 The problem is that whole sequencer needs to be properly adjusted for this to work.
-
 Though I haven't done it properly myself, I think that grooves will do the work correctly!
 Because we are overclocking quite high,
 I think we could accurately adjust groove to the song, or make it swing a bit but still fit the song.
-
 I would recommend placing extra `G` commands before `T` in order to even out the tempo change,
 (pre `T` groove with old and new groove timing for the smoothest effect - Placing new groove before/after tempo change can make song hiccup for a brief moment)
 and put the new proper groove in all patterns when there's an empty space in the sequencer.
@@ -138,7 +141,4 @@ The faster the actual tempo, the faster the modulation, therefore CPU has to wor
 `E` command next to `V`are most CPU taxing commands. O and W don't put as much pressure.
 * The `V` command is much more resource intensive than having transpose done in the table, no matter how intense the modulation is.
 * Longer tables are easier on the CPU.
-* If you can, try to end tables with A20 instead of doing H0E
-
-##### Other Pages
-* **[Back to Main Page](/README.md)**
+* If you can, try to end tables with A20 instead of `H`opping over nothingness.
