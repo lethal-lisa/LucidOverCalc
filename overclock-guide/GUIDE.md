@@ -1,17 +1,12 @@
 # Guide to Overclocked LSDj by Infu
 Chapters are ordered as it follows:
 
-1.History and the Benefits of Overclocking Nowadays
-
-2.How to Overclock LSDj ROM
-
-3.ROM Amplitude Modulation Synthesis and Groove/Tempo/BPM relation (commands)
-
-  -Other commands
-
-4.CPU usage
-
-5.LSDj Version Overclock differrences
+1. History and the Benefits of Overclocking Nowadays
+2. How to Overclock LSDj ROM
+3. Amplitude Modulation Synthesis and Groove/Tempo/BPM relation (commands)
+   - Other commands
+4. CPU usage
+5. LSDj Version Overclock differrence
 ## History and the Benefits of Overclocking Nowadays
 
 **History** of Software overclocking LSDj starts by Pain Perdu in 2017 using version 5.3.5.[Archived link for the article here](https://web.archive.org/web/20200601005830/https://chiptuneswin.com/blog/pauls-tech-talk-lsdj-5-3-5_4x-part-2-sandpaper-vs-eardrums/) 
