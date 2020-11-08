@@ -58,7 +58,7 @@ When performing extremely rapid modulation (high tempo) of particular commands/e
 (for example: a table with **"O`--`"**, **"O`LR`"** and **"H`00`"**)
 **a hum of a specific pitch will be produced**!
 It happens because of Gameboy's natural behavior:
-while switching between **`"E"`**,**`"O"`** or **`"W"`** command, a click happens
+while switching between **"`E`"**, **"`O`"** or **"`W`"** command, a click happens
 which when done in rapid succession generates the hum you can hear.
 This hum is generated with *Amplitude Modulation* synthesis, (or simply, AM synthesis)
 which can be thought of as an extra oscillator in the channel.
@@ -152,7 +152,10 @@ The faster the actual tempo, the faster the modulation, therefore CPU has to wor
 
 ## LSDj Version Overclock differrences:
 
-This  works with all LSDj versions from from 2.6.0 (included) all the way up to the latest one available!
+This works with all LSDj versions from from 2.6.0 (included) all the way up to the latest one available!
+
+Guide was written in mind for v8 and above due to optimisations allowing for comfortable and stable use,
+any version below that will 
 
 ### Pre-8.8.0 - ADSR Tempo Related Drift
 
