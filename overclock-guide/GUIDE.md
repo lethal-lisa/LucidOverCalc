@@ -14,7 +14,7 @@ Chapters are ordered as it follows:
 5.LSDj Version Overclock differrences
 ## History and the Benefits of Overclocking Nowadays
 
-**History** of Software overclocking LSDj starts by Pain Perdu in 2017 using version 5.3.5. https://web.archive.org/web/20200601005830/https://chiptuneswin.com/blog/pauls-tech-talk-lsdj-5-3-5_4x-part-2-sandpaper-vs-eardrums/
+**History** of Software overclocking LSDj starts by Pain Perdu in 2017 using version 5.3.5.[Archived link for the article here](https://web.archive.org/web/20200601005830/https://chiptuneswin.com/blog/pauls-tech-talk-lsdj-5-3-5_4x-part-2-sandpaper-vs-eardrums/) 
 Results were impressive, but due to heavier CPU usage while overclocked,
 users would experience serious drawbacks,
 making usage less than desirable.
@@ -162,11 +162,15 @@ any version below that won't perform well
 While using version 8 I noticed that the ADSR envelope tends to not be consistent,
 and "drifts" in relation to the engine's tempo.
 
-``To reproduce on LSDj (8.7.7):
--In Noise Channel create phrase with 16 steps of FD hihats
--Make ADSR for that instrument 61/00/--
--Set tempo to 195
-The user might hear the ADSR getting slightly shorter or longer in a regular, LFO-like manner.``
+```
+To reproduce on LSDj (8.7.7):
+
+- In Noise Channel create phrase with 16 steps of FD hihats
+- Make ADSR for that instrument 61/00/--
+- Set tempo to 195
+
+The user might hear the ADSR getting slightly shorter or longer in a regular, LFO-like manner.
+```
 
 This behaviour is more noticeable when using the overclocked version.
 This effect is mostly undesired and somewhat uncontrollable unless the user tunes the `TEMPO` *and* starts the song at a very specific moment (Though extremely not recommended)
