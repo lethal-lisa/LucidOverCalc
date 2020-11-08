@@ -44,7 +44,7 @@ Step by step instructions:
 
 Your LSDj's tempo should be multiplied by four now!
 
-### Amplitude Modulation Synthesis and Groove/Tempo/BPM relation
+###    Amplitude Modulation Synthesis and Groove/Tempo/BPM relation
 
 The magic of overclocking is largely dependant on LSDj's `TEMPO` parameter.
 It's responsible for LSDj's engine speed, therefore increasing it will speed up all modulation happening,
@@ -139,6 +139,7 @@ and put the new proper groove in all patterns when there's an empty space in the
 
 Overclocking is very taxing on the Gameboy's CPU, and reaching the "TOO BUSY!" state is more than easy.
 The faster the actual tempo, the faster the modulation, therefore CPU has to work harder to keep up.
+
 
 **"`E`"** command next to **"`V`"** are most CPU taxing commands. **"`O`"** and **"`W`"** don't put as much pressure.
 * The **"`V`"** command is much more resource intensive than having transpose done in the table, no matter how intense the modulation is.
