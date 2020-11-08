@@ -90,7 +90,7 @@ Use loops like **"H`10`"** to achieve modulation in between rows.
 **"`O`"** command generates hum **idependently** from the instrument's ADSR.
 Note may be silent, but as long as instrument is still on, the *hum will continue*.
 Can be stopped when you change instrument, **"`K`"**ill it or direct it to **"A`20`"**.
-Hum will even apear if you pan left or right side, creating stereo hum.
+Hum will even appear if you pan left or right side, creating stereo hum.
 **"`O`"** command hum will duck in the volume if wave width is set to 75%, therefore **works best with wave width 12.5%**
 The **"`O`"** command may be used on **any** channel you like.
 One of the ways to control the hum's volume is to move around the steps where the **"`O`"** is active and where it's not.
@@ -100,7 +100,7 @@ Another way to look at the hum effect, think that every **"O`LR`"** step represe
 
 **"`W`"** command generates hum **tied to** instrument's ADSR.
 If your note goes silent, the *hum will go silent too*.
-Changing from thin to wide waveform will result in the loudest and grittest hum.
+Changing from thin to wide waveform will result in the loudest and grittiest hum.
 Adjust the width to your liking. **"`W`"** command also will produce high overtones that sounds like clicking.
 
 
@@ -113,11 +113,11 @@ Hum will be louder as the distance between lowest and highest **"`E`"** command 
 ## Transpose
 
 Using the transpose column in the table will split the instrument pitch into 3,
-creating FM kinda sound. 3, because you have *Transposed* part, *Untransposed* one AND *tempo dependant hum* inbetween.
+creating FM-like metallic sound. 3, because you have *Transposed* part, *Untransposed* one AND *tempo dependant hum* inbetween.
 
 ## Multihum
 
-Using combinations of **"`W`"** and **"`O"** can yeld you multiple hums, but beware that this technique makes the tuning even more difficult, and is extra taxing on the CPU. Adding Transpose in the table adds ever more harmonics. When using both **"`W`"** and **"`O`"** commands, make sure the *active* **"`O`LR`"** commands hit thinner waves if we want the hum to be quieter.
+Using combinations of **"`W`"** and **"`O`"** can yeld you multiple hums, but beware that this technique makes the tuning even more difficult, and is extra taxing on the CPU. Adding Transpose in the table adds ever more harmonics. When using both **"`W`"** and **"`O`"** commands, make sure the *active* **"O`LR`"** commands hit thinner waves if we want the hum to be quieter.
 
 
 # Other Commands
@@ -136,7 +136,7 @@ Though I haven't done it properly myself, I think that grooves will do the work 
 Because we are overclocking quite high,
 I think we could accurately adjust groove to the song, or make it swing a bit but still fit the song.
 I would recommend placing extra **"`G`"** commands before **"`T`"** in order to even out the tempo change,
-(pre **"`T`"** groove with old and new groove timing for the smoothest effect - Placing new groove before/after tempo change can make song hiccup for a brief moment)
+(pre **"`T`"** groove with old and new groove timing for the smoothest effect - placing new groove before/after tempo change can make song hiccup for a brief moment)
 and put the new proper groove in all patterns when there's an empty space in the sequencer.
 
 
@@ -150,12 +150,12 @@ The faster the actual tempo, the faster the modulation, therefore CPU has to wor
 * Longer tables are easier on the CPU.
 * If you can, try to end tables with **"A`20`" instead of **"`H`"**opping over nothingness.
 
-## LSDj Version Overclock differrences:
+## LSDj Version Overclock differences:
 
 This works with all LSDj versions from from 2.6.0 (included) all the way up to the latest one available!
 
 Guide was written in mind for v8 and above due to optimisations allowing for comfortable and stable use,
-any version below that will 
+any version below that won't perform well 
 
 ### Pre-8.8.0 - ADSR Tempo Related Drift
 
@@ -169,8 +169,8 @@ and "drifts" in relation to the engine's tempo.
 The user might hear the ADSR getting slightly shorter or longer in a regular, LFO-like manner.``
 
 This behaviour is more noticeable when using the overclocked version.
-This effect is mostly undesired and somewhat uncontrollable unless the user tunes the `TEMPO` *and* starts the song at a very specific moment (Tho extremely not recommended)
+This effect is mostly undesired and somewhat uncontrollable unless the user tunes the `TEMPO` *and* starts the song at a very specific moment (Though extremely not recommended)
 
-Version 8.8.0 and onwards keeps the envelopes very stable, and is drift is not an issue anymore
+Version 8.8.0 and onwards keeps the envelopes very stable, and it's drift is not an issue anymore
 
 Use version 8.8.7 if you wish to retain the old ADSR system, that is compatible with plenty of emulators and all Gameboy consoles.
