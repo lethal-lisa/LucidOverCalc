@@ -8,9 +8,11 @@ Chapters are ordered as it follows:
    - Other commands
 4. CPU usage
 5. LSDj Version Overclock differrence
+[NOTE: This guide as for now is a bit unfinished, and multiple examples are comming very soon]
+
 ## History and the Benefits of Overclocking Nowadays
 
-**History** of Software overclocking LSDj starts by Pain Perdu in 2017 using version 5.3.5.[Archived link for the article here](https://web.archive.org/web/20200601005830/https://chiptuneswin.com/blog/pauls-tech-talk-lsdj-5-3-5_4x-part-2-sandpaper-vs-eardrums/) 
+**History** of Software overclocking LSDj starts by Pain Perdu in 2017 using version 5.3.5.[(Archived link for the article here)](https://web.archive.org/web/20200601005830/https://chiptuneswin.com/blog/pauls-tech-talk-lsdj-5-3-5_4x-part-2-sandpaper-vs-eardrums/) 
 Results were impressive, but due to heavier CPU usage while overclocked,
 users would experience serious drawbacks,
 making usage less than desirable.
@@ -80,6 +82,14 @@ Commands below enable you to create extra Hum sharing the channel you're using i
 The length of the modulation will decide the pitch of the hum.
 
 Use loops like **"H`10`"** to achieve modulation in between rows.
+
+[More explaination coming soon:]
+Step | Pitch
+------------ | -------------
+STEP 0 | 
+STEP 1 | 
+STEP 2 | Initial 
+STEP 3 | 
 
 ## **"`O`"** command (any channel)
 
