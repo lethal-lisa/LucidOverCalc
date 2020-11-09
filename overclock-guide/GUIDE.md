@@ -83,20 +83,30 @@ Use loops like **"H`10`"** to achieve modulation in between rows.
 ## **"`O`"** command (any channel)
 
 **"`O`"** command generates hum **idependently** from the instrument's ADSR.
+
 Note may be silent, but as long as instrument is still on, the *hum will continue*.
+
 Can be stopped when you change instrument, **"`K`"**ill it or direct it to **"A`20`"**.
+
 Hum will even appear if you pan left or right side, creating stereo hum.
+
 **"`O`"** command hum will duck in the volume if wave width is set to 75%, therefore **works best with wave width 12.5%**
+
 The **"`O`"** command may be used on **any** channel you like.
+
 One of the ways to control the hum's volume is to move around the steps where the **"`O`"** is active and where it's not.
+
 Another way to look at the hum effect, think that every **"O`LR`"** step represents square wave at it's top, and every **"O`--`"** is square at it's bottom.
 
 ## **"`W`"** command (pulse channels only)
 
 **"`W`"** command generates hum **tied to** instrument's ADSR.
+
 If your note goes silent, the *hum will go silent too*.
+
 Changing from thin to wide waveform will result in the loudest and grittiest hum.
-Adjust the width to your liking. **"`W`"** command also will produce high overtones that sounds like clicking.
+
+Adjust the width to your liking. **"`W`"** command also will produce high overtones that sounds like clicking. 
 
 
 ## **"`E`"** command (any channel)
@@ -108,6 +118,7 @@ Hum will be louder as the distance between lowest and highest **"`E`"** command 
 ## Transpose
 
 Using the transpose column in the table will split the instrument pitch into 3,
+
 creating FM-like metallic sound. 3, because you have *Transposed* part, *Untransposed* one AND *tempo dependant hum* inbetween.
 
 ## Multihum
