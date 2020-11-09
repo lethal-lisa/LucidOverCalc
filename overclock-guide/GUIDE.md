@@ -8,7 +8,8 @@ Chapters are ordered as it follows:
    - Other commands
 4. CPU usage
 5. LSDj Version Overclock differrence
-[NOTE: This guide as for now is a bit unfinished, and multiple examples are comming very soon]
+
+[NOTE: This guide as for now is a bit unfinished, and multiple examples are coming very soon]
 
 ## History and the Benefits of Overclocking Nowadays
 
@@ -84,18 +85,15 @@ The length of the modulation will decide the pitch of the hum.
 Use loops like **"H`10`"** to achieve modulation in between rows.
 
 [More explaination coming soon:]
-Step | Pitch
------------- | -------------
-STEP 0 | 
-STEP 1 | 
-STEP 2 | Initial 
-STEP 3 | 
 
-## **"`O`"** command (any channel)
+# **"`O`"** command (any channel)
 
 **"`O`"** command generates hum **idependently** from the instrument's ADSR.
+
 Note may be silent, but as long as instrument is still on, the *hum will continue*.
+
 Can be stopped when you change instrument, **"`K`"**ill it or direct it to **"A`20`"**.
+
 Hum will even appear if you pan left or right side, creating stereo hum.
 
 **"`O`"** command hum will duck in the volume if wave width is set to 75%, therefore **works best with wave width 12.5%**
@@ -120,7 +118,9 @@ Adjust the width to your liking. **"`W`"** command also will produce high overto
 ## **"`E`"** command (any channel)
 
 **"`E`"** command generates hum **overwriting** instrument's ADSR.
+
 Hum will be louder as the distance between lowest and highest **"`E`"** command values rises.
+
 **Works best on the wave width 75%**
 
 ## Transpose
