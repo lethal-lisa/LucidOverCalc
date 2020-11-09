@@ -1,4 +1,5 @@
-# Guide to Overclocked LSDj by Infu
+# (ADVANCED) Guide to Overclocked LSDj by Infu
+
 Chapters are ordered as it follows:
 
 1. History and the Benefits of Overclocking Nowadays
@@ -83,11 +84,8 @@ Use loops like **"H`10`"** to achieve modulation in between rows.
 ## **"`O`"** command (any channel)
 
 **"`O`"** command generates hum **idependently** from the instrument's ADSR.
-
 Note may be silent, but as long as instrument is still on, the *hum will continue*.
-
 Can be stopped when you change instrument, **"`K`"**ill it or direct it to **"A`20`"**.
-
 Hum will even appear if you pan left or right side, creating stereo hum.
 
 **"`O`"** command hum will duck in the volume if wave width is set to 75%, therefore **works best with wave width 12.5%**
