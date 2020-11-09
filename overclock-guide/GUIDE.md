@@ -9,7 +9,7 @@ Chapters are ordered as it follows:
 4. CPU usage
 5. LSDj Version Overclock differrence
 
-[NOTE: This guide as for now is a bit unfinished, and multiple examples are coming very soon]
+[NOTE: **This guide as for now is a bit unfinished**, and multiple examples are coming very soon]
 
 ## History and the Benefits of Overclocking Nowadays
 
