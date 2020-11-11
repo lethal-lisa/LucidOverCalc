@@ -203,3 +203,11 @@ This effect is mostly undesired and somewhat uncontrollable unless the user tune
 Version 8.8.0 and onwards keeps the envelopes very stable, and it's drift is not an issue anymore
 
 Use version 8.8.7 if you wish to retain the old ADSR system, that is compatible with plenty of emulators and all Gameboy consoles.
+
+# Credits
+
+ABOC and Chiptune Cafe
+Pain Perdu
+Aquellex
+DBOYD
+Lisa and Pator
