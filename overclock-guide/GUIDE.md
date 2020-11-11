@@ -33,10 +33,8 @@ The guide below will explain many tips and tricks regarding overclocking,
 but it is designed for advanced LSDj users who are confident in normal LSDj operation and seek to get out more out of it.
 
 ## How to Overclock LSDj ROM:
-Modifying your ROM to be overclocked is actually fairly easy, possible to do on any platform that has hex Editor.
-
-This will not affect any other data of LSDj: your kits, palettes, all are safe.
-
+Modifying your ROM to be overclocked is actually fairly easy, possible to do on any platform that has hex Editor.<br>
+This will not affect any other data of LSDj: your kits, palettes, all are safe.<br>
 Still, remember to backup your ROM before you modify your precious tracker!
 
 **`To benefit fully from this guide please use LSDj version above v8`**
@@ -47,7 +45,7 @@ Step by step instructions:
   3. Replace it with **`3E07E007`**; (Notice: We are changing esensially only second value `04` to `07`)
   4. Save;
 
-Your LSDj's tempo should be multiplied by four now!
+Your LSDj's tempo should be *multiplied* by **four** now!
 
 ###    Amplitude Modulation Synthesis and Groove/Tempo/BPM relation
 
@@ -96,7 +94,7 @@ then times 4 to reach actual value that OverClocked LSDj is using (96)]
 
 # Controlling the Extra Hum
 
-Commands below enable you to create extra Hum sharing the channel you're using it on.
+Commands below enable you to create extra Hum sharing the channel you're using it on.<br>
 The length of the modulation will decide the pitch of the hum.
 
 Use loops like **"H`10`"** to achieve modulation in between rows.
@@ -141,6 +139,14 @@ Using the transpose column in the table will split the instrument pitch into 3, 
 
 Using combinations of **"`W`"** and **"`O`"** can yeld you multiple hums, but beware that this technique makes the tuning even more difficult, and is extra taxing on the CPU. Adding Transpose in the table adds ever more harmonics. When using both **"`W`"** and **"`O`"** commands, make sure the *active* **"O`LR`"** commands hit thinner waves if we want the hum to be quieter.
 
+# WAV Channel
+
+Original guide from Pain Perdu never included the WAV channel possibilities,
+and in the beginning I was sceptical to even put much modulation there
+because it's already really powerful on its own, but here is something I discovered:
+
+## Another look at the tables
+
 
 # Other Commands
 
@@ -153,7 +159,8 @@ Though I haven't done it properly myself, I think that grooves will do the work 
 Because we are overclocking quite high,
 I think we could accurately adjust groove to the song, or make it swing a bit but still fit the song.
 I would recommend placing extra **"`G`"** commands before **"`T`"** in order to even out the tempo change,
-(pre **"`T`"** groove with old and new groove timing for the smoothest effect - placing new groove before/after tempo change can make song hiccup for a brief moment)
+(pre **"`T`"** groove with old and new groove timing for the smoothest effect -
+placing new groove before/after tempo change can make song hiccup for a brief moment)
 and put the new proper groove in all patterns when there's an empty space in the sequencer.
 
 
