@@ -31,6 +31,7 @@ It will require something stronger CPU-wise than an original model GameBoy
 though no hardware mods are required at all!
 The guide below will explain many tips and tricks regarding overclocking,
 but it is designed for advanced LSDj users who are confident in normal LSDj operation and seek to get out more out of it.
+
 ## How to Overclock LSDj ROM:
 Modifying your ROM to be overclocked is actually fairly easy, possible to do on any platform that has hex Editor.
 
@@ -55,8 +56,8 @@ It's responsible for LSDj's engine speed, therefore increasing it will speed up 
 and slowing it down will make your tables much slower.
 When performing extremely rapid modulation (high tempo) of particular commands/effects
 (for example: a table with **"O`--`"**, **"O`LR`"** and **"H`00`"**)
-**a hum of a specific pitch will be produced**!
-It happens because of Gameboy's natural behavior:
+**a hum of a specific pitch will be produced**!<br>
+It happens because of Gameboy's natural behavior:<br>
 while switching between **"`E`"**, **"`O`"** or **"`W`"** command, a click happens
 which when done in rapid succession generates the hum you can hear.
 This hum is generated with *Amplitude Modulation* synthesis, (or simply, AM synthesis)
@@ -70,9 +71,25 @@ The higher the tempo, the faster the table will be cycled through,
 thus the higher the initial pitch.
 *Initial*, because you can achieve even more by manipulating the table by increasing/decreasing the **"OFF/O`--`"** time.
 
-Because the tempo dictates the actual pitch of the hum, simply multiplying your grooves 4 times may not be satisfactory,
-so it's best to separate the **`TEMPO = BPM`** workflow. Instead, to actually achieve BPM you want (or precisely tell which one you're using) use following formula:
-**`BPM = (Tempo x 96)/[4 rows of your groove setting]`**
+# Workflow changes 
+
+There's multiple differences between normal stock LSDj and overclocked one that you'll need to get used to,
+especially when transferring your previous songs and using them there.
+Major change in OC version is that whole LSDJ **`TEMPO`** is multiplied by 4.
+That means that your standard 6tick-Groove song tempo 150 will play like it was 600!<br>
+Because tempo is tied to many parameters, you need to adjust your:
+- Grooves;
+- Tables (Placing appropiate **"`G`"** command somewhere inside them so your modulation plays correctly);
+- Commands like D,K,R,W;
+- Instrument Command rate;
+- Wave instrument speeds;
+
+
+Because the tempo dictates the actual pitch of the hum,
+you will find yourself adjusting **`TEMPO`** to achieve desired pitch,
+so you need to separate the **`TEMPO = BPM`** workflow.
+Instead, to actually achieve BPM you want (or precisely tell which one you're using) use following formula:<br>
+**`BPM = (Tempo x 96)/[4 rows of your groove setting]`**<br>
 [Note: 96 comes from having default 6 ticks per step groove, times 4 to achieve `ticks per beat`(24),
 then times 4 to reach actual value that OverClocked LSDj is using (96)]
 *A good practice* is to make sure your grooves are divisible by two in order to achieve half tempo if desired.
@@ -86,60 +103,46 @@ Use loops like **"H`10`"** to achieve modulation in between rows.
 
 [More explaination coming soon:]
 
-# **"`O`"** command (any channel)
+## **"`O`"** command (any channel)
 
-**"`O`"** command generates hum **idependently** from the instrument's ADSR.
-
-Note may be silent, but as long as instrument is still on, the *hum will continue*.
-
-Can be stopped when you change instrument, **"`K`"**ill it or direct it to **"A`20`"**.
-
-Hum will even appear if you pan left or right side, creating stereo hum.
-
-**"`O`"** command hum will duck in the volume if wave width is set to 75%, therefore **works best with wave width 12.5%**
-
-The **"`O`"** command may be used on **any** channel you like.
-
-One of the ways to control the hum's volume is to move around the steps where the **"`O`"** is active and where it's not.
-
-Another way to look at the hum effect, think that every **"O`LR`"** step represents square wave at it's top, and every **"O`--`"** is square at it's bottom.
+**"`O`"** command generates hum **idependently** from the instrument's ADSR.<br>
+Note may be silent, but as long as instrument is still on, the *hum will continue*.<br>
+Can be stopped when you change instrument, **"`K`"** ill it or direct it to **"A`20`"**.<br>
+Hum will even appear if you pan left or right side, creating stereo hum.<br>
+**"`O`"** command hum will duck in the volume if wave width is set to 75%, therefore **works best with wave width 12.5%**<br>
+The **"`O`"** command may be used on **any** channel you like.<br>
+One of the ways to control the hum's volume is to move around the steps where the **"`O`"** is active and where it's not.<br>
+Another way to look at the hum effect, think that every **"O`LR`"** step represents square wave at it's top, and every **"O`--`"** is square at it's bottom.<br>
 
 ## **"`W`"** command (pulse channels only)
 
-**"`W`"** command generates hum **tied to** instrument's ADSR.
-
-If your note goes silent, the *hum will go silent too*.
-
-Changing from thin to wide waveform will result in the loudest and grittiest hum.
-
-Adjust the width to your liking. **"`W`"** command also will produce high overtones that sounds like clicking. 
-
+**"`W`"** command generates hum **tied to** instrument's ADSR.<br>
+If your note goes silent, the *hum will go silent too*.<br>
+Changing from thin to wide waveform will result in the loudest and grittiest hum.<br>
+Adjust the width to your liking. **"`W`"** command also will produce high overtones that sounds like clicking.<br>
 
 ## **"`E`"** command (any channel)
 
-**"`E`"** command generates hum **overwriting** instrument's ADSR.
-
-Hum will be louder as the distance between lowest and highest **"`E`"** command values rises.
-
+**"`E`"** command generates hum **overwriting** instrument's ADSR.<br>
+Hum will be louder as the distance between lowest and highest **"`E`"** command values rises.<br>
 **Works best on the wave width 75%**
+
+## **"`R`"** command (any channel)
+
+Use **"R`00-0F`"** in phrase to retrigger the long hum tables, giving you additional control over them without changing the table itself!<br>
+First F digits of **"`R`"** commands will play the table up to chosen digit of the command (i.e. **"R`04`"** will play first 4 steps of the table and *hop* back to the beginning)
 
 ## Transpose
 
-Using the transpose column in the table will split the instrument pitch into 3,
+Using the transpose column in the table will split the instrument pitch into 3, creating FM-like metallic sound.<br>
+3, because you have *Transposed* part, *Untransposed* one AND *tempo dependant hum* inbetween.
 
-creating FM-like metallic sound. 3, because you have *Transposed* part, *Untransposed* one AND *tempo dependant hum* inbetween.
-
-## Multihum
+# Multihum
 
 Using combinations of **"`W`"** and **"`O`"** can yeld you multiple hums, but beware that this technique makes the tuning even more difficult, and is extra taxing on the CPU. Adding Transpose in the table adds ever more harmonics. When using both **"`W`"** and **"`O`"** commands, make sure the *active* **"O`LR`"** commands hit thinner waves if we want the hum to be quieter.
 
 
 # Other Commands
-
-## **"`R`"** command (any channel)
-
-Use **"R`00-0F`"** in phrase to retrigger the long hum tables, giving you additional control over them without changing the table itself!
-First F digits of **"R"** commands will play the table up to chosen digit of the command (i.e. **"R`04`"** will play first 4 steps of the table and *hop* back to the beginning)
 
 ### Tempo Command **"`T`"**
 
@@ -163,7 +166,7 @@ The faster the actual tempo, the faster the modulation, therefore CPU has to wor
 **"`E`"** command next to **"`V`"** are most CPU taxing commands. **"`O`"** and **"`W`"** don't put as much pressure.
 * The **"`V`"** command is much more resource intensive than having transpose done in the table, no matter how intense the modulation is.
 * Longer tables are easier on the CPU.
-* If you can, try to end tables with **"A`20`" instead of **"`H`"**opping over nothingness.
+* If you can, try to end tables with **"A`20`"** instead of **"`H`"**-opping over nothingness.
 
 ## LSDj Version Overclock differences:
 
