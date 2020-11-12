@@ -4,10 +4,14 @@ Chapters are ordered as it follows:
 
 1. History and the Benefits of Overclocking Nowadays
 2. How to Overclock LSDj ROM
-3. Amplitude Modulation Synthesis and Groove/Tempo/BPM relation (commands)
-   - Other commands
-4. CPU usage
-5. LSDj Version Overclock differrence
+3. Amplitude Modulation Synthesis - Overclocking Hum
+4. Workflow changes (Groove/Tempo/BPM relation)
+5. CPU usage
+6. Controlling the Extra Hum
+7. # Quickstart mini guide
+8. WAV channel
+9. Another look at the tables
+11. LSDj Version Overclock differrence
 
 [NOTE: **This guide as for now is a bit unfinished**, and multiple examples are coming very soon]
 
@@ -32,6 +36,11 @@ though no hardware mods are required at all!
 The guide below will explain many tips and tricks regarding overclocking,
 but it is designed for advanced LSDj users who are confident in normal LSDj operation and seek to get out more out of it.
 
+**Warning**: Even though my guide should help you with your OC experience,
+keep in mind that developer doens't support this technique,
+and might not be able to help you in case song-breaking glitch happens
+(though my experience has been very stable with this overclocking, putting the word of caution out)
+
 ## How to Overclock LSDj ROM:
 Modifying your ROM to be overclocked is actually fairly easy, possible to do on any platform that has hex Editor.<br>
 This will not affect any other data of LSDj: your kits, palettes, all are safe.<br>
@@ -47,7 +56,7 @@ Step by step instructions:
 
 Your LSDj's tempo should be *multiplied* by **four** now!
 
-###    Amplitude Modulation Synthesis and Groove/Tempo/BPM relation
+###    Amplitude Modulation Synthesis - Overclocking Hum
 
 [VIDEO BE HERE]
 The magic of overclocking is largely dependant on LSDj's `TEMPO` parameter.
@@ -91,6 +100,9 @@ Instead, to actually achieve BPM you want (or precisely tell which one you're us
 [Note: 96 comes from having default 6 ticks per step groove, times 4 to achieve `ticks per beat`(24),
 then times 4 to reach actual value that OverClocked LSDj is using (96)]
 *A good practice* is to make sure your grooves are divisible by two in order to achieve half tempo if desired.
+
+Also small note, as for now, using official LSDj patcher and upgrading ROM will overwrite the overclock,
+making you redo the process in hex editor, but that's not big issue!
 
 ### CPU USAGE
 
@@ -149,27 +161,7 @@ First F digits of **"`R`"** commands will play the table up to chosen digit of t
 Using the transpose column in the table will split the instrument pitch into 3, creating FM-like metallic sound.<br>
 3, because you have *Transposed* part, *Untransposed* one AND *tempo dependant hum* inbetween.
 
-# Multihum
-[SCREENSHOT BE HERE]
-Using combinations of **"`W`"** and **"`O`"** can yeld you multiple hums,
-but beware that this technique makes the tuning even more difficult, and is extra taxing on the CPU.
-Adding Transpose in the table adds ever more harmonics.
-When using both **"`W`"** and **"`O`"** commands, make sure the *active* **"O`LR`"** commands hit thinner waves if we want the hum to be quieter.
-
-# WAV Channel
-
-Original guide from Pain Perdu never included the WAV channel possibilities,
-and in the beginning I was sceptical to even put much modulation there
-because it's already really powerful on its own, but here is something I discovered:
-giving O to Kick creates "distortion"
-
-## Another look at the tables
-Once again, all modulation happens 4 times faster, it's more than 4 bonus rows per table! Any modulation squished between those will let you achieve interesting results. On high speeds it more than 8-10!
-
-# Other Commands
-A, C,
-
-### Tempo Command **"`T`"**
+## **"`T`"** command
 
 LSDj allows the user to change the engine tempo on the fly using the **"`T`"** command.
 This affects the entire sequencer, therefore affecting the overclock hum pitch.
@@ -182,6 +174,26 @@ I would recommend placing extra **"`G`"** commands before **"`T`"** in order to 
 placing new groove before/after tempo change can make song hiccup for a brief moment)
 and put the new proper groove in all patterns when there's an empty space in the sequencer.
 
+# Multihum
+[SCREENSHOT BE HERE]
+Using combinations of **"`W`"** and **"`O`"** can yeld you multiple hums,
+but beware that this technique makes the tuning even more difficult, and is extra taxing on the CPU.
+Adding Transpose in the table adds ever more harmonics.
+When using both **"`W`"** and **"`O`"** commands, make sure the *active* **"O`LR`"** commands hit thinner waves if we want the hum to be quieter.
+
+# Quickstart mini guide
+Summing all what was mentioned above, I will quickly present step by step first couple steps to achieve Overclocking Hum, and play around with it:
+[step by step guide here:]
+
+# WAV Channel
+
+Original guide from Pain Perdu never included the WAV channel possibilities,
+and in the beginning I was sceptical to even put much modulation there
+because it's already really powerful on its own, but here is something I discovered:
+giving O to Kick creates "distortion"
+
+## Another look at the tables
+Once again, all modulation happens 4 times faster, it's more than 4 bonus rows per table! Any modulation squished between those will let you achieve interesting results. On high speeds it more than 8-10!
 
 ## LSDj Version Overclock differences:
 
@@ -214,8 +226,8 @@ Use version 8.8.7 if you wish to retain the old ADSR system, that is compatible 
 
 # Credits
 
-ABOC and Chiptune Cafe
-Pain Perdu
-Aquellex
-DBOYD
-Lisa and Pator
+ABOC and Chiptune Cafe<br>
+Pain Perdu<br>
+Aquellex<br>
+DBOYD<br>
+Lisa and Pator<br>
