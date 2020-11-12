@@ -161,9 +161,10 @@ When using both **"`W`"** and **"`O`"** commands, make sure the *active* **"O`LR
 Original guide from Pain Perdu never included the WAV channel possibilities,
 and in the beginning I was sceptical to even put much modulation there
 because it's already really powerful on its own, but here is something I discovered:
+giving O to Kick creates "distortion"
 
 ## Another look at the tables
-There's
+Once again, all modulation happens 4 times faster, it's more than 4 bonus rows per table! Any modulation squished between those will let you achieve interesting results. On high speeds it more than 8-10!
 
 # Other Commands
 A, C,
