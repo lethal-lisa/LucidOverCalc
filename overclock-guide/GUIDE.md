@@ -8,7 +8,7 @@ Chapters are ordered as it follows:
 4. Workflow changes (Groove/Tempo/BPM relation)
 5. CPU usage
 6. Controlling the Extra Hum
-7. # Quickstart mini guide
+7. Quickstart mini guide
 8. WAV channel
 9. Another look at the tables
 11. LSDj Version Overclock differrence
@@ -40,6 +40,10 @@ but it is designed for advanced LSDj users who are confident in normal LSDj oper
 keep in mind that developer doens't support this technique,
 and might not be able to help you in case song-breaking glitch happens
 (though my experience has been very stable with this overclocking, putting the word of caution out)
+
+*Another note: all notes below were observed while using BGB emulator on Windows.
+Experience on other platforms may wary, but I'll be more than happy to expand the guide with
+notes from other platforms.*
 
 ## How to Overclock LSDj ROM:
 Modifying your ROM to be overclocked is actually fairly easy, possible to do on any platform that has hex Editor.<br>
@@ -100,6 +104,10 @@ Instead, to actually achieve BPM you want (or precisely tell which one you're us
 [Note: 96 comes from having default 6 ticks per step groove, times 4 to achieve `ticks per beat`(24),
 then times 4 to reach actual value that OverClocked LSDj is using (96)]
 *A good practice* is to make sure your grooves are divisible by two in order to achieve half tempo if desired.
+
+If you thought about using **2xOC-LSDj** synced together, don't expect a lot of stability -
+Intense moments in your songs will slightly desync them, very high **`TEMPO`** should be avoided to prevent that.
+For some reason I cannot start start all 8 channels at once on some songs, still investigating that.
 
 Also small note, as for now, using official LSDj patcher and upgrading ROM will overwrite the overclock,
 making you redo the process in hex editor, but that's not big issue!
