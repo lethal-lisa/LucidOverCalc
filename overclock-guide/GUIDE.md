@@ -38,7 +38,7 @@ This will not affect any other data of LSDj: your kits, palettes, all are safe.<
 Still, remember to backup your ROM before you modify your precious tracker!
 
 **`To benefit fully from this guide please use LSDj version above v8`**
-
+[SCREENSHOT BE HERE]
 Step by step instructions:
   1. Open up your LSDj ROM in the hex editor of your choice (I used HxD on Windows);
   2. Search *hex-value* string **`3E04E007`**;
@@ -49,6 +49,7 @@ Your LSDj's tempo should be *multiplied* by **four** now!
 
 ###    Amplitude Modulation Synthesis and Groove/Tempo/BPM relation
 
+[VIDEO BE HERE]
 The magic of overclocking is largely dependant on LSDj's `TEMPO` parameter.
 It's responsible for LSDj's engine speed, therefore increasing it will speed up all modulation happening,
 and slowing it down will make your tables much slower.
@@ -76,12 +77,11 @@ especially when transferring your previous songs and using them there.
 Major change in OC version is that whole LSDJ **`TEMPO`** is multiplied by 4.
 That means that your standard 6tick-Groove song tempo 150 will play like it was 600!<br>
 Because tempo is tied to many parameters, you need to adjust your:
-- Grooves;
+- Grooves; [SCREENSHOT BE HERE]
 - Tables (Placing appropiate **"`G`"** command somewhere inside them so your modulation plays correctly);
 - Commands like D,K,R,W;
 - Instrument Command rate;
 - Wave instrument speeds;
-
 
 Because the tempo dictates the actual pitch of the hum,
 you will find yourself adjusting **`TEMPO`** to achieve desired pitch,
@@ -92,13 +92,27 @@ Instead, to actually achieve BPM you want (or precisely tell which one you're us
 then times 4 to reach actual value that OverClocked LSDj is using (96)]
 *A good practice* is to make sure your grooves are divisible by two in order to achieve half tempo if desired.
 
+### CPU USAGE
+
+Overclocking is very taxing on the Gameboy's CPU, and reaching the "TOO BUSY!" state is more than easy.
+The faster the actual tempo, the faster the modulation, therefore CPU has to work harder to keep up.
+If you're maintaining high **"`TEMPO`"** and using multiple effects/techniques playing at once
+this can lead to sequencer desync, or crash Gameboy/LSDj! Here's couple factors I noticed:
+* **"`E`"** command next to **"`V`"** are most CPU taxing commands.
+* **"`O`"** and **"`W`"** don't put as much pressure.
+* The **"`V`"** command is much more resource intensive than having transpose done in the table, no matter how intense the modulation is;
+* Longer tables are easier on the CPU;
+* Slower songs are also easier for CPU;
+* If you can, try to end tables with **"A`20`"** instead of **"`H`"**-opping over nothingness;
+
+
 # Controlling the Extra Hum
 
 Commands below enable you to create extra Hum sharing the channel you're using it on.<br>
 The length of the modulation will decide the pitch of the hum.
-
+[SCREENSHOT BE HERE]
 Use loops like **"H`10`"** to achieve modulation in between rows.
-
+[A command here]
 [More explaination coming soon:]
 
 ## **"`O`"** command (any channel)
@@ -136,8 +150,11 @@ Using the transpose column in the table will split the instrument pitch into 3, 
 3, because you have *Transposed* part, *Untransposed* one AND *tempo dependant hum* inbetween.
 
 # Multihum
-
-Using combinations of **"`W`"** and **"`O`"** can yeld you multiple hums, but beware that this technique makes the tuning even more difficult, and is extra taxing on the CPU. Adding Transpose in the table adds ever more harmonics. When using both **"`W`"** and **"`O`"** commands, make sure the *active* **"O`LR`"** commands hit thinner waves if we want the hum to be quieter.
+[SCREENSHOT BE HERE]
+Using combinations of **"`W`"** and **"`O`"** can yeld you multiple hums,
+but beware that this technique makes the tuning even more difficult, and is extra taxing on the CPU.
+Adding Transpose in the table adds ever more harmonics.
+When using both **"`W`"** and **"`O`"** commands, make sure the *active* **"O`LR`"** commands hit thinner waves if we want the hum to be quieter.
 
 # WAV Channel
 
@@ -146,9 +163,10 @@ and in the beginning I was sceptical to even put much modulation there
 because it's already really powerful on its own, but here is something I discovered:
 
 ## Another look at the tables
-
+There's
 
 # Other Commands
+A, C,
 
 ### Tempo Command **"`T`"**
 
@@ -163,17 +181,6 @@ I would recommend placing extra **"`G`"** commands before **"`T`"** in order to 
 placing new groove before/after tempo change can make song hiccup for a brief moment)
 and put the new proper groove in all patterns when there's an empty space in the sequencer.
 
-
-## CPU USAGE
-
-Overclocking is very taxing on the Gameboy's CPU, and reaching the "TOO BUSY!" state is more than easy.
-The faster the actual tempo, the faster the modulation, therefore CPU has to work harder to keep up.
-
-
-**"`E`"** command next to **"`V`"** are most CPU taxing commands. **"`O`"** and **"`W`"** don't put as much pressure.
-* The **"`V`"** command is much more resource intensive than having transpose done in the table, no matter how intense the modulation is.
-* Longer tables are easier on the CPU.
-* If you can, try to end tables with **"A`20`"** instead of **"`H`"**-opping over nothingness.
 
 ## LSDj Version Overclock differences:
 
