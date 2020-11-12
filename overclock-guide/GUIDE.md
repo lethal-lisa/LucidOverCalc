@@ -63,7 +63,7 @@ Your LSDj's tempo should be *multiplied* by **four** now!
 ###    Amplitude Modulation Synthesis - Overclocking Hum
 
 [VIDEO BE HERE]
-The magic of overclocking is largely dependant on LSDj's `TEMPO` parameter.
+The magic of overclocking is largely dependant on LSDj's **`TEMPO`** parameter.
 It's responsible for LSDj's engine speed, therefore increasing it will speed up all modulation happening,
 and slowing it down will make your tables much slower.
 When performing extremely rapid modulation (high tempo) of particular commands/effects
