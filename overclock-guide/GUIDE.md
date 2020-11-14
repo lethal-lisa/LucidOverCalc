@@ -51,9 +51,11 @@ This will not affect any other data of LSDj: your kits, palettes, all are safe.<
 Still, remember to backup your ROM before you modify your precious tracker!
 
 **`To benefit fully from this guide please use LSDj version above v8`**
-[SCREENSHOT BE HERE]
-Step by step instructions:
-  1. Open up your LSDj ROM in the hex editor of your choice (I used HxD on Windows);
+  ![HxD_2Searching2](https://user-images.githubusercontent.com/66220663/99159166-2aeb8d80-26d2-11eb-8b4a-74b31f4879d6.png)   
+  *(picture showcasing step 2)*
+  
+**Step by step instructions:**
+1. Open up your LSDj ROM in the hex editor of your choice (I used HxD on Windows);
   2. Search *hex-value* string **`3E04E007`**;
   3. Replace it with **`3E07E007`**; (Notice: We are changing esensially only second value `04` to `07`)
   4. Save;
@@ -94,7 +96,10 @@ especially when transferring your previous songs and using them there.
 Major change in OC version is that whole LSDJ **`TEMPO`** is multiplied by 4.
 That means that your standard 6tick-Groove song tempo 150 will play like it was 600!<br>
 Because tempo is tied to many parameters, you need to adjust your:
-- Grooves; [SCREENSHOT BE HERE]
+
+![grooves](https://user-images.githubusercontent.com/66220663/99159288-0643e580-26d3-11eb-87f6-5aa4d1550114.png)
+
+- Grooves;
 - Tables (Placing appropiate **"`G`"** command somewhere inside them so your modulation plays correctly);
 - Commands like D,K,R,W;
 - Instrument Command rate;
@@ -133,8 +138,15 @@ this can lead to sequencer desync, or crash Gameboy/LSDj! Here's couple factors 
 # Controlling the Extra Hum
 
 Commands below enable you to create extra Hum sharing the channel you're using it on.<br>
+How it works:<br>
+![4steps](https://user-images.githubusercontent.com/66220663/99159359-7d797980-26d3-11eb-81c8-619667eec1bb.png)<br>
+*(picture showing 4 step modulation)*<br>
 The length of the modulation will decide the pitch of the hum.
-[SCREENSHOT BE HERE]
+Minimal usable modulation is 2 step one, using **`O`** command as an example:<br>
+0_00_00 **O**`LR`<br>
+1_00_00 **O**`--`<br>
+2_00_00 **H**`00`<br>
+where modulation takes 2 steps, and on 3rd one we **`H`**-op to the beginning of our table.<br>
 Use loops like **"H`10`"** to achieve modulation in between rows.
 [A command here]
 [More explaination coming soon:]
@@ -155,7 +167,7 @@ Another way to look at the hum effect, think that every **"O`LR`"** step represe
 **"`W`"** command generates hum **tied to** instrument's ADSR.<br>
 If your note goes silent, the *hum will go silent too*.<br>
 Changing from thin to wide waveform will result in the loudest and grittiest hum.<br>
-Adjust the width to your liking. **"`W`"** command also will produce high overtones that sounds like clicking.<br>
+Adjust the width to your liking. **"`W`"** command also will produce high overtones that sounds like clicking.
 
 ## **"`E`"** command (any channel)
 
@@ -170,8 +182,8 @@ First F digits of **"`R`"** commands will play the table up to chosen digit of t
 
 ## Transpose
 
-Using the transpose column in the table will split the instrument pitch into 3, creating FM-like metallic sound.<br>
-3, because you have *Transposed* part, *Untransposed* one AND *tempo dependant hum* inbetween.
+Using the transpose column in the table with minimum 2 step modulation will split the instrument pitch into 3, creating FM-like metallic sound.<br>
+3, because you have *Transposed* step next to *(Un)transposed* one AND *tempo dependant hum* inbetween.
 
 ## **"`T`"** command
 
@@ -187,7 +199,7 @@ placing new groove before/after tempo change can make song hiccup for a brief mo
 and put the new proper groove in all patterns when there's an empty space in the sequencer.
 
 # Multihum
-[SCREENSHOT BE HERE]
+![Multihum](https://user-images.githubusercontent.com/66220663/99159315-3c816500-26d3-11eb-906d-056e685d55c1.png)<br>
 Using combinations of **"`W`"** and **"`O`"** can yeld you multiple hums,
 but beware that this technique makes the tuning even more difficult, and is extra taxing on the CPU.
 Adding Transpose in the table adds ever more harmonics.
