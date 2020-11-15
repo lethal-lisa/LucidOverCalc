@@ -143,35 +143,48 @@ this can lead to sequencer desync, or crash Gameboy/LSDj! Here's couple factors 
 # Controlling the Extra Hum
 
 Commands below enable you to create extra Hum sharing the channel you're using it on.<br>
-How it works:<br>
-![4steps](https://user-images.githubusercontent.com/66220663/99159359-7d797980-26d3-11eb-81c8-619667eec1bb.png)<br>
-*(picture showing 4 step modulation)*<br>
 The length of the modulation will decide the pitch of the hum.
-Minimal usable modulation is 2 step one, using **`O`** command as an example:<br>
-0_00_00 **O**`LR`<br>
-1_00_00 **O**`--`<br>
-2_00_00 **H**`00`<br>
+Minimal usable modulation is 2 step one, using **`O`** command *as an example*:<br>
+0 `00`  `00` **O**`LR`<br>
+1 `00`  `00` **O**`--`<br>
+2 `00`  `00` **H**`00`<br>
 where modulation takes 2 steps, and on 3rd one we **`H`**-op to the beginning of our table.<br>
-Use loops like **"H`10`"** to achieve modulation in between rows.
-[A command here]
-[More explaination coming soon:]
+it should look like on picture:<br>
+![2stepH0](https://user-images.githubusercontent.com/66220663/99184993-dd593a00-273e-11eb-9f58-609a79d87e71.png)<br>
+2 step modulation will decide the highest Hum pitch you can achieve using this tempo,
+any longer modulation will decrease pitch by certain amount of semitones.<br>
+Now tune your **"TEMPO"** value for highest Hum pitch you want available,
+and reach the other lower Hum notes using more steps in modulation, or by H1 command.
+## H10
+Use loops like **"H`10`"** and **"H`00`"** right below to achieve modulation in between rows, by rapidly switching between two steps.
+It works only between first couple steps, trying to do that below 5step modulation
+will be difficult to tune and can start to sound like an arp.
+![3stepH1](https://user-images.githubusercontent.com/66220663/99185036-0ed20580-273f-11eb-8f57-2b729d880c0e.png)<br>
+*(picture showing **3 step H1** modulation)*<br>
 
 # Hum Pitch table
 
-Modulation step 
-
+Table below represents part of usable Hum frequencies combinations you can use in table,<br>
+where *step 0* is **O**`LR`, *all next steps* are **O**`--`<br>
+*finishing* with **"H"** **0**0 or **1**0 command.<br>
 | Modulation step | Semitones down |
 | ----------- | ----------- |
 | 2 step H0   | 0   |
 | 2 step H1   | 4   |
 | 3 step H0   | 7   |
-| 3 step H1   | 9~10   |
+| 3 step H1   | 9~>10   |
 | 4 step H0   | 12   |
 | 4 step H1   | 14   |
 | 5 step H0   | 16   |
-| 5 step H1   | 17~18   |
+| 5 step H1   | 17~>18   |
 | 6 step H0   | 19   |
-| 7 step H0   | 21~22   |
+| 7 step H0   | 21~>22   |
+| 8 step H0   | 24   |<br>
+(ones on the right are closer)
+
+Notice how 2,4,8step H0 share same note, but are lowered by an octave, as modulation is exactly /2 each time!<br>
+Some steps will sound more detuned than others, so make sure to tune your tempo accordingly<br>
+Note :*Modulations like H2 will sound particulary distorted and off tune*
 
 ## **"`O`"** command (any channel)
 
@@ -187,6 +200,8 @@ and every **"O`--`"** is square at it's bottom.<br>
 
 ## **"`W`"** command (pulse channels only)
 
+![4stepWave](https://user-images.githubusercontent.com/66220663/99185631-0aa7e700-2743-11eb-8291-837d70a2f084.png)<br>
+*(Picture showing 4step H0 **"W"** table)*
 **"`W`"** command generates hum **tied to** instrument's ADSR.<br>
 If your note goes silent, the *hum will go silent too*.<br>
 Changing from thin to wide waveform will result in the loudest and grittiest hum.<br>
@@ -225,7 +240,8 @@ placing new groove before/after tempo change can make song hiccup for a brief mo
 and put the new proper groove in all patterns when there's an empty space in the sequencer.
 
 # Multihum
-![Multihum](https://user-images.githubusercontent.com/66220663/99159315-3c816500-26d3-11eb-906d-056e685d55c1.png)<br>
+
+![Multihum](https://user-images.githubusercontent.com/66220663/99185266-910ef980-2740-11eb-9bf0-aaaffd46d15d.png)<br>
 Using combinations of **"`W`"** and **"`O`"** can yeld you multiple hums,
 but beware that this technique makes the tuning even more difficult, and is extra taxing on the CPU.
 Adding Transpose in the table adds ever more harmonics.
