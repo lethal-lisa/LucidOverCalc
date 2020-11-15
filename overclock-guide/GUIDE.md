@@ -15,7 +15,7 @@ Chapters are ordered as it follows:
 9. [MultiHum](#9-multihum)
 10. [Quickstart mini guide *(for impatient ones)*](#10-quickstart-mini-guide-for-impatient-ones)
 11. [WAV channel](#11-wav-channel)
-12. [Another look at the tables - Summary](#12-another-look-at-the-tables---summary)
+12. [Another look at the tables - Summary](#12-another-look-at-the-tables---summary)<br>
 [Extra notes,Credits](#extra-notes-lsdj-version-overclock-differences)<br>
 
 [Guide is almost finished!]
