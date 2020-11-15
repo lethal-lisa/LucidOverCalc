@@ -261,10 +261,20 @@ Summing all what was mentioned above, I will quickly present step by step first 
 Original guide from Pain Perdu never included the WAV channel possibilities,
 and in the beginning I was sceptical to even put much modulation there
 because it's already really powerful on its own, but here is something I discovered:
-giving O to Kick creates "distortion"
+giving **"O"** modulation to Kick creates "distortion", and on synths can help create acidy melody,
+or just serving as another layer for your bass, choice is yours!
+**"O"** plays differently when instrument finished playing in "ONCE" mode
+OR when you turn WAV's volume down, 
+and differently if you substain it on silent waveform.
+Newest LSDj turns off WAV channel once intrument finished playing, enabling Hum to continue on its own.
+When Hum plays over your waveforms, it's gonna be the loudest where distance between middle and top/bottom of the waveform is the greatest.
+KITs take biggest hit on the Gameboy's CPU, Dynamic synths being noticebly lighter on the available resources, and Manual Instruments being the lightest!
+
 
 ## Another look at the tables
-Once again, all modulation happens 4 times faster, it's more than 4 bonus rows per table! Any modulation squished between those will let you achieve interesting results. On high speeds it more than 8-10!
+Looking at it the other way, 1 row in stock LSDj table is split into 4 in Overclocked version!
+Any modulation squished into those will let you achieve interesting results.
+at extremely high tempos it's more than 8-10!
 
 ## LSDj Version Overclock differences:
 
