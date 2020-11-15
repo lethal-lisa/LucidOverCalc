@@ -9,14 +9,16 @@ Chapters are ordered as it follows:
 5. CPU usage
 6. Controlling the Extra Hum
 7. Hum Pitch table
-8. Quickstart mini guide (for impatient ones)
-9. WAV channel
-10. Another look at the tables
-11. LSDj Version Overclock differrence
+8. Commands generating Hum
+9. MultiHum
+10. Quickstart mini guide *(for impatient ones)*
+11. WAV channel
+12. Another look at the tables - Summary
+13. LSDj Version Overclock differrences
 
 [NOTE: **This guide as for now is a bit unfinished**, and multiple examples are coming very soon]
 
-## History and the Benefits of Overclocking Nowadays
+## 1. History and the Benefits of Overclocking Nowadays
 
 **History** of Software overclocking LSDj starts by Pain Perdu in 2017 using version 5.3.5.[(Archived link for the article here)](https://web.archive.org/web/20200601005830/https://chiptuneswin.com/blog/pauls-tech-talk-lsdj-5-3-5_4x-part-2-sandpaper-vs-eardrums/) 
 Results were impressive, but due to heavier CPU usage while overclocked,
@@ -47,7 +49,7 @@ and might not be able to help you in case song-breaking glitch happens
 Experience on other platforms may wary, but I'll be more than happy to expand the guide with
 notes from other platforms.*
 
-## How to Overclock LSDj ROM:
+## 2. How to Overclock LSDj ROM:
 Modifying your ROM to be overclocked is actually fairly easy, possible to do on any platform that has hex Editor.<br>
 This will not affect any other data of LSDj: your kits, palettes, all are safe.<br>
 Still, remember to backup your ROM before you modify your precious tracker!
@@ -66,7 +68,7 @@ Still, remember to backup your ROM before you modify your precious tracker!
 
 Your LSDj's tempo should be *multiplied* by **four** now!
 
-###    Amplitude Modulation Synthesis - Overclocking Hum
+### 3. Amplitude Modulation Synthesis - Overclocking Hum
 
 [Twitter video of 3 tones singing from one Pulse channel](https://twitter.com/Infu_av/status/1301578269435801602?s=20)<br>
 The magic of overclocking is largely dependant on LSDj's **`TEMPO`** parameter.
@@ -93,7 +95,7 @@ Said hum does not come out of nowhere, but shares the channel together with othe
 each one "fighting each other, and one may strip other from some frequencies to fit in, which is absolutely normal behaviour,
 and you can design your sounds around that, giving one or the other more priority.
 
-# Workflow changes 
+# 4. Workflow changes 
 
 There's multiple differences between normal stock LSDj and overclocked one that you'll need to get used to,
 especially when transferring your previous songs and using them there.
@@ -128,7 +130,7 @@ For some reason I cannot start start all 8 channels at once on some songs, still
 Also small note, as for now, using official LSDj patcher and upgrading ROM will overwrite the overclock,
 making you redo the process in hex editor, but that's not big issue!
 
-### CPU USAGE
+### 5. CPU USAGE
 
 Overclocking can be very taxing on the Gameboy's CPU, and reaching the "TOO BUSY!" state is more than easy.
 The faster the **"`TEMPO`"**, the faster the modulation, therefore CPU has to work harder to keep up.
@@ -142,7 +144,7 @@ this can lead to sequencer desync, or crash Gameboy/LSDj! Here's couple factors 
 * If you can, try to end tables with **"A`20`"** instead of **"`H`"**-opping over nothingness;
 
 
-# Controlling the Extra Hum
+# 6. Controlling the Extra Hum
 
 Commands below enable you to create extra Hum sharing the channel you're using it on.<br>
 The length of the modulation will decide the pitch of the hum.
@@ -157,14 +159,14 @@ it should look like on picture:<br>
 any longer modulation will decrease pitch by certain amount of semitones.<br>
 Now tune your **"TEMPO"** value for highest Hum pitch you want available,
 and reach the other lower Hum notes using more steps in modulation, or by H1 command.
-## H10
+### H10
 Use loops like **"H`10`"** and **"H`00`"** right below to achieve modulation in between rows, by rapidly switching between two steps.
 It works only between first couple steps, trying to do that below 5step modulation
 will be difficult to tune and can start to sound like an arp.<br>
 ![3stepH1](https://user-images.githubusercontent.com/66220663/99185036-0ed20580-273f-11eb-8f57-2b729d880c0e.png)<br>
 *(picture showing **3 step H1** modulation)*<br>
 
-## Hum Pitch table
+## 7. Hum Pitch table
 
 Regardless of the tempo, relation between Hum notes stay same!<br>
 Table below represents part of usable Hum frequencies combinations you can use in table,<br>
@@ -189,6 +191,8 @@ where *step 0* is **O**`LR`, *all next steps* are **O**`--`<br>
 Notice how 2,4,8step H0 share same note, but are lowered by an octave, as modulation is exactly /2 each time!<br>
 Some steps will sound more detuned than others, so make sure to tune your tempo accordingly<br>
 Note :*Modulations like H2 will sound particulary distorted and off tune*
+
+# 8. Commands generating Hum
 
 ## **"`O`"** command (any channel)
 
@@ -226,7 +230,8 @@ Use **"R`00-0F`"** in phrase to retrigger the long hum tables,
 giving you additional control over them without changing the table itself!<br>
 First F digits of **"`R`"** commands will play the table up to chosen digit of the command<br>
 (i.e. **"R`04`"** will play first 4 steps of the table and *hop* back to the beginning)<br>
-Adjusting CMD rate of the instrument will double those values (i.e **"R`04`"** will become **"R`08`"**)<br>
+Adjusting CMD rate of the instrument will make it work twicec slower per value<br>
+(i.e using **`CMD 1`**, command **"R`04`"** will behave like **"R`08`"**)<br>
 
 ## Transpose
 
@@ -247,7 +252,7 @@ I would recommend placing extra **"`G`"** commands before **"`T`"** in order to 
 placing new groove before/after tempo change can make song hiccup for a brief moment)
 and put the new proper groove in all patterns when there's an empty space in the sequencer.
 
-# Multihum
+# 9. Multihum
 
 ![Multihum](https://user-images.githubusercontent.com/66220663/99185266-910ef980-2740-11eb-9bf0-aaaffd46d15d.png)<br>
 Using combinations of **"`W`"** and **"`O`"** can yeld you multiple hums,
@@ -258,7 +263,7 @@ When using both **"`W`"** and **"`O`"** commands, make sure the *active* **"O`LR
 
 ------------------------
 
-## Quickstart mini guide (for impatient ones)
+## 10. Quickstart mini guide (for impatient ones)
 
 1. Replace LSDj's hex value **`3E04E007`** with **`3E07E007`** using hex editor, save
 2. Turn on LSDj, put down one note in Pulse channel, press play
@@ -277,7 +282,7 @@ or would answer questions you have regarding Overclocked LSDj!**
 
 ------------------------
 
-# WAV Channel
+# 11. WAV Channel
 
 ![gaemboi_p3XF18LkmA](https://user-images.githubusercontent.com/66220663/99191684-1b1d8900-2766-11eb-85d2-c060c3f96977.png)<br>
 
@@ -290,16 +295,16 @@ or just serving as another layer for your bass, choice is yours!
 OR when you turn WAV's volume down (like in pic above), 
 and differently if you substain it on silent waveform.
 Newest LSDj turns off WAV channel once intrument finished playing, enabling Hum to continue on its own.
-When Hum plays over your waveforms, it's gonna be the loudest where distance between middle and top/bottom of the waveform is the greatest.
+When Hum plays over your waveforms, it's gonna be the loudest where distance between middle and top/bottom of the waveform is the greatest.<br>
 After playing with different instrument types and tables, it was easy to notice that during heavy high-tempo modulations **KITs** had the biggest impact on the Gameboy's CPU! Wave instruments in dynamic play mode (anything other than MANUAL) being noticebly lighter on the CPU, and Manual Instruments being the lightest of them all!
 
-## Another look at the tables
+## 12. Another look at the tables - Summary
 Looking at it the other way, 1 row of the Table in stock LSDj is split into 4 in Overclocked version!
 Any modulation squished into those will let you achieve interesting results.
 At extremely high tempos its even more, so any commands you put there and loop it tightly with **"H"** commands
 will create an interesting result usually unique for Overclocked LSDj only!
 
-## LSDj Version Overclock differences:
+## 13. LSDj Version Overclock differences:
 
 This works with all LSDj versions from from 2.6.0 (included) all the way up to the latest one available!
 
