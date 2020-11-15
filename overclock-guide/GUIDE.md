@@ -1,5 +1,7 @@
 # (ADVANCED) Guide to Overclocked LSDj by Infu
 
+![CursedBoy](https://user-images.githubusercontent.com/66220663/99196146-5cbc2d00-2782-11eb-9b35-2709d25b2b4c.png)
+
 Chapters are ordered as it follows:
 
 1. [History and the Benefits of Overclocking Nowadays](#1-history-and-the-benefits-of-overclocking-nowadays)
