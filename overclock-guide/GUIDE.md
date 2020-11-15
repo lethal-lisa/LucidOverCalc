@@ -21,10 +21,11 @@ Chapters are ordered as it follows:
 Results were impressive, but due to heavier CPU usage while overclocked,
 users would experience serious drawbacks,
 making usage less than desirable.
-However, version 8 improved dramatically in those terms,
+*However*, version 8 improved dramatically in those terms,
 and now, even in heavy modulation situations where previous versions would slow down,
 there's no hint of slowdown!
-Consequently, overclocking LSDj from version 8 onwards should be more than pleasureable experience, providing much greater headroom than previous versions!
+Consequently, overclocking LSDj from version 8 onwards should be more than pleasureable experience,
+providing much greater headroom than previous versions!
 
 **Benefits** of Software Overclocking LSDj are new wicked types of sound design,
 enabling multitimbrality on each channel and amplitude modulation synthesis!
@@ -114,6 +115,9 @@ Instead, to actually achieve BPM you want (or precisely tell which one you're us
 then times 4 to reach actual value that OverClocked LSDj is using (96)]
 *A good practice* is to make sure your grooves are divisible by two in order to achieve half tempo if desired.
 
+It is highly recommended to use GBC and above for optimal performance,
+but it's doable to run simpler/slower songs on normal DMG as well!
+
 If you thought about using **2xOC-LSDj** synced together, don't expect a lot of stability -
 Intense moments in your songs will slightly desync them, very high **`TEMPO`** should be avoided to prevent that.
 For some reason I cannot start start all 8 channels at once on some songs, still investigating that.
@@ -123,8 +127,8 @@ making you redo the process in hex editor, but that's not big issue!
 
 ### CPU USAGE
 
-Overclocking is very taxing on the Gameboy's CPU, and reaching the "TOO BUSY!" state is more than easy.
-The faster the actual tempo, the faster the modulation, therefore CPU has to work harder to keep up.
+Overclocking can be very taxing on the Gameboy's CPU, and reaching the "TOO BUSY!" state is more than easy.
+The faster the **"`TEMPO`"**, the faster the modulation, therefore CPU has to work harder to keep up.
 If you're maintaining high **"`TEMPO`"** and using multiple effects/techniques playing at once
 this can lead to sequencer desync, or crash Gameboy/LSDj! Here's couple factors I noticed:
 * **"`E`"** command next to **"`V`"** are most CPU taxing commands.
@@ -160,7 +164,8 @@ Hum will even appear if you pan left or right side, creating stereo hum.<br>
 **"`O`"** command hum will duck in the volume if wave width is set to 75%, therefore **works best with wave width 12.5%**<br>
 The **"`O`"** command may be used on **any** channel you like.<br>
 One of the ways to control the hum's volume is to move around the steps where the **"`O`"** is active and where it's not.<br>
-Another way to look at the hum effect, think that every **"O`LR`"** step represents square wave at it's top, and every **"O`--`"** is square at it's bottom.<br>
+Another way to look at the hum effect, think that every **"O`LR`"** step represents square wave at it's top,
+and every **"O`--`"** is square at it's bottom.<br>
 
 ## **"`W`"** command (pulse channels only)
 
@@ -177,13 +182,16 @@ Hum will be louder as the distance between lowest and highest **"`E`"** command 
 
 ## **"`R`"** command (any channel)
 
-Use **"R`00-0F`"** in phrase to retrigger the long hum tables, giving you additional control over them without changing the table itself!<br>
-First F digits of **"`R`"** commands will play the table up to chosen digit of the command (i.e. **"R`04`"** will play first 4 steps of the table and *hop* back to the beginning)
+Use **"R`00-0F`"** in phrase to retrigger the long hum tables,
+giving you additional control over them without changing the table itself!<br>
+First F digits of **"`R`"** commands will play the table up to chosen digit of the command
+(i.e. **"R`04`"** will play first 4 steps of the table and *hop* back to the beginning)
 
 ## Transpose
 
-Using the transpose column in the table with minimum 2 step modulation will split the instrument pitch into 3, creating FM-like metallic sound.<br>
-3, because you have *Transposed* step next to *(Un)transposed* one AND *tempo dependant hum* inbetween.
+Using the transpose column in the table with minimum 2 step modulation will split the instrument pitch into 3,
+creating FM-like metallic sound.<br>
+3, because you have *Transposed* step next to another one (can be transposed or not) AND *tempo dependant hum* inbetween!
 
 ## **"`T`"** command
 
