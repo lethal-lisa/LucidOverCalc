@@ -2,19 +2,20 @@
 
 Chapters are ordered as it follows:
 
-1. History and the Benefits of Overclocking Nowadays
-2. How to Overclock LSDj ROM
-3. Amplitude Modulation Synthesis - Overclocking Hum
-4. Workflow changes (Groove/Tempo/BPM relation)
-5. CPU usage
-6. Controlling the Extra Hum
-7. Hum Pitch table
-8. Commands generating Hum
-9. MultiHum
-10. Quickstart mini guide *(for impatient ones)*
-11. WAV channel
-12. Another look at the tables - Summary
-Extra notes: LSDj Version Overclock differrences
+1. [History and the Benefits of Overclocking Nowadays](#1-history-and-the-benefits-of-overclocking-nowadays)
+2. [How to Overclock LSDj ROM](#2-how-to-overclock-lsdj-rom)
+3. [Amplitude Modulation Synthesis - Overclocking Hum](#3-amplitude-modulation-synthesis---overclocking-hum)
+4. [Workflow changes (Groove/Tempo/BPM relation)](#4-workflow-changes)
+5. [CPU usage](#5-cpu-usage)
+6. [Controlling the Extra Hum](#6-controlling-the-extra-hum)
+7. [Hum Pitch table](#7-hum-pitch-table)
+8. [Commands generating Hum](#8-commands-generating-hum)
+9. [MultiHum](#9-multihum)
+10. [Quickstart mini guide *(for impatient ones)*](#10-quickstart-mini-guide-for-impatient-ones)
+11. [WAV channel](#11-wav-channel)
+12. [Another look at the tables - Summary](#12-another-look-at-the-tables---summary)
+[Extra notes: LSDj Version Overclock differrences](#extra-notes-lsdj-version-overclock-differences)<br>
+[Credits]#credits
 
 [Guide is almost finished!]
 
@@ -277,7 +278,7 @@ When using both **"`W`"** and **"`O`"** commands, make sure the *active* **"O`LR
 9. Copy the instrument and table, make second table have **"H`00`"** placed in different spot,
 10. Play those 2 instruments in 1 phrase (notice the hum changes when instruments/tables switch)
 
-**Check the table of Contents on the top of the page and redirect yourself to chapter that interests you,
+**Check the [table of Content on the top of the page](#advanced-guide-to-overclocked-lsdj-by-infu) and redirect yourself to chapter that interests you,
 or would answer questions you have regarding Overclocked LSDj!**
 
 ------------------------
