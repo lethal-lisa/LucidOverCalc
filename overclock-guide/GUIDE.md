@@ -14,7 +14,7 @@ Chapters are ordered as it follows:
 10. Quickstart mini guide *(for impatient ones)*
 11. WAV channel
 12. Another look at the tables - Summary
-13. LSDj Version Overclock differrences
+Extra notes: LSDj Version Overclock differrences
 
 [Guide is almost finished!]
 
