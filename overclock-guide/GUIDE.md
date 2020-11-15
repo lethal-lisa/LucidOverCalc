@@ -16,7 +16,7 @@ Chapters are ordered as it follows:
 10. [Quickstart mini guide *(for impatient ones)*](#10-quickstart-mini-guide-for-impatient-ones)
 11. [WAV channel](#11-wav-channel)
 12. [Another look at the tables - Summary](#12-another-look-at-the-tables---summary)
-[Extra notes: LSDj Version Overclock differrences](#extra-notes-lsdj-version-overclock-differences)<br>
+[Extra notes,Credits](#extra-notes-lsdj-version-overclock-differences)<br>
 
 [Guide is almost finished!]
 
@@ -336,6 +336,14 @@ This effect is mostly undesired and somewhat uncontrollable unless the user tune
 Version 8.8.0 and onwards keeps the envelopes very stable, and it's drift is not an issue anymore
 
 Use version 8.8.7 if you wish to retain the old ADSR system, that is compatible with plenty of emulators and all Gameboy consoles.
+
+### Feature wishlist
+
+1. Asymmetric tables (to reuse OC Tables in other instruments)
+2. Even higher tempo limit (for higher pitch range of Hum)
+3. Separate engine speed from tempo, or per table
+4. CPU usage indicator
+5. Alternative way to obtain Hum, in maybe more precise ways?
 
 # Credits
 
