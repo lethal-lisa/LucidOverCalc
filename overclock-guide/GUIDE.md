@@ -8,9 +8,10 @@ Chapters are ordered as it follows:
 4. Workflow changes (Groove/Tempo/BPM relation)
 5. CPU usage
 6. Controlling the Extra Hum
-7. Quickstart mini guide
-8. WAV channel
-9. Another look at the tables
+7. Hum Pitch table
+8. Quickstart mini guide
+9. WAV channel
+10. Another look at the tables
 11. LSDj Version Overclock differrence
 
 [NOTE: **This guide as for now is a bit unfinished**, and multiple examples are coming very soon]
@@ -98,7 +99,7 @@ Major change in OC version is that whole LSDJ **`TEMPO`** is multiplied by 4.
 That means that your standard 6tick-Groove song tempo 150 will play like it was 600!<br>
 Because tempo is tied to many parameters, you need to adjust your:
 
-![grooves](https://user-images.githubusercontent.com/66220663/99159288-0643e580-26d3-11eb-87f6-5aa4d1550114.png)
+![bgb_Uf0q7VEqT3](https://user-images.githubusercontent.com/66220663/99181572-27362600-2727-11eb-8884-2d84d3aff9fe.png)
 
 - Grooves;
 - Tables (Placing appropiate **"`G`"** command somewhere inside them so your modulation plays correctly);
@@ -154,6 +155,8 @@ where modulation takes 2 steps, and on 3rd one we **`H`**-op to the beginning of
 Use loops like **"H`10`"** to achieve modulation in between rows.
 [A command here]
 [More explaination coming soon:]
+
+# Hum Pitch table
 
 ## **"`O`"** command (any channel)
 
