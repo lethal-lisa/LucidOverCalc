@@ -192,7 +192,7 @@ Note :*Modulations like H2 will sound particulary distorted and off tune*
 
 **"`O`"** command generates hum **idependently** from the instrument's ADSR.<br>
 Note may be silent, but as long as instrument is still on, the *hum will continue*.<br>
-``To enable``, place **"O`LR`"** and **"O`--`"** commands in the table and loop them,<br>
+**``To enable``**, place **"O`LR`"** and **"O`--`"** commands in the table and loop them,<br>
 Can be stopped when you change instrument, **"`K`"** ill it or direct it to **"A`20`"**.<br>
 Hum will even appear if you pan left or right side, creating stereo hum.<br>
 **"`O`"** command hum will duck in the volume if wave width is set to 75%, therefore **works best with wave width 12.5%**<br>
@@ -207,14 +207,14 @@ and every **"O`--`"** is square at it's bottom.<br>
 *(Picture showing 4step H0 **"W"** table)*<br>
 **"`W`"** command generates hum **tied to** instrument's ADSR.<br>
 If your note goes silent, the *hum will go silent too*.<br>
-``To enable``, place minimum 2 W commands of different width in the table and loop them,<br>
+**``To enable``**, place minimum 2 W commands of different width in the table and loop them,<br>
 Changing from thin to wide waveform will result in the loudest and grittiest hum.<br>
 Adjust the width to your liking. **"`W`"** command also will produce high overtones that sounds like clicking.
 
 ## **"`E`"** command (any channel)
 
 **"`E`"** command generates hum **overwriting** instrument's ADSR.<br>
-``To enable``, place minimum 2 **"E"** commands of different volume in the table and loop them,<br>
+**``To enable``**, place minimum 2 **"E"** commands of different volume in the table and loop them,<br>
 Hum will be louder as the distance between lowest and highest **"`E`"** command values rises.<br>
 **Works best on the wave width 75%**
 
