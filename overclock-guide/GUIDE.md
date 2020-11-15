@@ -16,7 +16,7 @@ Chapters are ordered as it follows:
 12. Another look at the tables - Summary
 13. LSDj Version Overclock differrences
 
-[NOTE: **This guide as for now is a bit unfinished**, and multiple examples are coming very soon]
+[Guide is almost finished!]
 
 ## 1. History and the Benefits of Overclocking Nowadays
 
@@ -49,7 +49,7 @@ and might not be able to help you in case song-breaking glitch happens
 Experience on other platforms may wary, but I'll be more than happy to expand the guide with
 notes from other platforms.*
 
-## 2. How to Overclock LSDj ROM:
+## 2. How to Overclock LSDj ROM
 Modifying your ROM to be overclocked is actually fairly easy, possible to do on any platform that has hex Editor.<br>
 This will not affect any other data of LSDj: your kits, palettes, all are safe.<br>
 Still, remember to backup your ROM before you modify your precious tracker!
@@ -117,7 +117,8 @@ so you need to separate the **`TEMPO = BPM`** workflow.
 Instead, to actually achieve BPM you want (or precisely tell which one you're using) use following formula:<br>
 **`BPM = (Tempo x 96)/[4 rows of your groove setting]`**<br>
 [Note: 96 comes from having default 6 ticks per step groove, times 4 to achieve `ticks per beat`(24),
-then times 4 to reach actual value that OverClocked LSDj is using (96)]
+then times 4 to reach actual value that OverClocked LSDj is using (96)]<br>
+Using the formula above you should calculate that picture above runs actually 138 BPM!<br>
 *A good practice* is to make sure your grooves are divisible by two in order to achieve half tempo if desired.
 
 It is highly recommended to use GBC and above for optimal performance,
@@ -159,7 +160,7 @@ it should look like on picture:<br>
 any longer modulation will decrease pitch by certain amount of semitones.<br>
 Now tune your **"TEMPO"** value for highest Hum pitch you want available,
 and reach the other lower Hum notes using more steps in modulation, or by H1 command.
-### H10
+#### H10 - hop between steps
 Use loops like **"H`10`"** and **"H`00`"** right below to achieve modulation in between rows, by rapidly switching between two steps.
 It works only between first couple steps, trying to do that below 5step modulation
 will be difficult to tune and can start to sound like an arp.<br>
@@ -260,7 +261,6 @@ but beware that this technique makes the tuning even more difficult, and is extr
 Adding Transpose in the table adds ever more harmonics.
 When using both **"`W`"** and **"`O`"** commands, make sure the *active* **"O`LR`"** commands hit thinner waves if we want the hum to be quieter.
 
-
 ------------------------
 
 ## 10. Quickstart mini guide (for impatient ones)
@@ -304,14 +304,16 @@ Any modulation squished into those will let you achieve interesting results.
 At extremely high tempos its even more, so any commands you put there and loop it tightly with **"H"** commands
 will create an interesting result usually unique for Overclocked LSDj only!
 
-## 13. LSDj Version Overclock differences:
+------------------------
+
+### Extra notes: LSDj Version Overclock differences:
 
 This works with all LSDj versions from from 2.6.0 (included) all the way up to the latest one available!
 
 Guide was written in mind for v8 and above due to optimisations allowing for comfortable and stable use,
-any version below that won't perform well 
+any version below that won't perform well.
 
-### Pre-8.8.0 - ADSR Tempo Related Drift
+##### Pre-8.8.0 - ADSR Tempo Related Drift
 
 While using version 8 I noticed that the ADSR envelope tends to not be consistent,
 and "drifts" in relation to the engine's tempo.
@@ -335,7 +337,7 @@ Use version 8.8.7 if you wish to retain the old ADSR system, that is compatible 
 
 # Credits
 
-ABOC and Chiptune Cafe<br>
+ABOC and Chiptune Cafe for <br>
 Pain Perdu<br>
 Aquellex<br>
 DBOYD<br>
