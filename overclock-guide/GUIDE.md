@@ -258,13 +258,15 @@ Summing all what was mentioned above, I will quickly present step by step first 
 
 # WAV Channel
 
+![gaemboi_p3XF18LkmA](https://user-images.githubusercontent.com/66220663/99191684-1b1d8900-2766-11eb-85d2-c060c3f96977.png)<br>
+
 Original guide from Pain Perdu never included the WAV channel possibilities,
 and in the beginning I was sceptical to even put much modulation there
 because it's already really powerful on its own, but here is something I discovered:
 giving **"O"** modulation to Kick creates "distortion", and on synths can help create acidy melody,
 or just serving as another layer for your bass, choice is yours!
 **"O"** plays differently when instrument finished playing in "ONCE" mode
-OR when you turn WAV's volume down, 
+OR when you turn WAV's volume down (like in pic above), 
 and differently if you substain it on silent waveform.
 Newest LSDj turns off WAV channel once intrument finished playing, enabling Hum to continue on its own.
 When Hum plays over your waveforms, it's gonna be the loudest where distance between middle and top/bottom of the waveform is the greatest.
@@ -274,7 +276,16 @@ KITs take biggest hit on the Gameboy's CPU, Dynamic synths being noticebly light
 ## Another look at the tables
 Looking at it the other way, 1 row in stock LSDj table is split into 4 in Overclocked version!
 Any modulation squished into those will let you achieve interesting results.
-at extremely high tempos it's more than 8-10!
+at extremely high tempos it's more than 8-10
+
+# Quickstart guide:
+
+1. Replace hex value **`3E04E007`** with **`3E07E007`** in LSDj, save
+2. Turn on LSDj, put down one note in Pulse channel, press play
+3. Apply table to this instrument, make one under another **"O`LR`"**, **"O`--`"**, **"H`00`"**
+4. Manipulate the tempo, and later the note itself (notice they are separate sound sources)
+5. Change the note so it maches the hum
+6. In instrument table move **"H`00`"** one row lower 
 
 ## LSDj Version Overclock differences:
 
