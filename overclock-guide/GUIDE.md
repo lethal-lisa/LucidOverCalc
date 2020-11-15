@@ -9,7 +9,7 @@ Chapters are ordered as it follows:
 5. CPU usage
 6. Controlling the Extra Hum
 7. Hum Pitch table
-8. Quickstart mini guide
+8. Quickstart mini guide (for impatient ones)
 9. WAV channel
 10. Another look at the tables
 11. LSDj Version Overclock differrence
@@ -53,9 +53,11 @@ This will not affect any other data of LSDj: your kits, palettes, all are safe.<
 Still, remember to backup your ROM before you modify your precious tracker!
 
 **`To benefit fully from this guide please use LSDj version above v8`**
-  ![HxD_2Searching2](https://user-images.githubusercontent.com/66220663/99159166-2aeb8d80-26d2-11eb-8b4a-74b31f4879d6.png)   
-  *(picture showcasing step 2)*
-  
+
+
+![HxD_2Searching2](https://user-images.githubusercontent.com/66220663/99194099-583d4780-2775-11eb-8362-c82aea4adeed.png)<br>
+*(picture showcasing step 2)*
+
 **Step by step instructions:**
 1. Open up your LSDj ROM in the hex editor of your choice (I used HxD on Windows);
   2. Search *hex-value* string **`3E04E007`**;
@@ -66,7 +68,7 @@ Your LSDj's tempo should be *multiplied* by **four** now!
 
 ###    Amplitude Modulation Synthesis - Overclocking Hum
 
-[VIDEO BE HERE]
+[Twitter video of 3 tones singing from one Pulse channel](https://twitter.com/Infu_av/status/1301578269435801602?s=20)<br>
 The magic of overclocking is largely dependant on LSDj's **`TEMPO`** parameter.
 It's responsible for LSDj's engine speed, therefore increasing it will speed up all modulation happening,
 and slowing it down will make your tables much slower.
@@ -162,7 +164,7 @@ will be difficult to tune and can start to sound like an arp.<br>
 ![3stepH1](https://user-images.githubusercontent.com/66220663/99185036-0ed20580-273f-11eb-8f57-2b729d880c0e.png)<br>
 *(picture showing **3 step H1** modulation)*<br>
 
-# Hum Pitch table
+## Hum Pitch table
 
 Regardless of the tempo, relation between Hum notes stay same!<br>
 Table below represents part of usable Hum frequencies combinations you can use in table,<br>
@@ -253,7 +255,10 @@ but beware that this technique makes the tuning even more difficult, and is extr
 Adding Transpose in the table adds ever more harmonics.
 When using both **"`W`"** and **"`O`"** commands, make sure the *active* **"O`LR`"** commands hit thinner waves if we want the hum to be quieter.
 
-# Quickstart mini guide
+
+------------------------
+
+## Quickstart mini guide (for impatient ones)
 
 1. Replace LSDj's hex value **`3E04E007`** with **`3E07E007`** using hex editor, save
 2. Turn on LSDj, put down one note in Pulse channel, press play
@@ -267,8 +272,10 @@ When using both **"`W`"** and **"`O`"** commands, make sure the *active* **"O`LR
 9. Copy the instrument and table, make second table have **"H`00`"** placed in different spot,
 10. Play those 2 instruments in 1 phrase (notice the hum changes when instruments/tables switch)
 
-Check the table of Contents on the top of the page and redirect yourself to chapter that interests you,
-or would answer questions you have regarding Overclocked LSDj!  
+**Check the table of Contents on the top of the page and redirect yourself to chapter that interests you,
+or would answer questions you have regarding Overclocked LSDj!**
+
+------------------------
 
 # WAV Channel
 
