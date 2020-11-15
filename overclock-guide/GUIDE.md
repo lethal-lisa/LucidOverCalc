@@ -158,6 +158,21 @@ Use loops like **"H`10`"** to achieve modulation in between rows.
 
 # Hum Pitch table
 
+Modulation step 
+
+| Modulation step | Semitones down |
+| ----------- | ----------- |
+| 2 step H0   | 0   |
+| 2 step H1   | 4   |
+| 3 step H0   | 7   |
+| 3 step H1   | 9~10   |
+| 4 step H0   | 12   |
+| 4 step H1   | 14   |
+| 5 step H0   | 16   |
+| 5 step H1   | 17~18   |
+| 6 step H0   | 19   |
+| 7 step H0   | 21~22   |
+
 ## **"`O`"** command (any channel)
 
 **"`O`"** command generates hum **idependently** from the instrument's ADSR.<br>
