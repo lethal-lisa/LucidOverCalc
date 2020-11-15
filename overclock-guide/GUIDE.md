@@ -222,8 +222,9 @@ Hum will be louder as the distance between lowest and highest **"`E`"** command 
 
 Use **"R`00-0F`"** in phrase to retrigger the long hum tables,
 giving you additional control over them without changing the table itself!<br>
-First F digits of **"`R`"** commands will play the table up to chosen digit of the command
-(i.e. **"R`04`"** will play first 4 steps of the table and *hop* back to the beginning)
+First F digits of **"`R`"** commands will play the table up to chosen digit of the command<br>
+(i.e. **"R`04`"** will play first 4 steps of the table and *hop* back to the beginning)<br>
+Adjusting CMD rate of the instrument will double those values (i.e **"R`04`"** will become **"R`08`"**)<br>
 
 ## Transpose
 
@@ -253,8 +254,21 @@ Adding Transpose in the table adds ever more harmonics.
 When using both **"`W`"** and **"`O`"** commands, make sure the *active* **"O`LR`"** commands hit thinner waves if we want the hum to be quieter.
 
 # Quickstart mini guide
-Summing all what was mentioned above, I will quickly present step by step first couple steps to achieve Overclocking Hum, and play around with it:
-[step by step guide here:]
+
+1. Replace LSDj's hex value **`3E04E007`** with **`3E07E007`** using hex editor, save
+2. Turn on LSDj, put down one note in Pulse channel, press play
+3. Apply table to this instrument, place commands one under another **"O`LR`"**, **"O`--`"**, **"H`00`"**<br>
+(just like **"#Controlling the Extra Hum**"" chapter picture)<br>
+4. Manipulate the tempo, and later the note itself, matching it to the hum (notice how they are separate sound sources, how they can phase); 
+5. In instrument table move **"H`00`"** one row lower (notice sound getting lower);
+6. Replace those 2 **"O"** commands with **"W"**, make them 2 different width;
+7. Again, play with the tempo, note and **"H"** placement in the table
+8. Adjust main groove to slow down sequence, place more notes,
+9. Copy the instrument and table, make second table have **"H`00`"** placed in different spot,
+10. Play those 2 instruments in 1 phrase (notice the hum changes when instruments/tables switch)
+
+Check the table of Contents on the top of the page and redirect yourself to chapter that interests you,
+or would answer questions you have regarding Overclocked LSDj!  
 
 # WAV Channel
 
@@ -270,22 +284,13 @@ OR when you turn WAV's volume down (like in pic above),
 and differently if you substain it on silent waveform.
 Newest LSDj turns off WAV channel once intrument finished playing, enabling Hum to continue on its own.
 When Hum plays over your waveforms, it's gonna be the loudest where distance between middle and top/bottom of the waveform is the greatest.
-KITs take biggest hit on the Gameboy's CPU, Dynamic synths being noticebly lighter on the available resources, and Manual Instruments being the lightest!
-
+After playing with different instrument types and tables, it was easy to notice that during heavy high-tempo modulations **KITs** had the biggest impact on the Gameboy's CPU! Wave instruments in dynamic play mode (anything other than MANUAL) being noticebly lighter on the CPU, and Manual Instruments being the lightest of them all!
 
 ## Another look at the tables
-Looking at it the other way, 1 row in stock LSDj table is split into 4 in Overclocked version!
+Looking at it the other way, 1 row of the Table in stock LSDj is split into 4 in Overclocked version!
 Any modulation squished into those will let you achieve interesting results.
-at extremely high tempos it's more than 8-10
-
-# Quickstart guide:
-
-1. Replace hex value **`3E04E007`** with **`3E07E007`** in LSDj, save
-2. Turn on LSDj, put down one note in Pulse channel, press play
-3. Apply table to this instrument, make one under another **"O`LR`"**, **"O`--`"**, **"H`00`"**
-4. Manipulate the tempo, and later the note itself (notice they are separate sound sources)
-5. Change the note so it maches the hum
-6. In instrument table move **"H`00`"** one row lower 
+At extremely high tempos its even more, so any commands you put there and loop it tightly with **"H"** commands
+will create an interesting result usually unique for Overclocked LSDj only!
 
 ## LSDj Version Overclock differences:
 
