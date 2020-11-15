@@ -158,12 +158,13 @@ and reach the other lower Hum notes using more steps in modulation, or by H1 com
 ## H10
 Use loops like **"H`10`"** and **"H`00`"** right below to achieve modulation in between rows, by rapidly switching between two steps.
 It works only between first couple steps, trying to do that below 5step modulation
-will be difficult to tune and can start to sound like an arp.
+will be difficult to tune and can start to sound like an arp.<br>
 ![3stepH1](https://user-images.githubusercontent.com/66220663/99185036-0ed20580-273f-11eb-8f57-2b729d880c0e.png)<br>
 *(picture showing **3 step H1** modulation)*<br>
 
 # Hum Pitch table
 
+Regardless of the tempo, relation between Hum notes stay same!<br>
 Table below represents part of usable Hum frequencies combinations you can use in table,<br>
 where *step 0* is **O**`LR`, *all next steps* are **O**`--`<br>
 *finishing* with **"H"** **0**0 or **1**0 command.<br>
@@ -179,7 +180,8 @@ where *step 0* is **O**`LR`, *all next steps* are **O**`--`<br>
 | 5 step H1   | 17~>18   |
 | 6 step H0   | 19   |
 | 7 step H0   | 21~>22   |
-| 8 step H0   | 24   |<br>
+| 8 step H0   | 24   |
+
 (ones on the right are closer)
 
 Notice how 2,4,8step H0 share same note, but are lowered by an octave, as modulation is exactly /2 each time!<br>
@@ -190,6 +192,7 @@ Note :*Modulations like H2 will sound particulary distorted and off tune*
 
 **"`O`"** command generates hum **idependently** from the instrument's ADSR.<br>
 Note may be silent, but as long as instrument is still on, the *hum will continue*.<br>
+``To enable``, place **"O`LR`"** and **"O`--`"** commands in the table and loop them,<br>
 Can be stopped when you change instrument, **"`K`"** ill it or direct it to **"A`20`"**.<br>
 Hum will even appear if you pan left or right side, creating stereo hum.<br>
 **"`O`"** command hum will duck in the volume if wave width is set to 75%, therefore **works best with wave width 12.5%**<br>
@@ -201,15 +204,17 @@ and every **"O`--`"** is square at it's bottom.<br>
 ## **"`W`"** command (pulse channels only)
 
 ![4stepWave](https://user-images.githubusercontent.com/66220663/99185631-0aa7e700-2743-11eb-8291-837d70a2f084.png)<br>
-*(Picture showing 4step H0 **"W"** table)*
+*(Picture showing 4step H0 **"W"** table)*<br>
 **"`W`"** command generates hum **tied to** instrument's ADSR.<br>
 If your note goes silent, the *hum will go silent too*.<br>
+``To enable``, place minimum 2 W commands of different width in the table and loop them,<br>
 Changing from thin to wide waveform will result in the loudest and grittiest hum.<br>
 Adjust the width to your liking. **"`W`"** command also will produce high overtones that sounds like clicking.
 
 ## **"`E`"** command (any channel)
 
 **"`E`"** command generates hum **overwriting** instrument's ADSR.<br>
+``To enable``, place minimum 2 **"E"** commands of different volume in the table and loop them,<br>
 Hum will be louder as the distance between lowest and highest **"`E`"** command values rises.<br>
 **Works best on the wave width 75%**
 
