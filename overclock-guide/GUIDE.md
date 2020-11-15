@@ -15,7 +15,6 @@ Chapters are ordered as it follows:
 11. [WAV channel](#11-wav-channel)
 12. [Another look at the tables - Summary](#12-another-look-at-the-tables---summary)
 [Extra notes: LSDj Version Overclock differrences](#extra-notes-lsdj-version-overclock-differences)<br>
-[Credits]#credits
 
 [Guide is almost finished!]
 
