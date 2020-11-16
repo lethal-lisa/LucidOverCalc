@@ -348,8 +348,8 @@ Use version 8.8.7 if you wish to retain the old ADSR system, that is compatible 
 
 # Credits
 
-ABOC and Chiptune Cafe for <br>
-Pain Perdu<br>
-Aquellex<br>
-DBOYD<br>
-Lisa and Pator<br>
+ABOC and Chiptune Cafe for being best Chiptune communities I know, motivated me to finish this guide;<br>
+Pain Perdu for writing the initial Overclocking Guide for LSDj<br>
+Aquellex for help with the project<br>
+DBOYD for help with the project<br>
+Lisa and Pator for coding their Overclocked Hum Pitch Finder programs and motivating me to finish this guide<br>
