@@ -25,10 +25,10 @@ Chapters are ordered as it follows:
 **History** of Software overclocking LSDj starts by Pain Perdu in 2017 using version 5.3.5.[(Archived link for the article here)](https://web.archive.org/web/20200601005830/https://chiptuneswin.com/blog/pauls-tech-talk-lsdj-5-3-5_4x-part-2-sandpaper-vs-eardrums/) 
 Results were impressive, but due to heavier CPU usage while overclocked,
 users would experience serious drawbacks,
-making usage less than desirable.
+making usage less than desirable and unstable.
 *However*, version 8 improved dramatically in those terms,
-and now, even in heavy modulation situations where previous versions would slow down,
-there's no hint of slowdown!
+and now, even in heavy modulation situations where previous versions would crash or stop,
+Here there's no hint of any slow-down!
 Consequently, overclocking LSDj from version 8 onwards should be more than pleasureable experience,
 providing much greater headroom than previous versions!
 
@@ -42,9 +42,9 @@ though no hardware mods are required at all!
 The guide below will explain many tips and tricks regarding overclocking,
 but it is designed for advanced LSDj users who are confident in normal LSDj operation and seek to get out more out of it.
 
-**Warning**: Even though my guide should help you with your OC experience,
+**Warning**: Even though my guide is there to help you with your OC experience,
 keep in mind that developer doens't support this technique,
-and might not be able to help you in case song-breaking glitch happens
+and might not be able to help you in case a song-breaking glitch happens!
 (though my experience has been very stable with this overclocking, putting the word of caution out)
 
 *Another note: all notes below were observed while using BGB emulator on Windows.
@@ -52,6 +52,7 @@ Experience on other platforms may wary, but I'll be more than happy to expand th
 notes from other platforms.*
 
 ## 2. How to Overclock LSDj ROM
+
 Modifying your ROM to be overclocked is actually fairly easy, possible to do on any platform that has hex Editor.<br>
 This will not affect any other data of LSDj: your kits, palettes, all are safe.<br>
 Still, remember to backup your ROM before you modify your precious tracker!
@@ -149,7 +150,7 @@ this can lead to sequencer desync, or crash Gameboy/LSDj! Here's couple factors 
 
 # 6. Controlling the Extra Hum
 
-Commands below enable you to create extra Hum sharing the channel you're using it on.<br>
+Commands below enable you to create extra hum sharing the channel you're using it on.<br>
 The length of the modulation will decide the pitch of the hum.
 Minimal usable modulation is 2 step one, using **`O`** command *as an example*:<br>
 0 `00`  `00` **O**`LR`<br>
@@ -312,8 +313,8 @@ will create an interesting result usually unique for Overclocked LSDj only!
 
 This works with all LSDj versions from from 2.6.0 (included) all the way up to the latest one available!
 
-Guide was written in mind for v8 and above due to optimisations allowing for comfortable and stable use,
-any version below that won't perform well.
+This guide was written in mind for v8 and above due to optimisations allowing for comfortable and stable use.
+Any version below that won't perform well.
 
 ##### Pre-8.8.0 - ADSR Tempo Related Drift
 
