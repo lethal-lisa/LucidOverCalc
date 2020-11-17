@@ -140,13 +140,19 @@ Overclocking can be very taxing on the Gameboy's CPU, and reaching the "TOO BUSY
 The faster the **"`TEMPO`"**, the faster the modulation, therefore CPU has to work harder to keep up.
 If you're maintaining high **"`TEMPO`"** and using multiple effects/techniques playing at once
 this can lead to sequencer desync, or crash Gameboy/LSDj! Here's couple factors I noticed:
+* **Stacking exactly same Command/Value in tables puts extra pressure**
+(i.e. Having multiple **"O`LR`"** in a row does no good and only the 1st one is needed)
+* Even empty table adds pressure, especially when Hopped tighter!
+* Transposing does nothing to CPU!
+* lIVE MODE and holding B button is more taxing than simple SONG mode.
 * **"`E`"** command next to **"`V`"** are most CPU taxing commands.
 * **"`O`"** and **"`W`"** don't put as much pressure.
 * The **"`V`"** command is much more resource intensive than having transpose done in the table, no matter how intense the modulation is;
-* Longer tables are easier on the CPU;
 * Slower songs are also easier for CPU;
 * If you can, try to end tables with **"A`20`"** instead of **"`H`"**-opping over nothingness;
 
+Once again, it's highly recommended to use GBC and GBA if available,
+DMG brick cannot endure even half of what GBC can take.
 
 # 6. Controlling the Extra Hum
 
@@ -166,7 +172,7 @@ and reach the other lower Hum notes using more steps in modulation, or by H1 com
 #### H10 - hop between steps
 Use loops like **"H`10`"** and **"H`00`"** right below to achieve modulation in between rows, by rapidly switching between two steps.
 It works only between first couple steps, trying to do that below 5step modulation
-will be difficult to tune and can start to sound like an arp.<br>
+will be difficult to tune and can start to sound like an arp. on lower TEMPOs<br>
 ![3stepH1](https://user-images.githubusercontent.com/66220663/99185036-0ed20580-273f-11eb-8f57-2b729d880c0e.png)<br>
 *(picture showing **3 step H1** modulation)*<br>
 
@@ -189,12 +195,17 @@ where *step 0* is **O**`LR`, *all next steps* are **O**`--`<br>
 | 6 step H0   | 19   |
 | 7 step H0   | 21~>22   |
 | 8 step H0   | 24   |
+| 9 step H0   | x   |
+| 10 step H0  | x   |
 
-(ones on the right are closer)
+(ones on the right are closer)<br>
 
 Notice how 2,4,8step H0 share same note, but are lowered by an octave, as modulation is exactly /2 each time!<br>
 Some steps will sound more detuned than others, so make sure to tune your tempo accordingly<br>
 Note :*Modulations like H2 will sound particulary distorted and off tune*
+
+For precise frequency of every step check out AM calculators available in this repository
+made by Lisa and Pator, props for their hard work!
 
 # 8. Commands generating Hum
 
@@ -241,7 +252,8 @@ Adjusting CMD rate of the instrument will make it work twicec slower per value<b
 
 Using the transpose column in the table with minimum 2 step modulation will split the instrument pitch into 3,
 creating FM-like metallic sound.<br>
-3, because you have *Transposed* step next to another one (can be transposed or not) AND *tempo dependant hum* inbetween!
+3, because you have *Transposed* step next to another one (can be transposed or not) AND *tempo dependant hum* inbetween!<br>
+Using this on Noise channel yelds new timbres especially by modulating metalic notes (x0-x7
 
 ## **"`T`"** command
 
@@ -262,7 +274,7 @@ and put the new proper groove in all patterns when there's an empty space in the
 Using combinations of **"`W`"** and **"`O`"** can yeld you multiple hums,
 but beware that this technique makes the tuning even more difficult, and is extra taxing on the CPU.
 Adding Transpose in the table adds ever more harmonics.
-When using both **"`W`"** and **"`O`"** commands, make sure the *active* **"O`LR`"** commands hit thinner waves if we want the hum to be quieter.
+When using both **"`W`"** and **"`O`"** commands, try moving around commands so *active* **"O`LR`"** commands hit thinner waves if we want the hum to be quieter, or experiment with their placement for differences in timbre.
 
 ------------------------
 
@@ -299,9 +311,9 @@ OR when you turn WAV's volume down (like in pic above),
 and differently if you substain it on silent waveform.
 Newest LSDj turns off WAV channel once intrument finished playing, enabling Hum to continue on its own.
 When Hum plays over your waveforms, it's gonna be the loudest where distance between middle and top/bottom of the waveform is the greatest.<br>
-After playing with different instrument types and tables, it was easy to notice that during heavy high-tempo modulations **KITs** had the biggest impact on the Gameboy's CPU! Wave instruments in dynamic play mode (anything other than MANUAL) being noticebly lighter on the CPU, and Manual Instruments being the lightest of them all!
+After playing with different instrument types and tables, it was easy to notice that during heavy high-tempo modulations **KITs** had the biggest impact on the Gameboy's CPU! Wave instruments in dynamic play mode (anything other than MANUAL) being noticebly lighter on the CPU with one exeption: if the **SPEED** parameter is not extremely low!. As expected, lightest of them all is MANUAL, due to it's static nature!
 
-## 12. Another look at the tables - Summary
+  ## 12. Another look at the tables - Summary
 Looking at it the other way, 1 row of the Table in stock LSDj is split into 4 in Overclocked version!
 Any modulation squished into those will let you achieve interesting results.
 At extremely high tempos its even more, so any commands you put there and loop it tightly with **"H"** commands
