@@ -73,7 +73,6 @@ Your LSDj's tempo should be *multiplied* by **four** now!
 
 ### 3. Amplitude Modulation Synthesis - Overclocking Hum
 
-[Twitter video of 3 tones singing from one Pulse channel](https://twitter.com/Infu_av/status/1301578269435801602?s=20)<br>
 The magic of overclocking is largely dependant on LSDj's **`TEMPO`** parameter.
 It's responsible for LSDj's engine speed, therefore increasing it will speed up all modulation happening,
 and slowing it down will make your tables much slower.
@@ -270,7 +269,10 @@ and put the new proper groove in all patterns when there's an empty space in the
 
 # 9. Multihum
 
+[Twitter video of 3 tones singing from one Pulse channel](https://twitter.com/Infu_av/status/1301578269435801602?s=20)<br>
+
 ![Multihum](https://user-images.githubusercontent.com/66220663/99185266-910ef980-2740-11eb-9bf0-aaaffd46d15d.png)<br>
+*(picture above showing table used for first 4 notes in the Twitter video above)*<br>
 Using combinations of **"`W`"** and **"`O`"** can yeld you multiple hums,
 but beware that this technique makes the tuning even more difficult, and is extra taxing on the CPU.
 Adding Transpose in the table adds ever more harmonics.
@@ -303,7 +305,7 @@ or would answer questions you have regarding Overclocked LSDj!**
 
 Original guide from Pain Perdu never included the WAV channel possibilities,
 and in the beginning I was sceptical to even put much modulation there
-because it's already really powerful on its own, but here is something I discovered:
+because WAV channel is already powerful on its own, but here is something I discovered:
 giving **"O"** modulation to Kick creates "distortion", and on synths can help create acidy melody,
 or just serving as another layer for your bass, choice is yours!
 **"O"** plays differently when instrument finished playing in "ONCE" mode
@@ -358,6 +360,7 @@ Use version 8.8.7 if you wish to retain the old ADSR system, that is compatible 
 3. Separate engine speed from tempo, or per table
 4. CPU usage indicator
 5. Alternative way to obtain Hum, in maybe more precise ways?
+6. Integrate Overclocking feature into patcher, prevent patcher from changing the OC value (or ask to replace)
 
 # Credits
 
