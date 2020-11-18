@@ -65,7 +65,7 @@ Still, remember to backup your ROM before you modify your precious tracker!
 
 **Step by step instructions:**
 1. Open up your LSDj ROM in the hex editor of your choice (I used HxD on Windows);
-  2. Search *hex-value* string **`3E04E007`**;
+  2. Search first *hex-value* string **`3E04E007`**;
   3. Replace it with **`3E07E007`**; (Notice: We are changing esensially only second value `04` to `07`)
   4. Save;
 
