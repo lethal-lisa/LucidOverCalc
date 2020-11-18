@@ -323,15 +323,16 @@ will create an interesting result usually unique for Overclocked LSDj only!
 
 ### Extra notes: LSDj Version Overclock differences:
 
-This works with all LSDj versions from from 2.6.0 (included) all the way up to the latest one available!
+Guide is being written while using LSDj 8.9.3 which may differ from future versions in some way,
+so I recommend to take a look at the changelog to see if there hasnt been any major changes!
 
-This guide was written in mind for v8 and above due to optimisations allowing for comfortable and stable use.
-Any version below that won't perform well.
+Software Overclock technique works with all LSDj versions from 2.6.0 (included) all the way up to the latest one available. That said, this guide is written based on optimisations found in v8 and above allowing for comfortable and stable use - This means that any version below v8 won't perform well.
 
 ##### Pre-8.8.0 - ADSR Tempo Related Drift
 
-While using version 8 I noticed that the ADSR envelope tends to not be consistent,
-and "drifts" in relation to the engine's tempo.
+While using version 8.7.7 I noticed that the ADSR envelope tends to not be consistent -
+while it was sounding mostly correctly, on some chains like hihats or short pulse instruments placed one by one in a row,
+Lenght of each ADSR instrument "drifts" in relation to the engine's tempo.
 
 ```
 To reproduce on LSDj (8.7.7):
@@ -344,8 +345,8 @@ The user might hear the ADSR getting slightly shorter or longer in a regular, LF
 ```
 
 This behaviour is more noticeable when using the overclocked version.
-This effect is mostly undesired and somewhat uncontrollable unless the user tunes the `TEMPO` *and* starts the song at a very specific moment (Though extremely not recommended)
-
+This effect is mostly undesired and somewhat uncontrollable unless
+the user tunes the `TEMPO` *and* starts the song at a very specific moment (Though extremely not recommended)<br>
 Version 8.8.0 and onwards keeps the envelopes very stable, and it's drift is not an issue anymore
 
 Use version 8.8.7 if you wish to retain the old ADSR system, that is compatible with plenty of emulators and all Gameboy consoles.
