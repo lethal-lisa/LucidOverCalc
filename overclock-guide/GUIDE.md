@@ -318,7 +318,7 @@ When using both **"`W`"** and **"`O`"** commands, try moving around commands so 
 9. Copy the instrument and table, make second table have **"H`00`"** placed in different spot,
 10. Play those 2 instruments in 1 phrase (notice the hum changes when instruments/tables switch)
 
-**Check the [table of Content on the top of the page](#advanced-guide-to-overclocked-lsdj-by-infu) and redirect yourself to chapter that interests you,
+**Check the [table of Content on the top of the page](#advanced-soft-overclocked-lsdj-guide-by-infu) and redirect yourself to chapter that interests you,
 or would answer questions you have regarding Overclocked LSDj!**
 
 * * * * * * * * 
@@ -353,10 +353,14 @@ then play around with it, experiment with expanded SPEED range!
 
 
 # 12. Another look at the tables - Summary
+
 Looking at it the other way, 1 row of the Table in stock LSDj is split into 4 in Overclocked version!
 Any modulation squished into those will let you achieve interesting results.
 At extremely high tempos its even more, so any commands you put there and loop it tightly with **"H"** commands
 will create an interesting result usually unique for Overclocked LSDj only!
+
+This guide does not represent every single possibility, but tries to make known ways clear
+while engaging the exploration of sound design and pushing the limits!
 
 
 
@@ -391,7 +395,7 @@ optimisations found in v8 and above allowing for comfortable and stable use -
 This means that any version below v8 won't perform well.
 
 ### 8.7.7
-(This is version where I started using OC project)
+(This is version where I started using OC project!)
 Most noticeable difference is that WAV doesn't turn off compared to newer versions - 
 which means no hum after instrument mode "ONCE" finishes playing.
 
@@ -429,8 +433,7 @@ Use version 8.8.7 if you wish to retain the old ADSR system, that is compatible 
 
 # Credits
 
-ABOC and Chiptune Cafe for being best Chiptune communities I know, motivated me to finish this guide;<br>
+ABOC and Chiptune Cafe for being best Chiptune communities I know, motivated and supported me to finish this guide;<br>
 Pain Perdu for writing the initial Overclocking Guide for LSDj<br>
-Aquellex for help with the project<br>
-DBOYD for help with the project<br>
+Aquellex and DBOYD for direct help with the project <br>
 Lisa and Pator for coding their Overclocked Hum Pitch Finder programs and motivating me to finish this guide<br>
