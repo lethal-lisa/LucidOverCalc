@@ -341,7 +341,7 @@ OR while SYNTH is playing make it louder when you turn WAV's volume down (like i
 When Hum plays over your waveforms, it's gonna be the loudest where
 distance between middle and top/bottom of the waveform is the greatest.<br>
 The smaller the waveform, the quieter the Hum.<br>
-All various ways to make sound in WAV channel require different amount of CPU power,
+All various ways to make sound in WAV channel tax the CPU differently,
 I noted down what I have noticed in [CPU usage](#5-cpu-usage)!<br>
 Also thanks to the Overclock WAV instrument gets 4 additional faster SPEED values,
 worth keeping in mind while designing our SYNTHs!<br>
