@@ -1,11 +1,11 @@
-# (ADVANCED) Guide to Overclocked LSDj by Infu
+# (ADVANCED) Soft-Overclocked LSDj Guide by Infu
 [**Sound sample/set video here!**](https://youtu.be/HDLD6zdxt2E)<br>
 <br>
 ![CursedBoy](https://user-images.githubusercontent.com/66220663/99196146-5cbc2d00-2782-11eb-9b35-2709d25b2b4c.png)
 
 Chapters are ordered as it follows:
 
-1. [History and the Benefits of Overclocking Nowadays](#1-history-and-the-benefits-of-overclocking-nowadays)
+1. [History and the Benefits of Soft-Overclocking Nowadays](#1-history-and-the-benefits-of-soft---overclocking-nowadays)
 2. [How to Overclock LSDj ROM](#2-how-to-overclock-lsdj-rom)
 3. [Amplitude Modulation Synthesis - Overclocking Hum](#3-amplitude-modulation-synthesis---overclocking-hum)
 4. [Workflow changes (Groove/Tempo/BPM relation)](#4-workflow-changes)
@@ -19,11 +19,11 @@ Chapters are ordered as it follows:
 12. [Another look at the tables - Summary](#12-another-look-at-the-tables---summary)<br>
 13. [Extra notes,Credits](#extra-notes)<br>
 
-[Guide is almost finished!]
+[**NOTE:** Guide has JUST been released, and though I tried to make it as complete as possible, I'll be probably making small fixes/adjustments or adding stuff based on YOUR feedback in upcoming couple weeks!]
 
 ------------------------
 
-## 1. History and the Benefits of Overclocking Nowadays
+## 1. History and the Benefits of Soft-Overclocking Nowadays
 
 **History** of Software overclocking LSDj starts by Pain Perdu in 2017 using version 5.3.5.[(Archived link for the article here)](https://web.archive.org/web/20200601005830/https://chiptuneswin.com/blog/pauls-tech-talk-lsdj-5-3-5_4x-part-2-sandpaper-vs-eardrums/) 
 Results were impressive, but due to heavier CPU usage while overclocked,
@@ -50,11 +50,11 @@ keep in mind that developer doens't support this technique,
 and might not be able to help you in case a song-breaking glitch happens!
 (though my experience has been very stable with this overclocking, putting the word of caution out)
 
-*Another note: all notes below were observed while using BGB emulator on Windows.
+*Another note: all notes below were observed while using **BGB emulator** in **GBC mode** on Windows.
 Experience on other platforms may wary, but I'll be more than happy to expand the guide with
 notes from other platforms.*
 
-------------------------
+
 
 ## 2. How to Overclock LSDj ROM
 
@@ -80,7 +80,7 @@ Your LSDj's tempo should be *multiplied* by **four** now!
 
 The magic of overclocking is largely dependant on LSDj's **`TEMPO`** parameter.
 It's responsible for LSDj's engine speed, therefore increasing it will speed up all modulation happening,
-and slowing it down will make your tables much slower.
+and slowing it down will make your tables much slower.<br>
 When performing extremely rapid modulation (high tempo) of particular commands/effects
 (for example: a table with **"O`--`"**, **"O`LR`"** and **"H`00`"**)
 **a hum of a specific pitch will be produced**!<br>
@@ -144,22 +144,27 @@ making you redo the process in hex editor, but that's not big issue!
 Overclocking can be very taxing on the Gameboy's CPU, and reaching the "TOO BUSY!" state is more than easy.
 The faster the **"`TEMPO`"**, the faster the modulation, therefore CPU has to work harder to keep up.
 If you're maintaining high **"`TEMPO`"** and using multiple effects/techniques playing at once
-this can lead to sequencer desync, or crash Gameboy/LSDj! Here's couple factors I noticed:
+this can lead to sequencer desync/slowdown, or crash Gameboy/LSDj! Here's couple factors I noticed:
 * **Stacking exactly same Command/Value in tables puts extra pressure**
-(i.e. Having multiple **"O`LR`"** in a row does no good and only the 1st one is needed)
-* Even empty table adds pressure, especially when Hopped tighter!
-* Transposing does nothing to CPU!
-* lIVE MODE and holding B button is more taxing than simple SONG mode.
-* **"`E`"** command next to **"`V`"** are most CPU taxing commands.
-* **`V`** x1-xF doesn't do much of a difference, left side does visible impact
-* **"`O`"** and **"`W`"** don't put as much pressure.
-* The **"`V`"** command is much more resource intensive than having transpose done in the table, no matter how intense the modulation is;
+(i.e. Having multiple **"O`LR`"** in a row does no good and only the 1st one is needed);
+* Even empty table adds pressure, especially when `H`opped tighter;
+* Transposing does nothing to CPU;
+* lIVE MODE is more taxing than simple SONG mode;
+* Holding B button when sequence is playing puts pressure on CPU, because LSDj gets ready to mute/solo channels;
+* **"`E`"** command next to **"`V`"** are most CPU taxing commands;
+* **"`O`"** and **"`W`"** don't put as much pressure;
+* **`V`** there's no big difference between x1-xF, left side does impact each value;
 * Slower songs are also easier for CPU;
 * If you can, try to end tables with **"A`20`"** instead of **"`H`"**-opping over nothingness;
+WAVE CHANNEL CPU USAGE:
+* MANUAL wave instrument almost do no impact;
+* ONCE/LOOP/PINGPONG do visibly more;
+* KITS are heavy as long as they are playing;
+* moving MODEs tax CPU more the lower SPEED parameter is;
+* Interesting enough, high notes affect the CPU more than lower ones!
 
 Most of the notes were taken during *max tempo intense multi channel* modulations,
-leavning very little headroom before reaching "TOO BUSY!" state.
-
+leavning very little headroom before reaching "TOO BUSY!" state.<br>
 Once again, it's highly recommended to use GBC and GBA if available,
 DMG brick cannot endure even half of what GBC can take.
 
@@ -180,10 +185,10 @@ any longer modulation will decrease pitch by certain amount of semitones.<br>
 Now tune your **"TEMPO"** value for highest Hum pitch you want available,
 and reach the other lower Hum notes using more steps in modulation, or by H1 command.
 
-#### H10 - hop between steps
+### H10 - hop between steps
 Use loops like **"H`10`"** and **"H`00`"** right below to achieve modulation in between rows, by rapidly switching between two steps.
 It works only between first couple steps, trying to do that below 5step modulation
-will be difficult to tune and can start to sound like an arp. on lower TEMPOs<br>
+will be difficult to tune and can start to sound like an arp on lower TEMPOs<br>
 ![3stepH1](https://user-images.githubusercontent.com/66220663/99185036-0ed20580-273f-11eb-8f57-2b729d880c0e.png)<br>
 *(picture showing **3 step H1** modulation)*<br>
 
@@ -264,12 +269,12 @@ First F digits of **"`R`"** commands will play the table up to chosen digit of t
 Adjusting CMD rate of the instrument will make it work twicec slower per value<br>
 (i.e using **`CMD 1`**, command **"R`04`"** will behave like **"R`08`"**)<br>
 
-## Transpose
+## **Transpose**  
 
-Using the transpose column in the table with minimum 2 step modulation will split the instrument pitch into 3,
+Using the transpose column in the table with minimum 2 step modulation (just H itself) will split the instrument pitch into 3,
 creating FM-like metallic sound.<br>
 3, because you have *Transposed* step next to another one (can be transposed or not) AND *tempo dependant hum* inbetween!<br>
-Using this on Noise channel can yeld new pitch values especially by modulating metalic notes!
+Using this on **Noise** channel can yeld new metalic pitch values this way!
 
 ## **"`T`"** command
 
@@ -337,7 +342,15 @@ When Hum plays over your waveforms, it's gonna be the loudest where
 distance between middle and top/bottom of the waveform is the greatest.<br>
 The smaller the waveform, the quieter the Hum.<br>
 All various ways to make sound in WAV channel require different amount of CPU power,
-I noted down what I have noticed in [CPU usage](#5-cpu-usage)!
+I noted down what I have noticed in [CPU usage](#5-cpu-usage)!<br>
+Also thanks to the Overclock WAV instrument gets 4 additional faster SPEED values,
+worth keeping in mind while designing our SYNTHs!<br>
+In original Pain Perdu's guide, the "Phase Bass" was first suggested SYNTH for the user,
+all you need to do is to change Instrument mode to anything else than MANUAL,
+and in the SYNTH menu set PHASE end (right side) to 1E,
+then play around with it, experiment with expanded SPEED range!
+
+
 
 # 12. Another look at the tables - Summary
 Looking at it the other way, 1 row of the Table in stock LSDj is split into 4 in Overclocked version!
@@ -348,6 +361,7 @@ will create an interesting result usually unique for Overclocked LSDj only!
 
 
 ------------------------
+
 
 
 # Extra notes
