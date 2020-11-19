@@ -16,7 +16,7 @@ Chapters are ordered as it follows:
 10. [Quickstart mini guide *(for impatient ones)*](#10-quickstart-mini-guide-for-impatient-ones)
 11. [WAV channel](#11-wav-channel)
 12. [Another look at the tables - Summary](#12-another-look-at-the-tables---summary)<br>
-[Extra notes,Credits](#extra-notes-lsdj-version-overclock-differences)<br>
+[Extra notes,Credits](#extra-notes)<br>
 
 [Guide is almost finished!]
 
@@ -186,18 +186,18 @@ where *step 0* is **O**`LR`, *all next steps* are **O**`--`<br>
 | 2 step H0   | 0   |
 | 2 step H1   | 4   |
 | 3 step H0   | 7   |
-| 3 step H1   | 9~>10   |
+| 3 step H1   | 9~10   |
 | 4 step H0   | 12   |
 | 4 step H1   | 14   |
 | 5 step H0   | 16   |
-| 5 step H1   | 17~>18   |
+| 5 step H1   | 17~18 |
 | 6 step H0   | 19   |
-| 7 step H0   | 21~>22   |
+| 7 step H0   | 21~22|
 | 8 step H0   | 24   |
-| 9 step H0   | x   |
-| 10 step H0  | x   |
+| 9 step H0   | 26   |
+| 10 step H0  | 28   |
+| 11 step H0  | 29~30|
 
-(ones on the right are closer)<br>
 
 Notice how 2,4,8step H0 share same note, but are lowered by an octave, as modulation is exactly /2 each time!<br>
 Some steps will sound more detuned than others, so make sure to tune your tempo accordingly<br>
@@ -220,6 +220,7 @@ The **"`O`"** command may be used on **any** channel you like.<br>
 One of the ways to control the hum's volume is to move around the steps where the **"`O`"** is active and where it's not.<br>
 Another way to look at the hum effect, think that every **"O`LR`"** step represents square wave at it's top,
 and every **"O`--`"** is square at it's bottom.<br>
+Try mixing in active and panned notes in between to shape the Hum's timbre!<br>
 
 ## **"`W`"** command (pulse channels only)
 
@@ -241,7 +242,8 @@ Hum will be louder as the distance between lowest and highest **"`E`"** command 
 ## **"`R`"** command (any channel)
 
 Use **"R`00-0F`"** in phrase to retrigger the long hum tables,
-giving you additional control over them without changing the table itself!<br>
+giving you additional way to loop them without changing the table itself!<br>
+(Be careful, because it's more resource intensive to loop tables this way!)<br>
 First F digits of **"`R`"** commands will play the table up to chosen digit of the command<br>
 (i.e. **"R`04`"** will play first 4 steps of the table and *hop* back to the beginning)<br>
 Adjusting CMD rate of the instrument will make it work twicec slower per value<br>
