@@ -9,8 +9,7 @@ Chapters are ordered as it follows:
 2. [How to Overclock LSDj ROM](#2-how-to-overclock-lsdj-rom)
 3. [Amplitude Modulation Synthesis - Overclocking Hum](#3-amplitude-modulation-synthesis---overclocking-hum)
 4. [Workflow changes (Groove/Tempo/BPM relation)](#4-workflow-changes)
-5. 
-
+5. [CPU usage](#5-cpu-usage)
 6. [Controlling the Extra Hum](#6-controlling-the-extra-hum)
 7. [Hum Pitch table](#7-hum-pitch-table)
 8. [Commands generating Hum](#8-commands-generating-hum)
