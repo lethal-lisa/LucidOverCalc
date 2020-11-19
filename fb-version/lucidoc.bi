@@ -28,6 +28,8 @@
 '' Include headers:
 #Include Once "inc/fberrors.bi"
 #Include Once "inc/fbcolors.bi"
+#Include "inc/seterror.bi"
+#Include "inc/stdioobj.bi"
 
 #Include "inc/exopts.bi"
 
@@ -35,6 +37,9 @@
 #IfnDef NULL
 	#Define NULL 0
 #EndIf
+
+'' Default color override:
+#Define DEF_COLOR &hFF
 
 '' Constant values used by LSDj:
 Enum LSDJ Explicit
@@ -56,9 +61,6 @@ Enum NEGOUT Explicit
 	OMIT
 End Enum
 
-'' Colors:
-#Define DEF_COLOR &hFF
-
 '' Define UDTs and structures:
 '' Parameters used at runtime:
 Type RUNTIME_PARAMS
@@ -73,31 +75,17 @@ Type RUNTIME_PARAMS
 	bBareOut As Boolean		'' Bare output enable.
 End Type
 
-'' Standard I/O handles:
-Type STDIO_HANDLES
-	hOut As Long
-	hErr As Long
-	#If __FB_DEBUG__
-		hDbg As Long
-	#EndIf
-	Declare Constructor
-	Declare Destructor
-End Type
 
 '' Define external variables:
-Extern g_prtParams As RUNTIME_PARAMS Ptr
-Extern g_pstdio As STDIO_HANDLES Ptr
+Extern g_prtParams As RUNTIME_PARAMS Ptr	'' Runtime parameters structure.
 
-Extern g_colCurrent As ULong
-Extern g_colDefColor As ULong
 
-Extern g_uLastError As ULong
+Extern g_colCurrent As ULong	'' Buffer for current color.
+Extern g_colDefColor As ULong	'' Buffer for default color.
 
 '' Function declarations:
 
 '' From main module lucidoc.bas:
-Declare Function SetError (ByVal uError As Const ULong) As ULong
-
 Declare Function LogBaseX (ByVal dblBase As Const Double, ByVal dblNumber As Const Double) As Double
 Declare Function CalcMainHz (ByVal uTempo As Const UInteger) As Double
 Declare Function CalcFreq (ByVal uTempo As Const UInteger, ByVal dblOffTime As Const Double) As Double

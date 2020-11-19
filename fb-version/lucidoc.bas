@@ -37,56 +37,6 @@
 #Assert MIDI.minKeyNum < MIDI.maxKeyNum
 
 Dim Shared g_prtParams As RUNTIME_PARAMS Ptr
-Dim Shared g_pstdio As STDIO_HANDLES Ptr
-
-Dim Shared g_uLastError As ULong
-
-Constructor STDIO_HANDLES
-	
-	On Local Error GoTo FAIL
-	
-	This.hOut = FreeFile()
-	Open Cons For Output As #This.hOut
-	If Err() Then Error(Err())
-	
-	This.hErr = FreeFile()
-	Open Err As #This.hErr
-	If Err() Then Error(Err())
-	
-	#If __FB_DEBUG__
-		This.hDbg = FreeFile()
-		Open "lucidoc.log" For Output As #This.hDbg
-		If Err() Then Error(Err())
-	#EndIf
-	
-	SetError(FB_ERR_SUCCESS)
-	Return
-	
-	FAIL:
-	If This.hOut Then Close #This.hOut
-	If This.hErr Then Close #This.hErr
-	#If __FB_DEBUG__
-		If This.hDbg Then Close #This.hDbg
-	#EndIf
-	SetError(Err())
-	
-End Constructor
-
-Destructor STDIO_HANDLES
-	
-	If This.hOut Then Close #This.hOut
-	If This.hErr Then Close #This.hErr
-	#If __FB_DEBUG__
-		If This.hDbg Then Close #This.hDbg
-	#EndIf
-	
-End Destructor
-
-Function SetError (ByVal uError As Const ULong) As ULong
-	Err = uError
-	g_uLastError = uError
-	Return uError
-End Function
 
 '' Calculates a logarithm with a base of dblBase multiplied by dblNumber.
 Function LogBaseX (ByVal dblBase As Const Double, ByVal dblNumber As Const Double) As Double
@@ -200,8 +150,7 @@ With *g_prtParams
 	Dim dblFreq As Double
 	For iStep As Single = .sngOffMin To .sngOffMax Step .sngStepSize
 		dblFreq = CalcFreq(.uTempo, iStep)
-		'' TODO: Implement accurate parameters for GetClosestFreq.
-		PrintFormattedRow(iStep, dblFreq, GetMIDIKeyNum(dblFreq)) '' GetClosestFreq(dblFreq, GetMIDIKeyFreq(MIDI.minKeyNum), GetMIDIKeyFreq(MIDI.maxKeyNum))))
+		PrintFormattedRow(iStep, dblFreq, GetMIDIKeyNum(dblFreq))
 	Next iStep
 	
 End With
