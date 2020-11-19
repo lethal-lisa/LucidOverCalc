@@ -21,6 +21,8 @@ Chapters are ordered as it follows:
 
 [Guide is almost finished!]
 
+------------------------
+
 ## 1. History and the Benefits of Overclocking Nowadays
 
 **History** of Software overclocking LSDj starts by Pain Perdu in 2017 using version 5.3.5.[(Archived link for the article here)](https://web.archive.org/web/20200601005830/https://chiptuneswin.com/blog/pauls-tech-talk-lsdj-5-3-5_4x-part-2-sandpaper-vs-eardrums/) 
@@ -52,6 +54,8 @@ and might not be able to help you in case a song-breaking glitch happens!
 Experience on other platforms may wary, but I'll be more than happy to expand the guide with
 notes from other platforms.*
 
+------------------------
+
 ## 2. How to Overclock LSDj ROM
 
 Modifying your ROM to be overclocked is actually fairly easy, possible to do on any platform that has hex Editor.<br>
@@ -71,6 +75,8 @@ Still, remember to backup your ROM before you modify your precious tracker!
   4. Save;
 
 Your LSDj's tempo should be *multiplied* by **four** now!
+
+------------------------
 
 ### 3. Amplitude Modulation Synthesis - Overclocking Hum
 
@@ -97,6 +103,8 @@ thus the higher the initial pitch.
 Said hum does not come out of nowhere, but shares the channel together with other sounds happening there,
 each one "fighting each other, and one may strip other from some frequencies to fit in, which is absolutely normal behaviour,
 and you can design your sounds around that, giving one or the other more priority.
+
+------------------------
 
 # 4. Workflow changes 
 
@@ -134,7 +142,9 @@ For some reason I cannot start start all 8 channels at once on some songs, still
 Also small note, as for now, using official LSDj patcher and upgrading ROM will overwrite the overclock,
 making you redo the process in hex editor, but that's not big issue!
 
-### 5. CPU USAGE
+------------------------
+
+## 5. CPU USAGE
 
 Overclocking can be very taxing on the Gameboy's CPU, and reaching the "TOO BUSY!" state is more than easy.
 The faster the **"`TEMPO`"**, the faster the modulation, therefore CPU has to work harder to keep up.
@@ -153,6 +163,8 @@ this can lead to sequencer desync, or crash Gameboy/LSDj! Here's couple factors 
 
 Once again, it's highly recommended to use GBC and GBA if available,
 DMG brick cannot endure even half of what GBC can take.
+
+------------------------
 
 # 6. Controlling the Extra Hum
 
@@ -175,6 +187,8 @@ It works only between first couple steps, trying to do that below 5step modulati
 will be difficult to tune and can start to sound like an arp. on lower TEMPOs<br>
 ![3stepH1](https://user-images.githubusercontent.com/66220663/99185036-0ed20580-273f-11eb-8f57-2b729d880c0e.png)<br>
 *(picture showing **3 step H1** modulation)*<br>
+
+------------------------
 
 ## 7. Hum Pitch table
 
@@ -206,6 +220,8 @@ Note :*Modulations like H2 will sound particulary distorted and off tune*
 
 For precise frequency of every step check out AM calculators available in this repository
 made by Lisa and Pator, props for their hard work!
+
+------------------------
 
 # 8. Commands generating Hum
 
@@ -270,6 +286,8 @@ I would recommend placing extra **"`G`"** commands before **"`T`"** in order to 
 placing new groove before/after tempo change can make song hiccup for a brief moment)
 and put the new proper groove in all patterns when there's an empty space in the sequencer.
 
+------------------------
+
 # 9. Multihum
 
 [Twitter video of 3 tones singing from one Pulse channel](https://twitter.com/Infu_av/status/1301578269435801602?s=20)<br>
@@ -282,6 +300,7 @@ Adding Transpose in the table adds ever more harmonics.
 When using both **"`W`"** and **"`O`"** commands, try moving around commands so *active* **"O`LR`"** commands hit thinner waves if we want the hum to be quieter, or experiment with their placement for differences in timbre.
 
 ------------------------
+************************
 
 ## 10. Quickstart mini guide (for impatient ones)
 
@@ -300,6 +319,7 @@ When using both **"`W`"** and **"`O`"** commands, try moving around commands so 
 **Check the [table of Content on the top of the page](#advanced-guide-to-overclocked-lsdj-by-infu) and redirect yourself to chapter that interests you,
 or would answer questions you have regarding Overclocked LSDj!**
 
+************************
 ------------------------
 
 # 11. WAV Channel
@@ -318,12 +338,15 @@ Newest LSDj turns off WAV channel once intrument finished playing, enabling Hum 
 When Hum plays over your waveforms, it's gonna be the loudest where distance between middle and top/bottom of the waveform is the greatest.<br>
 After playing with different instrument types and tables, it was easy to notice that during heavy high-tempo modulations **KITs** had the biggest impact on the Gameboy's CPU! Wave instruments in dynamic play mode (anything other than MANUAL) being noticebly lighter on the CPU with one exeption: if the **SPEED** parameter is not extremely low!. As expected, lightest of them all is MANUAL, due to it's static nature!
 
+------------------------
+
   ## 12. Another look at the tables - Summary
 Looking at it the other way, 1 row of the Table in stock LSDj is split into 4 in Overclocked version!
 Any modulation squished into those will let you achieve interesting results.
 At extremely high tempos its even more, so any commands you put there and loop it tightly with **"H"** commands
 will create an interesting result usually unique for Overclocked LSDj only!
 
+------------------------
 ------------------------
 
 # Extra notes
