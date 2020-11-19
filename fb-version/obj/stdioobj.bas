@@ -5,21 +5,28 @@
 
 Dim Shared g_pstdio As STDIO_HANDLES Ptr
 
-Constructor STDIO_HANDLES
+Constructor STDIO_HANDLES (ByRef strDbgLog As Const String = "")
 	
 	On Local Error GoTo FAIL
 	
+	'' Open standard output.
 	This.hOut = FreeFile()
 	Open Cons For Output As #This.hOut
 	If Err() Then Error(Err())
 	
+	'' Open standard error.
 	This.hErr = FreeFile()
 	Open Err As #This.hErr
 	If Err() Then Error(Err())
 	
 	#If __FB_DEBUG__
+		This.strDbgFile = strDbgLog
 		This.hDbg = FreeFile()
-		Open "lucidoc.log" For Output As #This.hDbg
+		If Len(This.strDbgFile) Then
+			Open This.strDbgFile For Output As #This.hDbg
+		Else
+			Open Cons For Output As #This.hDbg
+		EndIf
 		If Err() Then Error(Err())
 	#EndIf
 	

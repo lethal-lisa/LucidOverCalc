@@ -92,7 +92,7 @@ On Error GoTo FATAL_ERROR
 g_prtParams = Allocate(SizeOf(RUNTIME_PARAMS))
 If (g_prtParams = NULL) Then Error(FB_ERR_OUTOFMEMORY)
 
-g_pstdio = New STDIO_HANDLES()
+g_pstdio = New STDIO_HANDLES("lucidoc.log")
 If (g_pstdio = NULL) Then Error(g_uLastError)
 
 #If __FB_DEBUG__

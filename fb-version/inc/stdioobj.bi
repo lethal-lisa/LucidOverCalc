@@ -9,7 +9,7 @@ Type STDIO_HANDLES
 		strDbgFile As String	'' Debug log file.
 		hDbg As Long	'' Debug log handle.
 	#EndIf
-	Declare Constructor
+	Declare Constructor (ByRef strDbgLog As Const String = "")
 	Declare Destructor
 End Type
 
