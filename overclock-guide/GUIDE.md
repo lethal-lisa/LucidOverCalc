@@ -1,5 +1,6 @@
 # (ADVANCED) Guide to Overclocked LSDj by Infu
-[**Sound sample/set video here**](https://youtu.be/HDLD6zdxt2E)<br>
+[**Sound sample/set video here!**](https://youtu.be/HDLD6zdxt2E)<br>
+<br>
 ![CursedBoy](https://user-images.githubusercontent.com/66220663/99196146-5cbc2d00-2782-11eb-9b35-2709d25b2b4c.png)
 
 Chapters are ordered as it follows:
