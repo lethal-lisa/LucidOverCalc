@@ -129,7 +129,8 @@ Using the formula above you should calculate that picture above runs actually 13
 *A good practice* is to make sure your grooves are divisible by two in order to achieve half tempo if desired.
 
 It is highly recommended to use GBC and above for optimal performance,
-but it's doable to run simpler/slower songs on normal DMG as well!
+(or make sure your emulator is running in GBC mode) as DMG
+cannot handle modulation well in high speed on more than 1 channel.
 
 If you thought about using **2xOC-LSDj** synced together, don't expect a lot of stability -
 Intense moments in your songs will slightly desync them, very high **`TEMPO`** should be avoided to prevent that.
@@ -178,6 +179,7 @@ it should look like on picture:<br>
 any longer modulation will decrease pitch by certain amount of semitones.<br>
 Now tune your **"TEMPO"** value for highest Hum pitch you want available,
 and reach the other lower Hum notes using more steps in modulation, or by H1 command.
+
 #### H10 - hop between steps
 Use loops like **"H`10`"** and **"H`00`"** right below to achieve modulation in between rows, by rapidly switching between two steps.
 It works only between first couple steps, trying to do that below 5step modulation
@@ -232,7 +234,7 @@ The **"`O`"** command may be used on **any** channel you like.<br>
 One of the ways to control the hum's volume is to move around the steps where the **"`O`"** is active and where it's not.<br>
 Another way to look at the hum effect, think that every **"O`LR`"** step represents square wave at it's top,
 and every **"O`--`"** is square at it's bottom.<br>
-Try mixing in active and panned notes in between to shape the Hum's timbre!<br>
+Try mixing in active and panned notes in between to shape the Hum's pitch and timbre!<br>
 
 ## **"`W`"** command (pulse channels only)
 
@@ -267,7 +269,7 @@ Adjusting CMD rate of the instrument will make it work twicec slower per value<b
 Using the transpose column in the table with minimum 2 step modulation will split the instrument pitch into 3,
 creating FM-like metallic sound.<br>
 3, because you have *Transposed* step next to another one (can be transposed or not) AND *tempo dependant hum* inbetween!<br>
-Using this on Noise channel yelds new timbres especially by modulating metalic notes (x0-x7
+Using this on Noise channel can yeld new pitch values especially by modulating metalic notes!
 
 ## **"`T`"** command
 
@@ -362,7 +364,7 @@ Though they have great potential in theory than 4x overclock, their stability is
 
 ## LSDj Version Overclock differences:
 
-Guide is being written while using LSDj 8.9.3 which may differ from future versions in some way,
+Guide is being written while using LSDj 8.9.6 which may differ from future versions in some way,
 so I recommend to take a look at the changelog to see if there hasnt been any major changes!
 
 Software Overclock technique works with all LSDj versions from 2.6.0 (included) all the way up to the latest one available. That said, this guide is written based on optimisations found in v8 and above allowing for comfortable and stable use - This means that any version below v8 won't perform well.
