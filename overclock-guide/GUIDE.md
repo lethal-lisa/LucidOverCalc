@@ -9,7 +9,8 @@ Chapters are ordered as it follows:
 2. [How to Overclock LSDj ROM](#2-how-to-overclock-lsdj-rom)
 3. [Amplitude Modulation Synthesis - Overclocking Hum](#3-amplitude-modulation-synthesis---overclocking-hum)
 4. [Workflow changes (Groove/Tempo/BPM relation)](#4-workflow-changes)
-5. [CPU usage](#5-cpu-usage)
+5. 
+
 6. [Controlling the Extra Hum](#6-controlling-the-extra-hum)
 7. [Hum Pitch table](#7-hum-pitch-table)
 8. [Commands generating Hum](#8-commands-generating-hum)
@@ -322,25 +323,29 @@ or would answer questions you have regarding Overclocked LSDj!**
 
 ![gaemboi_p3XF18LkmA](https://user-images.githubusercontent.com/66220663/99191684-1b1d8900-2766-11eb-85d2-c060c3f96977.png)<br>
 
-Original guide from Pain Perdu never included the WAV channel possibilities,
+Original guide from Pain Perdu only briefly described the WAV channel possibilities,
 and in the beginning I was sceptical to even put much modulation there
 because WAV channel is already powerful on its own, but here is something I discovered:
-giving **"O"** modulation to Kick creates "distortion", and on synths can help create acidy melody,
+You can create "Distortion effect" on your kick with **"O"** Hum modulation,
+(to preserve the "kick" part place think about placing the OC modulation lower in the Table,
+i.e. make it 4 steps lower and loop it with H04)
+while and on synths can help create acidy melody,
 or just serving as another layer for your bass, choice is yours!
-**"O"** plays differently when instrument finished playing in "ONCE" mode
-OR when you turn WAV's volume down (like in pic above), 
-and differently if you substain it on silent waveform.
-Newest LSDj turns off WAV channel once intrument finished playing, enabling Hum to continue on its own.
-When Hum plays over your waveforms, it's gonna be the loudest where distance between middle and top/bottom of the waveform is the greatest.<br>
-After playing with different instrument types and tables, it was easy to notice that during heavy high-tempo modulations **KITs** had the biggest impact on the Gameboy's CPU! Wave instruments in dynamic play mode (anything other than MANUAL) being noticebly lighter on the CPU with one exeption: if the **SPEED** parameter is not extremely low!. As expected, lightest of them all is MANUAL, due to it's static nature!
-
-
+**"O"** plays with it's full loud potential when instrument finished playing in "ONCE" mode 
+(Newest LSDj turns off WAV channel once intrument finished playing, enabling Hum to continue on its own)
+OR while SYNTH is playing make it louder when you turn WAV's volume down (like in pic above).
+When Hum plays over your waveforms, it's gonna be the loudest where
+distance between middle and top/bottom of the waveform is the greatest.<br>
+The smaller the waveform, the quieter the Hum.<br>
+All various ways to make sound in WAV channel require different amount of CPU power,
+I noted down what I have noticed in [CPU usage](#5-cpu-usage)!
 
 # 12. Another look at the tables - Summary
 Looking at it the other way, 1 row of the Table in stock LSDj is split into 4 in Overclocked version!
 Any modulation squished into those will let you achieve interesting results.
 At extremely high tempos its even more, so any commands you put there and loop it tightly with **"H"** commands
 will create an interesting result usually unique for Overclocked LSDj only!
+
 
 
 ------------------------
@@ -360,19 +365,22 @@ but unfortunately the 8x version cannot reach even half of LSDj available tempo 
 before reaching "TOO BUSY" state, and that's while using just 1 channel!
 16x overclock version performs the poorest even on the lowest tempo, increased grooves, 2step 'O'Hum crashes Gameboy!
 
-Though they have great potential in theory than 4x overclock, their stability is almost nonexistant in current state.
+Though in theory they have greater potential than 4x overclock, their stability is almost nonexistant in current state.
 
 ## LSDj Version Overclock differences:
 
 Guide is being written while using LSDj 8.9.6 which may differ from future versions in some way,
 so I recommend to take a look at the changelog to see if there hasnt been any major changes!
 
-Software Overclock technique works with all LSDj versions from 2.6.0 (included) all the way up to the latest one available. That said, this guide is written based on optimisations found in v8 and above allowing for comfortable and stable use - This means that any version below v8 won't perform well.
+Software Overclock technique works with all LSDj versions from 2.6.0 (included)
+all the way up to the latest one available. That said, this guide is written based on
+optimisations found in v8 and above allowing for comfortable and stable use - 
+This means that any version below v8 won't perform well.
 
 ### 8.7.7
-
-WAV doesnt turn off - no hum after ONCE finishes
-Slightly worse performance than newest versions
+(This is version where I started using OC project)
+Most noticeable difference is that WAV doesn't turn off compared to newer versions - 
+which means no hum after instrument mode "ONCE" finishes playing.
 
 ##### Pre-8.8.0 - ADSR Tempo Related Drift
 
