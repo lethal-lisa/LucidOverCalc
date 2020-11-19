@@ -323,12 +323,32 @@ will create an interesting result usually unique for Overclocked LSDj only!
 
 ------------------------
 
-### Extra notes: LSDj Version Overclock differences:
+# Extra notes
+
+## Other Overclock Multipliers
+
+![4speeds](https://user-images.githubusercontent.com/66220663/99602594-a82c4080-29f9-11eb-8d54-2bb7be5e7f63.png)<br>
+
+As you already know, to achieve 4x overclock you need to find first string of hex values **`3E04E007`**, 
+then change second value value `04` to `07`. What if we tried other values?<br>
+Using `06` multiplies tempo by 8, and `5` by 16! This greatly expands the pitch range of possible hums,
+but unfortunately the 8x version cannot reach even half of LSDj available tempo with 2step `O`Hum
+before reaching "TOO BUSY" state, and that's while using just 1 channel!
+16x overclock version performs the poorest even on the lowest tempo, increased grooves, 2step 'O'Hum crashes Gameboy!
+
+Though they have great potential in theory than 4x overclock, their stability is almost nonexistant in current state.
+
+## LSDj Version Overclock differences:
 
 Guide is being written while using LSDj 8.9.3 which may differ from future versions in some way,
 so I recommend to take a look at the changelog to see if there hasnt been any major changes!
 
 Software Overclock technique works with all LSDj versions from 2.6.0 (included) all the way up to the latest one available. That said, this guide is written based on optimisations found in v8 and above allowing for comfortable and stable use - This means that any version below v8 won't perform well.
+
+### 8.7.7
+
+WAV doesnt turn off - no hum after ONCE finishes
+Slightly worse performance than newest versions
 
 ##### Pre-8.8.0 - ADSR Tempo Related Drift
 
