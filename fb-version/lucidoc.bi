@@ -30,6 +30,7 @@
 #Include Once "inc/fbcolors.bi"
 #Include "inc/seterror.bi"
 #Include "inc/stdioobj.bi"
+#Include "inc/color.bi"
 
 #Include "inc/exopts.bi"
 
@@ -71,17 +72,12 @@ Type RUNTIME_PARAMS
 	uOctShift As UByte		'' Amount of octaves to shift MIDI notes up.
 	uTabsCount As UInteger	'' Whitespace between output columns.
 	uNegOut As UByte		'' Negative output mode.
-	bColor As Boolean		'' Color enable or disable.
 	bBareOut As Boolean		'' Bare output enable.
 End Type
 
 
 '' Define external variables:
 Extern g_prtParams As RUNTIME_PARAMS Ptr	'' Runtime parameters structure.
-
-
-Extern g_colCurrent As ULong	'' Buffer for current color.
-Extern g_colDefColor As ULong	'' Buffer for default color.
 
 '' Function declarations:
 
@@ -99,10 +95,6 @@ Declare Sub ShowDefaults (ByVal hOut As Const Long)
 Declare Function ParseCmdLine () As ULong
 Declare Function ValidTempo (ByVal uTempo As Const UInteger) As Boolean
 Declare Function GetTempo () As UInteger
-
-'' From module obj/color.bas:
-Declare Function SetColor (ByRef colFore As UByte = DEF_COLOR, ByRef colBack As UByte = DEF_COLOR) As ULong
-Declare Sub RestoreColor (ByVal uColor As Const ULong)
 
 '' From module obj/output.bas:
 Declare Sub PrintHeader ()

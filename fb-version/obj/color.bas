@@ -23,10 +23,14 @@
 	
 '/
 
-#Include "lucidoc.bi"
+''#Include "lucidoc.bi"
+#Include "inc/stdioobj.bi"
+#Include "inc/color.bi"
 
 Dim Shared g_colCurrent As ULong
+Dim Shared g_colPrevious As ULong
 Dim Shared g_colDefColor As ULong
+Dim Shared g_bEnableColor As Boolean
 
 '' Sets the console color only if ENABLE_COLOR is TRUE.
 Function SetColor (ByRef colFore As UByte = DEF_COLOR, ByRef colBack As UByte = DEF_COLOR) As ULong
@@ -38,13 +42,18 @@ Function SetColor (ByRef colFore As UByte = DEF_COLOR, ByRef colBack As UByte = 
 	#EndIf
 	
 	'' Preserve the old color.
-	Dim uColor As ULong = Color
+	''Dim uOldColor As ULong = Color
+	g_colCurrent = Color()
+	g_colPrevious = g_colCurrent
 	
-	If g_prtParams->bColor Then
+	''If g_prtParams->bColor Then
+	If g_bEnableColor Then
 		
 		'' Check for default colors, and use them if needed.
-		If (colFore = DEF_COLOR) Then colFore = CUByte(LoWord(uColor))
-		If (colBack = DEF_COLOR) Then colBack = CUByte(HiWord(uColor))
+		If (colFore = DEF_COLOR) Then colFore = CUByte(LoWord(g_colDefColor))
+		If (colFore = CUR_COLOR) Then colFore = CUbyte(LoWord(g_colCurrent))
+		If (colBack = DEF_COLOR) Then colBack = CUByte(HiWord(g_colDefColor))
+		If (colBack = CUR_COLOR) Then colBack = CUByte(HiWord(g_colCurrent))
 		
 		'' Set the new color.
 		Color colFore, colBack
@@ -52,7 +61,8 @@ Function SetColor (ByRef colFore As UByte = DEF_COLOR, ByRef colBack As UByte = 
 	EndIf
 	
 	'' Return the old color.
-	Return uColor
+	''Return uOldColor
+	Return g_colPrevious
 	
 End Function
 
@@ -64,7 +74,8 @@ Sub RestoreColor (ByVal uColor As Const ULong)
 		? #g_pstdio->hDbg, Using !"\tByVal Const ULong:uColor = _&h& (&)"; Hex(uColor); uColor
 	#EndIf
 	
-	If g_prtParams->bColor Then	Color LoWord(uColor), HiWord(uColor)
+	''If g_prtParams->bColor Then Color LoWord(uColor), HiWord(uColor)
+	If g_bEnableColor Then Color LoWord(uColor), HiWord(uColor)
 	
 End Sub
 

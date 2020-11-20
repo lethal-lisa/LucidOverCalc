@@ -143,7 +143,8 @@ Function ParseCmdLine () As ULong
 				'' Get color settings.
 				If CheckOption(OPT_COLOR, pbParam) Then Exit Select
 				iCmd += 1
-				g_prtParams->bColor = CBool(Command(iCmd))
+				''g_prtParams->bColor = CBool(Command(iCmd))
+				g_bEnableColor = CBool(Command(iCmd))
 				
 			Case "tabs"
 				
@@ -241,18 +242,20 @@ Function GetTempo () As UInteger
 	Do
 		
 		'' Display valid tempos and prompt user.
-		g_colCurrent = SetColor COL_GOOD
+		''g_colCurrent = SetColor COL_GOOD
+		SetColor COL_GOOD
 		? #g_pstdio->hErr, Using "Valid tempos are integers between & and &."; Str(LSDJ.minTempo); Str(LSDJ.maxTempo)
-		RestoreColor g_colCurrent
+		RestoreColor g_colPrevious
 		Input "Tempo? ", uTempo
 		
 		'' Continue if provided tempo is valid.
 		If ValidTempo(uTempo) Then Exit Do
 		
 		'' Issue warning about invalid tempo and prompt again.
-		g_colCurrent = SetColor COL_WARN
+		''g_colCurrent = SetColor COL_WARN
+		SetColor COL_WARN
 		? #g_pstdio->hErr, Using "& is an invalid tempo."; uTempo
-		RestoreColor g_colCurrent
+		RestoreColor g_colPrevious
 		
 	Loop
 	

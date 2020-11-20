@@ -92,7 +92,11 @@ On Error GoTo FATAL_ERROR
 g_prtParams = Allocate(SizeOf(RUNTIME_PARAMS))
 If (g_prtParams = NULL) Then Error(FB_ERR_OUTOFMEMORY)
 
-g_pstdio = New STDIO_HANDLES("lucidoc.log")
+'' Create standard I/O handles object.
+#If __FB_DEBUG__
+	g_strDbgFile = "lucidoc.log"
+#EndIf
+g_pstdio = New STDIO_HANDLES()
 If (g_pstdio = NULL) Then Error(g_uLastError)
 
 #If __FB_DEBUG__
@@ -121,9 +125,10 @@ With *g_prtParams
 	.uOctShift = OCTAVE_SHIFT
 	.uTabsCount = TABS_COUNT
 	.uNegOut = NEGATIVE_OUTPUT
-	.bColor = ENABLE_COLOR
+	''.bColor = ENABLE_COLOR
 	.bBareOut = BARE_OUTPUT
 End With
+g_bEnableColor = ENABLE_COLOR
 
 '' Parse the command line.
 SetError(ParseCmdLine())
@@ -177,14 +182,14 @@ Scope
 		#EndIf
 	EndIf
 	
+	'' Restore default color.
+	RestoreColor g_colDefColor
+	
 	'' Close opened file handles.
 	If g_pstdio Then Delete g_pstdio
 	
 	'' Free used resources.
 	If g_prtParams Then DeAllocate g_prtParams
-	
-	'' Restore default color.
-	RestoreColor g_colDefColor
 	
 	'' End the program.
 	End(uErr)
