@@ -39,9 +39,6 @@
 	#Define NULL 0
 #EndIf
 
-'' Default color override:
-#Define DEF_COLOR &hFF
-
 '' Constant values used by LSDj:
 Enum LSDJ Explicit
 	minTempo = 40
