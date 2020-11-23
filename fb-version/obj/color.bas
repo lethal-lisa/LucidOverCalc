@@ -23,7 +23,6 @@
 	
 '/
 
-''#Include "lucidoc.bi"
 #Include "inc/stdioobj.bi"
 #Include "inc/color.bi"
 
