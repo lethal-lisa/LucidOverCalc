@@ -23,13 +23,28 @@
 	
 '/
 
-#Include "inc/stdioobj.bi"
-#Include "inc/color.bi"
+#Include Once "inc/shared/fbcolors.bi"
+#Include "inc/shared/stdioobj.bi"
+#Include "inc/shared/color.bi"
 
 Dim Shared g_colCurrent As ULong
 Dim Shared g_colPrevious As ULong
 Dim Shared g_colDefColor As ULong
 Dim Shared g_bEnableColor As Boolean
+
+Sub InitColorModule (ByVal bEnableColor As Const Boolean = TRUE)
+	
+	#If __FB_DEBUG__
+		? #g_pstdio->hDbg, Using "&: Calling: &/&"; Time(); __FILE__; __FUNCTION__
+		? #g_pstdio->hDbg, Using !"\tByVal Const Boolean:bEnableColor = &"; bEnableColor
+	#EndIf
+	
+	g_colDefColor = Color()
+	g_colCurrent = g_colDefColor
+	g_colPrevious = g_colDefColor
+	g_bEnableColor = bEnableColor
+
+End Sub	
 
 '' Sets the console color only if ENABLE_COLOR is TRUE.
 Function SetColor (ByRef colFore As UByte = DEF_COLOR, ByRef colBack As UByte = DEF_COLOR) As ULong
@@ -41,7 +56,6 @@ Function SetColor (ByRef colFore As UByte = DEF_COLOR, ByRef colBack As UByte = 
 	#EndIf
 	
 	'' Preserve the old color.
-	''Dim uOldColor As ULong = Color
 	g_colCurrent = Color()
 	g_colPrevious = g_colCurrent
 	
@@ -60,10 +74,15 @@ Function SetColor (ByRef colFore As UByte = DEF_COLOR, ByRef colBack As UByte = 
 	EndIf
 	
 	'' Return the old color.
-	''Return uOldColor
 	Return g_colPrevious
 	
 End Function
+
+Private Sub SetColFromDef (ByVal uColor As Const ULong)
+	
+	If g_bEnableColor Then SetColor LoByte(LoWord(uColor)), LoByte(HiWord(uColor))
+	
+End Sub
 
 '' Restores back the original color only if ENABLE_COLOR is TRUE.
 Sub RestoreColor (ByVal uColor As Const ULong)
@@ -73,8 +92,14 @@ Sub RestoreColor (ByVal uColor As Const ULong)
 		? #g_pstdio->hDbg, Using !"\tByVal Const ULong:uColor = _&h& (&)"; Hex(uColor); uColor
 	#EndIf
 	
-	''If g_prtParams->bColor Then Color LoWord(uColor), HiWord(uColor)
-	If g_bEnableColor Then Color LoWord(uColor), HiWord(uColor)
+	If g_bEnableColor Then
+		Select Case As Const uColor
+			Case PREV_COLOR : SetColFromDef g_colPrevious
+			Case DEF_COLOR : SetColFromDef g_colDefColor
+			Case CUR_COLOR : Return
+			Case Else : SetColFromDef uColor
+		End Select
+	EndIf
 	
 End Sub
 

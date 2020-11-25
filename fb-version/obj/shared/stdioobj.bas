@@ -23,9 +23,9 @@
 	
 '/
 
-#Include Once "inc/fberrors.bi"
-#Include "inc/seterror.bi"
-#Include "inc/stdioobj.bi"
+#Include Once "inc/shared/fberrors.bi"
+#Include "inc/shared/seterror.bi"
+#Include "inc/shared/stdioobj.bi"
 
 Dim Shared g_strDbgFile As String
 Dim Shared g_pstdio As STDIO_HANDLES Ptr

@@ -26,13 +26,16 @@
 #Pragma Once
 
 '' Include headers:
-#Include Once "inc/fberrors.bi"
-#Include Once "inc/fbcolors.bi"
-#Include "inc/seterror.bi"
-#Include "inc/stdioobj.bi"
-#Include "inc/color.bi"
+#Include Once "inc/shared/fberrors.bi"
+#Include Once "inc/shared/fbcolors.bi"
 
-#Include "inc/exopts.bi"
+#Include "inc/shared/seterror.bi"
+#Include "inc/shared/stdioobj.bi"
+#Include "inc/shared/color.bi"
+
+#Include "inc/shared/defcolor.bi"
+
+#Include "inc/overcalc/exopts.bi"
 
 '' Define constants:
 #IfnDef NULL

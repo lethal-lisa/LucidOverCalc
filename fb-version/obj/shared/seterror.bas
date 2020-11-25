@@ -23,7 +23,7 @@
 	
 '/
 
-#Include "inc/seterror.bi"
+#Include "inc/shared/seterror.bi"
 
 Dim Shared g_uLastError As ULong
 

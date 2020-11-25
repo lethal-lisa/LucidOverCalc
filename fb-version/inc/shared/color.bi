@@ -25,32 +25,36 @@
 
 #Pragma Once
 
-#Include Once "inc/fbcolors.bi"
-
 #IfnDef DEF_COLOR
 	#Define DEF_COLOR &hFF
-#Else
-	#If __FB_DEBUG__
-		#Print __FILE_NQ__: Using custom DEF_COLOR default.
-		#Print DEF_COLOR = DEF_COLOR
-	#EndIf
-	#Assert DEF_COLOR > &h0F
 #EndIf
 
 #IfnDef CUR_COLOR
 	#Define CUR_COLOR &hF7
-#Else
-	#If __FB_DEBUG__
-		#Print __FILE_NQ__: Using custom CUR_COLOR default.
-		#Print CUR_COLOR = CUR_COLOR
-	#EndIf
-	#Assert (CUR_COLOR < DEF_COLOR) And (CUR_COLOR > &h0F)
 #EndIf
+
+#IfnDef PREV_COLOR
+	#Define PREV_COLOR &hE0
+#EndIf
+
+#Assert (PREV_COLOR < CUR_COLOR) And (CUR_COLOR < DEF_COLOR) And (DEF_COLOR > &h0F)
+
+/'Type COLOR_THEME
+	colDefault As ULong
+	colEmphasis As ULong
+	colGood As ULong
+	colWarn As ULong
+	colError As ULong
+End Type
+
+Extern g_pColTheme As COLOR_THEME Ptr'/
 
 Extern g_colCurrent As ULong	'' Buffer for current color.
 Extern g_colPrevious As ULong	'' Buffer for previous color.
 Extern g_colDefColor As ULong	'' Buffer for default color.
 Extern g_bEnableColor As Boolean	'' Enable or disable color.
+
+Declare Sub InitColorModule (ByVal bEnableColor As Const Boolean = TRUE)
 
 /'	SetColor:
 	

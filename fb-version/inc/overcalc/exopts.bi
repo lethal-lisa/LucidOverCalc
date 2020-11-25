@@ -27,8 +27,6 @@
 #IfnDef __LOC_EXOPTS__
 #Define __LOC_EXOPTS__
 
-#Include "inc/fbcolors.bi"
-
 '' Size used to iterate through steps.
 #IfnDef STEP_SIZE
 	#Define STEP_SIZE 0.5
@@ -92,16 +90,6 @@
 	#EndIf
 #EndIf
 
-'' Controls the usage of colored output.
-#IfnDef ENABLE_COLOR
-	#Define ENABLE_COLOR TRUE
-#Else
-	#If __FB_DEBUG__
-		#Print __FILE_NQ__: Using custom ENABLE_COLOR default.
-		#Print ENABLE_COLOR = ENABLE_COLOR
-	#EndIf
-#EndIf
-
 '' Controls bare output mode.
 #IfnDef BARE_OUTPUT
 	#Define BARE_OUTPUT FALSE
@@ -110,23 +98,6 @@
 		#Print __FILE_NQ__: Using custom BARE_OUTPUT default.
 		#Print BARE_OUTPUT = BARE_OUTPUT
 	#EndIf
-#EndIf
-
-'' Default color theme:
-#IfnDef COL_HEADER
-	#Define COL_HEADER (COL_BRIGHT Or COL_GREY)
-#EndIf
-
-#IfnDef COL_GOOD
-	#Define COL_GOOD (COL_BRIGHT Or COL_GREEN)
-#EndIf
-
-#IfnDef COL_WARN
-	#Define COL_WARN (COL_BRIGHT Or COL_YELLOW)
-#EndIf
-
-#IfnDef COL_ERROR
-	#Define COL_ERROR (COL_BRIGHT Or COL_RED)
 #EndIf
 	
 #EndIf
