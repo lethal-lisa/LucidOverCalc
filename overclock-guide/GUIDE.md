@@ -9,11 +9,11 @@ Chapters are ordered as it follows:
 2. [How to Overclock LSDj ROM](#2-how-to-overclock-lsdj-rom)
 3. [Amplitude Modulation Synthesis - Overclocking Hum](#3-amplitude-modulation-synthesis---overclocking-hum)
 4. [Workflow changes (Groove/Tempo/BPM relation)](#4-workflow-changes)
-5. [CPU usage](#5-cpu-usage)
-6. [Controlling the Extra Hum](#6-controlling-the-extra-hum)
-7. [Hum Pitch table](#7-hum-pitch-table)
-8. [Commands generating Hum](#8-commands-generating-hum)
-9. [MultiHum](#9-multihum)
+5. [Controlling the Extra Hum](#5-controlling-the-extra-hum)
+6. [Hum Pitch table](#6-hum-pitch-table)
+7. [Commands generating Hum](#7-commands-generating-hum)
+8. [MultiHum](#8-multihum)
+9. [CPU usage](#9-cpu-usage)
 10. [Quickstart mini guide *(for impatient ones)*](#10-quickstart-mini-guide-for-impatient-ones)
 11. [WAV channel](#11-wav-channel)
 12. [Another look at the tables - Summary](#12-another-look-at-the-tables---summary)<br>
@@ -139,37 +139,8 @@ For some reason I cannot start start all 8 channels at once on some songs, still
 *Also small note*, as for now, using official LSDj patcher and upgrading ROM will overwrite the overclock,
 making you redo the process in hex editor, but that's not big issue!
 
-# 5. CPU USAGE
 
-Overclocking can be very taxing on the Gameboy's CPU, and reaching the "TOO BUSY!" state is more than easy.
-The faster the **"`TEMPO`"**, the faster the modulation, therefore CPU has to work harder to keep up.
-If you're maintaining high **"`TEMPO`"** and using multiple effects/techniques playing at once
-this can lead to sequencer desync/slowdown, or crash Gameboy/LSDj! Here's couple factors I noticed:
-* **Stacking exactly same Command/Value in tables puts extra pressure**
-(i.e. Having multiple **"O`LR`"** in a row does no good and only the 1st one is needed);
-* Even empty table adds pressure, especially when `H`opped tighter;
-* Transposing does nothing to CPU;
-* lIVE MODE is more taxing than simple SONG mode;
-* Holding B button when sequence is playing puts pressure on CPU, because LSDj gets ready to mute/solo channels;
-* **"`E`"** command next to **"`V`"** are most CPU taxing commands;
-* **"`O`"** and **"`W`"** don't put as much pressure;
-* **`V`** there's no big difference between x1-xF, left side does impact each value;
-* Slower songs are also easier for CPU;
-* If you can, try to end tables with **"A`20`"** instead of **"`H`"**-opping over nothingness;
-WAVE CHANNEL CPU USAGE:
-* MANUAL wave instrument almost do no impact;
-* ONCE/LOOP/PINGPONG do visibly more;
-* KITS are heavy as long as they are playing;
-* moving MODEs tax CPU more the lower SPEED parameter is;
-* Interesting enough, high notes affect the CPU more than lower ones!
-
-Most of the notes were taken during *max tempo intense multi channel* modulations,
-leavning very little headroom before reaching "TOO BUSY!" state.<br>
-Once again, it's highly recommended to use GBC and GBA if available,
-DMG brick cannot endure even half of what GBC can take.
-
-
-# 6. Controlling the Extra Hum
+# 5. Controlling the Extra Hum
 
 Commands below enable you to create extra hum sharing the channel you're using it on.<br>
 The length of the modulation will decide the pitch of the hum.
@@ -183,17 +154,18 @@ it should look like on picture:<br>
 2 step modulation will decide the highest Hum pitch you can achieve using this tempo,
 any longer modulation will decrease pitch by certain amount of semitones.<br>
 Now tune your **"TEMPO"** value for highest Hum pitch you want available,
-and reach the other lower Hum notes using more steps in modulation, or by H1 command.
+and reach the other lower Hum notes using more steps in modulation, or by H1 command explaied below.
 
 ### H10 - hop between steps
+
 Use loops like **"H`10`"** and **"H`00`"** right below to achieve modulation in between rows, by rapidly switching between two steps.
 It works only between first couple steps, trying to do that below 5step modulation
 will be difficult to tune and can start to sound like an arp on lower TEMPOs<br>
 ![3stepH1](https://user-images.githubusercontent.com/66220663/99185036-0ed20580-273f-11eb-8f57-2b729d880c0e.png)<br>
 *(picture showing **3 step H1** modulation)*<br>
+(side note: loop demonstrated above is slightly CPU intensive than it's **3 step H0** variant)
 
-
-## 7. Hum Pitch table
+## 6. Hum Pitch table
 
 Regardless of the tempo, relation between Hum notes stay same!<br>
 Table below represents part of usable Hum frequencies combinations you can use in table,<br>
@@ -225,7 +197,7 @@ For precise frequency of every step check out AM calculators available in this r
 made by Lisa and Pator, props for their hard work!
 
 
-# 8. Commands generating Hum
+# 7. Commands generating Hum
 
 ## **"`O`"** command (any channel)
 
@@ -252,12 +224,14 @@ Changing from thin to wide waveform will result in the loudest and grittiest hum
 Place more in between in various setups to alter the timbre and adjust the width to your liking.<br>
 **"`W`"** command also will produce high overtones that sounds like clicking!
 
-## **"`E`"** command (any channel)
+## **"`E`"** command (any channel) [upgrade coming soon + screenshot]
 
 **"`E`"** command generates hum **overwriting** instrument's ADSR.<br>
 **``To enable``**, place minimum 2 **"E"** commands of different volume in the table and loop them,<br>
 Hum will be louder as the distance between lowest and highest **"`E`"** command values rises.<br>
 **Works best on the wave width 75%**
+
+
 
 ## **"`R`"** command (any channel)
 
@@ -269,12 +243,13 @@ First F digits of **"`R`"** commands will play the table up to chosen digit of t
 Adjusting CMD rate of the instrument will make it work twicec slower per value<br>
 (i.e using **`CMD 1`**, command **"R`04`"** will behave like **"R`08`"**)<br>
 
-## **Transpose**  
+## **Transpose**   [upgrade coming soon!]
 
 Using the transpose column in the table with minimum 2 step modulation (just H itself) will split the instrument pitch into 3,
 creating FM-like metallic sound.<br>
 3, because you have *Transposed* step next to another one (can be transposed or not) AND *tempo dependant hum* inbetween!<br>
-Using this on **Noise** channel can yeld new metalic pitch values this way!
+Using this on **Noise** channel can yeld new metalic pitch values this way!<br>
+
 
 ## **"`T`"** command
 
@@ -291,7 +266,7 @@ and put the new proper groove in all patterns when there's an empty space in the
 
 
 
-# 9. Multihum
+# 8. Multihum
 
 [Twitter video of 3 tones singing from one Pulse channel](https://twitter.com/Infu_av/status/1301578269435801602?s=20)<br>
 
@@ -302,7 +277,47 @@ but beware that this technique makes the tuning even more difficult, and is extr
 Adding Transpose in the table adds ever more harmonics.
 When using both **"`W`"** and **"`O`"** commands, try moving around commands so *active* **"O`LR`"** commands hit thinner waves if we want the hum to be quieter, or experiment with their placement for differences in timbre.
 
+# 9. CPU USAGE
+
+Overclocking can be very taxing on the Gameboy's CPU, and reaching the "TOO BUSY!" state is more than easy.
+The faster the **"`TEMPO`"**, the faster the modulation, therefore CPU has to work harder to keep up.
+If you're maintaining high **"`TEMPO`"** and using multiple effects/techniques playing at once
+this can lead to sequencer desync/slowdown, or crash Gameboy/LSDj! Here's couple factors I noticed:
+* **Stacking exactly same Command/Value in tables puts extra pressure**
+(i.e. Having multiple **"O`LR`"** in a row does no good and only the 1st one is needed);
+* Even empty table adds pressure, especially when `H`opped tighter;
+* Transposing does nothing to CPU;
+* If possible, use commands in Phrase instead of using a table 
+* lIVE MODE is more taxing than simple SONG mode;
+* Holding B button when sequence is playing puts pressure on CPU, because LSDj gets ready to mute/solo channels;
+* **"`E`"** command next to **"`V`"** are most CPU taxing commands;
+* **"`O`"** and **"`W`"** don't put as much pressure;
+* **`V`** there's almost no difference between x1-xF, left side does little impact on CPU each value;
+* Slower songs are also easier for CPU;
+* If you can, try to end tables with **"A`20`"** or `K`ill instead of **"`H`"**-opping over nothingness;
+WAVE CHANNEL CPU USAGE:
+* MANUAL wave instrument almost do no impact;
+* ONCE/LOOP/PINGPONG do visibly more;
+* KITS are heavy as long as they are playing;
+* moving MODEs tax CPU more the lower SPEED parameter is;
+* Interesting enough, high notes affect the CPU more than lower ones!
+
+Most of the notes were taken during *max tempo intense multi channel* modulations,
+leavning very little headroom before reaching "TOO BUSY!" state.<br>
+Once again, it's highly recommended to use GBC and GBA if available,
+DMG brick cannot endure even half of what GBC can take.
+
+#### Easier on CPU modulations [WIP]
+
+As said above, tightly looped Tables tax CPU more than those with `H` command placed much lower.
+There is a way to create same few-step modulation easier for CPU:<br>
+![2 same modulations](https://user-images.githubusercontent.com/66220663/100679058-91290f00-3366-11eb-8e89-94ce4d7ce917.jpg)<br>
+Each side of tables is presenting 2 variations of SAME EXACT SOUNDING modulation. It's because the distance betweeen ON and OFF is exactly the same.<br>
+Maint point is that the *longer variation* is actually easier on CPU!<br>
+If you're struggling with CPU then think about extending your modulaitons if possible!
+
 * * * * * * * * 
+
 
 ## 10. Quickstart mini guide (for impatient ones)
 
