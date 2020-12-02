@@ -5,7 +5,7 @@
 
 Chapters are ordered as it follows:
 
-1. [History and the Benefits of Soft-Overclocking Nowadays](#1-history-and-the-benefits-of-soft---overclocking-nowadays)
+1. [History and the Benefits of Soft-Overclocking Nowadays](#1-history-and-the-benefits-of-soft-overclocking-nowadays)
 2. [How to Overclock LSDj ROM](#2-how-to-overclock-lsdj-rom)
 3. [Amplitude Modulation Synthesis - Overclocking Hum](#3-amplitude-modulation-synthesis---overclocking-hum)
 4. [Workflow changes (Groove/Tempo/BPM relation)](#4-workflow-changes)
@@ -13,13 +13,14 @@ Chapters are ordered as it follows:
 6. [Hum Pitch table](#6-hum-pitch-table)
 7. [Commands generating Hum](#7-commands-generating-hum)
 8. [MultiHum](#8-multihum)
-9. [CPU usage](#9-cpu-usage)
-10. [Quickstart mini guide *(for impatient ones)*](#10-quickstart-mini-guide-for-impatient-ones)
-11. [WAV channel](#11-wav-channel)
-12. [Another look at the tables - Summary](#12-another-look-at-the-tables---summary)<br>
-13. [Extra notes,Credits](#extra-notes)<br>
+9. [PITCH TICK mode](#9-pitch-tick-mode)
+10. [CPU usage](#10-cpu-usage)
+11. [Quickstart mini guide *(for impatient ones)*](#11-quickstart-mini-guide-for-impatient-ones)
+12. [WAV channel](#12-wav-channel)
+13. [Another look at the tables - Summary](#13-another-look-at-the-tables---summary)
+14. [Extra notes,Credits](#extra-notes)<br>
 
-[**NOTE:** Guide has JUST been released, and though I tried to make it as complete as possible, I'll be probably making small fixes/adjustments or adding stuff based on YOUR feedback in upcoming couple weeks!]
+For some practical examples I provided the LSDj .sav file (version 8.9.3) *for study only*, included in the same folder next to the guide!
 
 ------------------------
 
@@ -224,14 +225,28 @@ Changing from thin to wide waveform will result in the loudest and grittiest hum
 Place more in between in various setups to alter the timbre and adjust the width to your liking.<br>
 **"`W`"** command also will produce high overtones that sounds like clicking!
 
-## **"`E`"** command (any channel) [upgrade coming soon + screenshot]
+## **"`E`"** command / VOL column (any channel)
 
-**"`E`"** command generates hum **overwriting** instrument's ADSR.<br>
-**``To enable``**, place minimum 2 **"E"** commands of different volume in the table and loop them,<br>
-Hum will be louder as the distance between lowest and highest **"`E`"** command values rises.<br>
-**Works best on the wave width 75%**
+![gaemboi_cWyW6aPk5Z](https://user-images.githubusercontent.com/66220663/100933220-ee4acf00-34e4-11eb-9f8d-fa65cf160640.png)<br>
+**"`E`"** command or VOL column generates hum **overwriting** instrument's ADSR.<br>
+**``To enable``**, there are 2 ways you can take:
+  1) place minimum 2 **"E"** commands of different volume in the table and loop them, *(CPU intense)*<br>
+  2) place 2 different volume levels in VOL column and loop them. *(unable to perform H10 halfsteps this way)*<br>
+Hum will be louder as the distance between lowest and highest volume values rises.<br>
+**Works best on the wave width 75%**<br>
+Performing this in WAV channel with only use it's own 4 steps only <br>
+Different volumes will be affecting the timbre of the channel in different way!<br>
 
+## **Transpose** (any channel)
 
+Using the transpose column in the table with minimum 2 step modulation (just H itself) will split the instrument pitch into 3,
+creating FM-like metallic sound.<br>
+3, because you have *Transposed* step next to another one (can be transposed or not) AND *tempo dependant hum* inbetween!<br>
+Using this on **Noise** channel can yeld new metalic pitch values this way!<br>
+Using different step modulation and different transpose values will affect in even differently on channel of your choice!
+
+IF POSSIBLE consider using it without a table, just using a **`C`** command in the phrase:<br>
+It simulates 3 step modulation from the table, and it's much less CPU intense!
 
 ## **"`R`"** command (any channel)
 
@@ -240,16 +255,8 @@ giving you additional way to loop them without changing the table itself!<br>
 (Be careful, because it's more resource intensive to loop tables this way!)<br>
 First F digits of **"`R`"** commands will play the table up to chosen digit of the command<br>
 (i.e. **"R`04`"** will play first 4 steps of the table and *hop* back to the beginning)<br>
-Adjusting CMD rate of the instrument will make it work twicec slower per value<br>
+Adjusting CMD rate of the instrument will make it work twice slower per value<br>
 (i.e using **`CMD 1`**, command **"R`04`"** will behave like **"R`08`"**)<br>
-
-## **Transpose**   [upgrade coming soon!]
-
-Using the transpose column in the table with minimum 2 step modulation (just H itself) will split the instrument pitch into 3,
-creating FM-like metallic sound.<br>
-3, because you have *Transposed* step next to another one (can be transposed or not) AND *tempo dependant hum* inbetween!<br>
-Using this on **Noise** channel can yeld new metalic pitch values this way!<br>
-
 
 ## **"`T`"** command
 
@@ -272,12 +279,21 @@ and put the new proper groove in all patterns when there's an empty space in the
 
 ![Multihum](https://user-images.githubusercontent.com/66220663/99185266-910ef980-2740-11eb-9bf0-aaaffd46d15d.png)<br>
 *(picture above showing table used for first 4 notes in the Twitter video above)*<br>
-Using combinations of **"`W`"** and **"`O`"** can yeld you multiple hums,
-but beware that this technique makes the tuning even more difficult, and is extra taxing on the CPU.
+Using combinations of **"`W`"** and **"`O`"** can yeld you multiple hums (O and E/VOL overlap each other in functionality),
+*but beware* that this technique makes the tuning even more difficult, and is extra taxing on the CPU. (refer to [CPU usage](#10-cpu-usage) section for best tips how to manage CPU usage better!)
 Adding Transpose in the table adds ever more harmonics.
 When using both **"`W`"** and **"`O`"** commands, try moving around commands so *active* **"O`LR`"** commands hit thinner waves if we want the hum to be quieter, or experiment with their placement for differences in timbre.
 
-# 9. CPU USAGE
+# 9. PITCH TICK mode
+
+![Thetick](https://user-images.githubusercontent.com/66220663/100926126-d3735d00-34da-11eb-9d8f-b9b95f48620f.jpg)
+*(Picture showcasing example settings for `P` effect, set groove to around 28 for optimal listening)*<br>
+
+Setting `PITCH` mode of your instrument to **TICK** will greatly affect command **`P`** and **`V`**, making **`P`** command scroll so fast and so greatly that it'll have smooth spring'ish sound at particular intensity, and increasing the speed of V command (intensity stays the same).<br>
+Type of waveform seems to affect only **`V`** command.<br>
+**`L`** command doesn't present any changes.<br>
+
+# 10. CPU USAGE
 
 Overclocking can be very taxing on the Gameboy's CPU, and reaching the "TOO BUSY!" state is more than easy.
 The faster the **"`TEMPO`"**, the faster the modulation, therefore CPU has to work harder to keep up.
@@ -286,16 +302,17 @@ this can lead to sequencer desync/slowdown, or crash Gameboy/LSDj! Here's couple
 * **Stacking exactly same Command/Value in tables puts extra pressure**
 (i.e. Having multiple **"O`LR`"** in a row does no good and only the 1st one is needed);
 * Even empty table adds pressure, especially when `H`opped tighter;
+* Table is the lightest in STEP mode;
 * Transposing does nothing to CPU;
 * If possible, use commands in Phrase instead of using a table 
 * lIVE MODE is more taxing than simple SONG mode;
 * Holding B button when sequence is playing puts pressure on CPU, because LSDj gets ready to mute/solo channels;
-* **"`E`"** command next to **"`V`"** are most CPU taxing commands;
+* **"`E`"** command next to **"`V`"** and **"`R`"** are most CPU taxing commands;
 * **"`O`"** and **"`W`"** don't put as much pressure;
 * **`V`** there's almost no difference between x1-xF, left side does little impact on CPU each value;
 * Slower songs are also easier for CPU;
-* If you can, try to end tables with **"A`20`"** or `K`ill instead of **"`H`"**-opping over nothingness;
-WAVE CHANNEL CPU USAGE:
+* If you can, try to end tables with **"A`20`"** or `K`ill instead of **"`H`"**-opping over nothingness;<br>
+**WAVE CHANNEL CPU USAGE:**
 * MANUAL wave instrument almost do no impact;
 * ONCE/LOOP/PINGPONG do visibly more;
 * KITS are heavy as long as they are playing;
@@ -307,24 +324,24 @@ leavning very little headroom before reaching "TOO BUSY!" state.<br>
 Once again, it's highly recommended to use GBC and GBA if available,
 DMG brick cannot endure even half of what GBC can take.
 
-#### Easier on CPU modulations [WIP]
+#### Easier on CPU modulations
 
 As said above, tightly looped Tables tax CPU more than those with `H` command placed much lower.
 There is a way to create same few-step modulation easier for CPU:<br>
 ![2 same modulations](https://user-images.githubusercontent.com/66220663/100679058-91290f00-3366-11eb-8e89-94ce4d7ce917.jpg)<br>
-Each side of tables is presenting 2 variations of SAME EXACT SOUNDING modulation. It's because the distance betweeen ON and OFF is exactly the same.<br>
+*(Each table is presenting 2 variations of SAME EXACT SOUNDING modulation. It's because the distance betweeen ON and OFF is exactly the same!)*<br>
 Maint point is that the *longer variation* is actually easier on CPU!<br>
 If you're struggling with CPU then think about extending your modulaitons if possible!
 
 * * * * * * * * 
 
 
-## 10. Quickstart mini guide (for impatient ones)
+## 11. Quickstart mini guide (for impatient ones)
 
 1. Replace LSDj's hex value **`3E04E007`** with **`3E07E007`** using hex editor, save
 2. Turn on LSDj, put down one note in Pulse channel, press play
 3. Apply table to this instrument, place commands one under another **"O`LR`"**, **"O`--`"**, **"H`00`"**<br>
-(just like **"#Controlling the Extra Hum**"" chapter picture)<br>
+(just like **"[Controlling the Extra Hum](#5-controlling-the-extra-hum)"** chapter picture)<br>
 4. Manipulate the tempo, and later the note itself, matching it to the hum (notice how they are separate sound sources, how they can phase); 
 5. In instrument table move **"H`00`"** one row lower (notice sound getting lower);
 6. Replace those 2 **"O"** commands with **"W"**, make them 2 different width;
@@ -336,9 +353,11 @@ If you're struggling with CPU then think about extending your modulaitons if pos
 **Check the [table of Content on the top of the page](#advanced-soft-overclocked-lsdj-guide-by-infu) and redirect yourself to chapter that interests you,
 or would answer questions you have regarding Overclocked LSDj!**
 
+For some practical examples I provided the LSDj .sav file (version 8.9.3) *for study only*, included in the same folder next to the guide!
+
 * * * * * * * * 
 
-# 11. WAV Channel
+# 12. WAV Channel
 
 ![gaemboi_p3XF18LkmA](https://user-images.githubusercontent.com/66220663/99191684-1b1d8900-2766-11eb-85d2-c060c3f96977.png)<br>
 
@@ -357,8 +376,9 @@ When Hum plays over your waveforms, it's gonna be the loudest where
 distance between middle and top/bottom of the waveform is the greatest.<br>
 The smaller the waveform, the quieter the Hum.<br>
 All various ways to make sound in WAV channel tax the CPU differently,
-I noted down what I have noticed in [CPU usage](#5-cpu-usage)!<br>
-Also thanks to the Overclock WAV instrument gets 4 additional faster SPEED values,
+I noted down what I have noticed in [CPU usage](#10-cpu-usage)!
+
+Thanks to the Overclock WAV instrument gets 4 additional faster SPEED values,
 worth keeping in mind while designing our SYNTHs!<br>
 In original Pain Perdu's guide, the "Phase Bass" was first suggested SYNTH for the user,
 all you need to do is to change Instrument mode to anything else than MANUAL,
@@ -367,7 +387,7 @@ then play around with it, experiment with expanded SPEED range!
 
 
 
-# 12. Another look at the tables - Summary
+# 13. Another look at the tables - Summary
 
 Looking at it the other way, 1 row of the Table in stock LSDj is split into 4 in Overclocked version!
 Any modulation squished into those will let you achieve interesting results.
@@ -439,16 +459,16 @@ Use version 8.8.7 if you wish to retain the old ADSR system, that is compatible 
 
 ### Feature wishlist
 
-1. Asymmetric tables (to reuse OC Tables in other instruments)
-2. Even higher tempo limit (for higher pitch range of Hum)
-3. Separate engine speed from tempo, or per table
-4. CPU usage indicator
-5. Alternative way to obtain Hum, in maybe more precise ways?
-6. Integrate Overclocking feature into patcher, prevent patcher from changing the OC value (or ask to replace)
+1. Asymmetric tables (to reuse OC Tables in other instruments);
+2. Even higher tempo limit (for higher pitch range of Hum);
+3. Separate engine speed from tempo, or per table;
+4. CPU usage indicator;
+5. Alternative way to obtain Hum, in maybe more precise ways;
+6. Integrate Overclocking feature into patcher, prevent patcher from changing the OC value (or ask to replace);
 
 # Credits
 
-ABOC and Chiptune Cafe for being best Chiptune communities I know, motivated and supported me to finish this guide;<br>
-Pain Perdu for writing the initial Overclocking Guide for LSDj<br>
-Aquellex and DBOYD for direct help with the project <br>
-Lisa and Pator for coding their Overclocked Hum Pitch Finder programs and motivating me to finish this guide<br>
+**ABOC** and **Chiptune Cafe** for being best Chiptune communities I know, motivated and supported me to finish this guide;<br>
+**Pain Perdu** for writing the initial Overclocking Guide for LSDj<br>
+**Aquellex** and **DBOYD** for direct help with the project <br>
+**Lisa** and **Pator** for coding their Overclocked Hum Pitch Finder programs and motivating me to finish this guide<br>
