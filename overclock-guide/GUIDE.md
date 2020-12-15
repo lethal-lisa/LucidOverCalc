@@ -286,7 +286,7 @@ When using both **"`W`"** and **"`O`"** commands, try moving around commands so 
 
 # 9. PITCH TICK mode
 
-![Thetick](https://user-images.githubusercontent.com/66220663/100926126-d3735d00-34da-11eb-9d8f-b9b95f48620f.jpg)
+![Thetick](https://user-images.githubusercontent.com/66220663/100926126-d3735d00-34da-11eb-9d8f-b9b95f48620f.jpg)<br>
 *(Picture showcasing example settings for `P` effect, set groove to around 28 for optimal listening)*<br>
 
 Setting `PITCH` mode of your instrument to **TICK** will greatly affect command **`P`** and **`V`**, making **`P`** command scroll so fast and so greatly that it'll have smooth spring'ish sound at particular intensity, and increasing the speed of V command (intensity stays the same).<br>
