@@ -41,6 +41,13 @@ endif
 ifdef FPU
 	ifeq (${FPU},sse)
 		FBCFLAGS += -fpu sse
+		ifdef FPMODE
+			ifeq (${FPMODE},fast)
+				FBCFLAGS += -fpmode fast
+			else
+				FBCFLAGS += -fpmode precise
+			endif
+		endif
 	else
 		FBCFLAGS += -fpu x87
 	endif
@@ -59,6 +66,8 @@ FBCFLAGS += ${COMMON_FLAGS} ${INC_FLAGS}
 
 lucid: ${APP_LUCID}
 
+##patcher: ${APP_PATCHER}
+
 objects: ${OBJ_SHARED} ${OBJ_OVERCALC} ${OBJ_PATCHER}
 
 obj/shared/%.o: ${OBJ_SHARED}
@@ -66,12 +75,15 @@ obj/shared/%.o: ${OBJ_SHARED}
 
 obj/overcalc/%.o: ${OBJ_OVERCALC}
 	${FBC} ${FBCFLAGS} -c $(patsubst %.o,%.bas,$@)
+	
+obj/patcher/%.o: ${OBJ_PATCHER}
+	${FBC} ${FBCFLAGS} -c $(patsubst %.o,%.bas,$@)
 
 ${APP_LUCID}: ${MAIN_LUCID}.bas ${HDR_SHARED} ${HDR_OVERCALC} $(patsubst %.bas,%.o,${OBJ_SHARED} ${OBJ_OVERCALC})
 	${FBC} ${FBCFLAGS} ${MAIN_LUCID}.bas $(patsubst %.bas,%.o,${OBJ_SHARED} ${OBJ_OVERCALC}) -x ${APP_LUCID}
 
-${APP_PATCHER}: ${SRCS} ${HDRS} ${MAIN_PATCHER}.bas
-	${FBC} ${FBCFLAGS} ${MAIN_PATCHER}.bas -x ${APP_PATCHER}
+${APP_PATCHER}: ${MAIN_PATCHER}.bas ${HDR_SHARED} ${HDR_OVERCALC} $(patsubst %.bas,%.o,${OBJ_SHARED} ${OBJ_PATCHER})
+	${FBC} ${FBCFLAGS} ${MAIN_PATCHER}.bas $(patsubst %.bas,%.o,${OBJ_SHARED} ${OBJ_PATCHER}) -x ${APP_PATCHER}
 
 .IGNORE: clean
 clean: MAKE_TERMOUT = /dev/stderr

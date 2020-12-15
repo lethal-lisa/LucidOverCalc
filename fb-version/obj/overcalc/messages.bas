@@ -25,8 +25,8 @@
 
 #Include "lucidoc.bi"
 
-'' Prints out a help message.
-Sub ShowHelp (ByVal hOut As Const Long)
+'' Prints the application title.
+Private Sub PrintTitle (ByVal hOut As Const Long)
 	
 	#If __FB_DEBUG__
 		? #g_pstdio->hDbg, Using "&: Calling: &/&"; Time(); __FILE__; __FUNCTION__
@@ -35,23 +35,41 @@ Sub ShowHelp (ByVal hOut As Const Long)
 	
 	If Not(CBool(hOut)) Then Error(FB_ERR_ILLEGALINSTRUCTION)
 	
-	'' TODO: Clean up this help message.
+	? #hOut, !"Lucid OverCalc - FreeBASIC Version"
 	
-	'' Print out help to stderr.
-	? #hOut, !"Lucid OverCalc - FreeBASIC Version\nHelp:\n"
-	? #hOut, !"Syntax:\n\tlucidoc [{help|{ver|version}|{defs|defaults}|[<tempo>] [bareout] [stepsize <stepsize>] [mintime <offtime>] [maxtime <offtime>] [enablecolor {true|false}] [tabs <tabcount>] [negativeout <outputmode>]}]\n"
+End Sub
+
+'' Prints out a help message.
+Sub ShowHelp (ByVal hOut As Const Long)
+	
+	#If __FB_DEBUG__
+		? #g_pstdio->hDbg, Using "&: Calling: &/&"; Time(); __FILE__; __FUNCTION__
+		? #g_pstdio->hDbg, Using !"\tByVal Const Long:hOut = _&h& (&)"; Hex(hOut); hOut
+	#EndIf
+	
+	'' Make sure hOut is a valid handle.
+	If Not(CBool(hOut)) Then Error(FB_ERR_ILLEGALINSTRUCTION)
+	
+	'' Print out message header.
+	PrintTitle(hOut)
+	? #hOut, !"Help:\n"
+	
+	'' Print out help.
+	''? #hOut, !"Lucid OverCalc - FreeBASIC Version\nHelp:\n"
+	? #hOut, !"Syntax:\n\tlucidoc [{help|{ver|version}|{defs|defaults}|[<tempo>] [bareout]\n[stepsize <stepsize>] [mintime <offtime>] [maxtime <offtime>]\n[octaveshift <shift value>] [enablecolor {true|false}] [tabs <tabcount>]\n[negativeout <outputmode>]}]\n"
 	? #hOut, !"\thelp\t\tShow this help message."
 	? #hOut, !"\tver, version\tShow version information."
 	? #hOut, !"\tdefs, defaults\tShow default settings for this build of Lucid."
 	? #hOut, !"\t<tempo>\t\tTempo to use."
-	? #hOut, !"\tbareout\t\tEnables ""bare"" output with fixed tab width. Use this if output is to be piped."
+	? #hOut, !"\tbareout\t\tEnables ""bare"" output with fixed tab width. Use this\n\t\t\tif output is to be piped."
 	? #hOut, !"\tstepsize\tSet the step size to <stepsize>."
 	? #hOut, !"\tmintime\t\tSets the minimum OFFtime to calculate."
 	? #hOut, !"\tmaxtime\t\tSets the maximum OFFtime to calculate."
+	? #hOut, !"\toctaveshift\tSets the value to shift closest MIDI notes by."
 	? #hOut, !"\tenablecolor\tEnables colored output."
-	? #hOut, !"\ttabs\t\tSets the amount of whitespace between output columns (disabled if bareout is specified)."
+	? #hOut, !"\ttabs\t\tSets the amount of whitespace between output columns\n\t\t\t(disabled if bareout is specified)."
 	? #hOut, !"\tnegativeout\tSpecifies what to do if a frequency value is negative."
-	? #hOut, !"\t\tAvailable values for <outputmode>: ""all"" does nothing, ""hide"" shows an ""N/A"", and ""omit"" disables output entirely."
+	? #hOut, !"\t\t\tAvailable values for <outputmode>: ""all"" does nothing,\n\t\t\t""hide"" shows an ""N/A"", and ""omit"" disables output\n\t\t\tentirely."
 	? #hOut, !"\n";
 	
 End Sub
@@ -67,8 +85,11 @@ Sub ShowVersion (ByVal hOut As Const Long)
 	'' Make sure hOut is a valid handle.
 	If Not(CBool(hOut)) Then Error(FB_ERR_ILLEGALINSTRUCTION)
 	
+	'' Print out message header.
+	PrintTitle(hOut)
+	? #hOut, !"Build Information:\n"
+	
 	'' Print out version information.
-	? #hOut, "Build Information:"
 	? #hOut, Using !"\tBuild Date:\t\t& &"; __DATE__; __TIME__
 	
 	'' Compiler information:
@@ -125,8 +146,11 @@ Sub ShowDefaults (ByVal hOut As Const Long)
 	'' Make sure hOut is a valid handle.
 	If Not(CBool(hOut)) Then Error(FB_ERR_ILLEGALINSTRUCTION)
 	
+	'' Print out message header.
+	PrintTitle(hOut)
+	? #hOut, !"Default settings:\n"
+	
 	'' Print out default settings.
-	? #hOut, "Default settings:"
 	? #hOut, Using !"\tStep size:\t\t&"; Str(STEP_SIZE)
 	? #hOut, Using !"\tMinimum OFF time:\t&"; Str(OFFTIME_MIN) 
 	? #hOut, Using !"\tMaximum OFF time:\t&"; Str(OFFTIME_MAX)
