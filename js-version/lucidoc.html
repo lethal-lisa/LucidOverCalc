@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html lang='en-us'>
+<!--
+	
+	lucidoc.html
+	
+	Copyright 2020 Lisa Murray
+	
+	This program is free software; you can redistribute it and/or modify
+	it under the terms of the GNU General Public License as published by
+	the Free Software Foundation; either version 2 of the License, or
+	(at your option) any later version.
+	
+	This program is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
+	
+	You should have received a copy of the GNU General Public License
+	along with this program; if not, write to the Free Software
+	Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+	MA 02110-1301, USA.
+	
+-->
+
+<head>
+	
+<meta charset='utf-8'>
+<title>Lucidoc</title>
+<meta name='description' content="Lucid OverCalc Web Version">
+<meta name='generator' content="Geany 1.37">
+
+<link rel='stylesheet' href="lucidoc.css">
+<link rel='preload' href="lucidoc.js"
+
+</head>
+<body>
+
+<header>
+	<h1>Lucid OverCalc</h1>
+	<p>Web Version</p>
+</header>
+
+<main>
+	
+	<fieldset class="settings" name="negout">
+		<legend>Negative Output Mode</legend>
+		<div>
+			<input type='radio' id="negout-all" name="negout" value="all">
+			<label for="negout-all">All</label>
+		</div>
+		<div>
+			<input type='radio' id="negout-omit" name="negout" value="omit" checked>
+			<label for="negout-omit">Omit</label>
+		</div>
+		<div>
+			<input type='radio' id="negout-hide" name="negout" value="hide">
+			<label for="negout-hide">Hide</label>
+		</div>
+	</fieldset>
+	
+	<pre id="log">
+	</pre>
+	
+	<script src="lucidoc.js"></script>
+	
+</main>
+
+</body>
+</html>
