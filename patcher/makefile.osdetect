@@ -1,0 +1,114 @@
+## ---------------------------------------------------------------------
+## 
+## osdetect.makefile
+## 
+## Makefile OS detection for multi-platform projects.
+## 
+## Usage:
+## include osdetect.makefile
+## 
+## Copyright 2021 Lisa Murray
+## 
+## This program is free software; you can redistribute it and/or modify
+## it under the terms of the GNU General Public License as published by
+## the Free Software Foundation; either version 2 of the License, or
+## (at your option) any later version.
+## 
+## This program is distributed in the hope that it will be useful,
+## but WITHOUT ANY WARRANTY; without even the implied warranty of
+## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+## GNU General Public License for more details.
+## 
+## You should have received a copy of the GNU General Public License
+## along with this program; if not, write to the Free Software
+## Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+## MA 02110-1301, USA.
+## 
+## ---------------------------------------------------------------------
+
+
+## ---------------------------------------------------------------------
+## 
+## Values for OS:
+## -BSD        - BSD.
+## -Cygwin     - Cygwin.
+## -Darwin     - Mac OSX.
+## -DOS        - DOS variants. Defines OS_DOS.
+##             Includes: MS-DOS, PC-DOS, DR-DOS, FreeDOS, Windows9x,
+##             etc.
+##             May also define OS_WIN, OS_WIN16, or OS_WIN32.
+## -FreeBSD    - FreeBSD.
+## -Linux      - GNU/Linux.
+## -NetBSD     - NetBSD.
+## -OpenBSD    - OpenBSD.
+## -UNIX       - UNIX.
+## -Windows    - Classic Windows (also defines OS_WIN32 or OS_WIN16).
+## -Windows_NT - Windows NT (also defines OS_WIN32 or OS_WIN64).
+## 
+## ---------------------------------------------------------------------
+## 
+## OS_BSDLIKE
+## OS_DOSLIKE
+## OS_UNIXLIKE
+##
+## ---------------------------------------------------------------------
+
+## Attempt auto-detection using uname.
+ifndef OS
+	OS := $(shell uname -s)
+endif
+
+ifeq (${OS},)
+	$(error "OS not defined, or Automatic OS detection not supported. Please use manual specification.")
+endif
+
+ifeq (${OS},BSD)
+	OS_BSDLIKE = 1
+	OS_UNIXLIKE = 1
+endif
+
+ifeq (${OS},Cygwin)
+	OS_DOSLIKE = 1
+	OS_UNIXLIKE = 1
+endif
+
+ifeq (${OS},Darwin)
+	OS_UNIXLIKE = 1
+endif
+
+ifeq (${OS},DOS)
+	OS_DOSLIKE = 1
+endif
+
+ifeq (${OS},FreeBSD)
+	OS_BSDLIKE = 1
+	OS_UNIXLIKE = 1
+endif
+
+ifeq (${OS},Linux)
+	OS_UNIXLIKE = 1
+endif
+
+ifeq (${OS},NetBSD)
+	OS_BSDLIKE = 1
+	OS_UNIXLIKE = 1
+endif
+
+ifeq (${OS},OpenBSD)
+	OS_BSDLIKE = 1
+	OS_UNIXLIKE = 1
+endif
+
+ifeq (${OS},UNIX)
+	OS_UNIXLIKE = 1
+endif
+
+ifeq (${OS},Windows)
+	OS_DOSLIKE = 1
+endif
+
+ifeq (${OS},Windows_NT)
+	OS_DOSLIKE = 1
+endif
+
+## EOF

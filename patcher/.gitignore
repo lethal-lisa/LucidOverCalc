@@ -1,0 +1,25 @@
+## Lucid Patcher Ignore File
+
+## Ignore built binary files:
+*.o
+*.elf
+*.a
+*.so
+*.dll
+patcher
+patcher.exe
+
+## Ignore archive files:
+*.zip
+*.ZIP
+*.rar
+*.RAR
+*.7z
+*.tar*
+*.gz
+*.bz2
+*.xz
+*.lzma
+*.tgz
+
+## EOF
