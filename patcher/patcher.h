@@ -20,24 +20,14 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301, USA.
  * 
- * 
  */
 
 #ifndef _PATCHER_H_
 #define _PATCHER_H_
 
-typedef signed char int8;
-typedef signed short int16;
-typedef signed long int32;
-
-typedef unsigned char uint8;
-typedef unsigned short uint16;
-typedef unsigned long uint32;
-
-typedef unsigned short word;
-typedef unsigned long dword;
-
 #include "inc/prompts.h"
+
+void printGplNotice ();
 
 #endif /* _PATCHER_H_ */
 
