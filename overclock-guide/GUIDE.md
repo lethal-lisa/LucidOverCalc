@@ -22,6 +22,25 @@ Chapters are ordered as it follows:
 
 For some practical examples I provided the LSDj .sav file (version 8.9.3) *for study only*, included in the same folder next to the guide!
 
+**=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-**
+**=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-**
+
+# IMPORTANT OVERCLOCKING NOTE!
+
+## VERSION 9.2.0 BREAKS OVERCLOCK! 
+
+New timer-driven sample playback breaks the overclocking
+New samples sound fantastic but overclock is not compatible
+I tried couple solutions, and none work as good, but I'm still investigating!
+
+**Latest one you can use is 9.1.C** - please use this one!
+
+detailed follow-up will appear in nearby future!
+
+**=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-**
+**=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-**
+
+
 ------------------------
 
 ## 1. History and the Benefits of Soft-Overclocking Nowadays
@@ -64,6 +83,24 @@ This will not affect any other data of LSDj: your kits, palettes, all are safe.<
 Still, remember to backup your ROM before you modify your precious tracker!
 
 **`To benefit fully from this guide please use LSDj version above v8`**
+
+**=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-**
+**=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-**
+
+# IMPORTANT OVERCLOCKING NOTE!
+
+## VERSION 9.2.0 BREAKS OVERCLOCK! 
+
+New timer-driven sample playback breaks the overclocking
+New samples sound fantastic but overclock is not compatible
+I tried couple solutions, and none work as good, but I'm still investigating!
+
+**Latest one you can use is 9.1.C** - please use this one!
+
+detailed follow-up will appear in nearby future!
+
+**=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-**
+**=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-**
 
 
 ![HxD_2Searching2](https://user-images.githubusercontent.com/66220663/99194099-583d4780-2775-11eb-8362-c82aea4adeed.png)<br>
