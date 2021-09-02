@@ -5,15 +5,15 @@
 
 Chapters are ordered as it follows:
 
-1. [History and the Benefits of Soft-Overclocking Nowadays](#1-history-and-the-benefits-of-soft-overclocking-nowadays)
-2. [How to Overclock LSDj ROM](#2-how-to-overclock-lsdj-rom)
-3. [Amplitude Modulation Synthesis - Overclocking Hum](#3-amplitude-modulation-synthesis---overclocking-hum)
-4. [Workflow changes (Groove/Tempo/BPM relation)](#4-workflow-changes)
-5. [Controlling the Extra Hum](#5-controlling-the-extra-hum)
-6. [Hum Pitch table](#6-hum-pitch-table)
-7. [Commands generating Hum](#7-commands-generating-hum)
-8. [MultiHum](#8-multihum)
-9. [PITCH TICK mode](#9-pitch-tick-mode)
+01. [History and the Benefits of Soft-Overclocking Nowadays](#1-history-and-the-benefits-of-soft-overclocking-nowadays)
+02. [How to Overclock LSDj ROM](#2-how-to-overclock-lsdj-rom)
+03. [Amplitude Modulation Synthesis - Overclocking Hum](#3-amplitude-modulation-synthesis---overclocking-hum)
+04. [Workflow changes (Groove/Tempo/BPM relation)](#4-workflow-changes)
+05. [Controlling the Extra Hum](#5-controlling-the-extra-hum)
+06. [Hum Pitch table](#6-hum-pitch-table)
+07. [Commands generating Hum](#7-commands-generating-hum)
+08. [MultiHum](#8-multihum)
+09. [PITCH TICK mode](#9-pitch-tick-mode)
 10. [CPU usage](#10-cpu-usage)
 11. [Quickstart mini guide *(for impatient ones)*](#11-quickstart-mini-guide-for-impatient-ones)
 12. [WAV channel](#12-wav-channel)
@@ -27,9 +27,9 @@ For some practical examples I provided the LSDj .sav file (version 8.9.3) *for s
 
 # IMPORTANT OVERCLOCKING NOTE!
 
-## VERSION 9.2.0 BREAKS OVERCLOCK! 
+## VERSIONS 9.2.0 - 9.2.H BREAKS OVERCLOCK!
 
-New timer-driven sample playback breaks the overclocking
+New timer-driven sample playback breaks the overclocking -
 New samples sound fantastic but overclock is not compatible
 I tried couple solutions, and none work as good, but I'm still investigating!
 
@@ -40,6 +40,25 @@ detailed follow-up will appear in nearby future!
 **=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-**
 **=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-**
 
+<br>
+
+-----------------
+ > ===== Todo: ===== <br>
+ > ----- OldOC vs built in (even compatibility of saves ----- <br>
+ > ----- Redo emulator recommendations ----- <br>
+ > ----- Redo mentioned versions ----- <br>
+ > ----- Add F kit command usage ----- <br>
+ > ----- Mentioning Player and its performance ----- <br>
+ > ----- Overclocked Emulator Mention ----- <br>
+ > ----- Multiply groove with higher $x OCs ----- <br>
+ > ----- M command mention ----- <br>
+ > ----- Redo screenshots ----- <br>
+ > ----- Hex edit bash line(?) ----- <br>
+ > ----- Spreadsheet Groove Calc ----- <br>
+ > ----- Spreadsheet Tempo Table ----- <br>
+-----------------
+
+<br>
 
 ------------------------
 
@@ -113,6 +132,11 @@ detailed follow-up will appear in nearby future!
   4. Save;
 
 Your LSDj's tempo should be *multiplied* by **four** now!
+
+-----------------
+ > ===== Todo: =====
+ > ----- Mention editable versions -----
+-----------------
 
 ## 3. Amplitude Modulation Synthesis - Overclocking Hum
 
@@ -209,23 +233,37 @@ Regardless of the tempo, relation between Hum notes stay same!<br>
 Table below represents part of usable Hum frequencies combinations you can use in table,<br>
 where *step 0* is **O**`LR`, *all next steps* are **O**`--`<br>
 *finishing* with **"H"** **0**0 or **1**0 command.<br>
-| Modulation step | Semitones down |
-| ----------- | ----------- |
-| 2 step H0   | 0   |
-| 2 step H1   | 4   |
-| 3 step H0   | 7   |
-| 3 step H1   | 9~10   |
-| 4 step H0   | 12   |
-| 4 step H1   | 14   |
-| 5 step H0   | 16   |
-| 5 step H1   | 17~18 |
-| 6 step H0   | 19   |
-| 7 step H0   | 21~22|
-| 8 step H0   | 24   |
-| 9 step H0   | 26   |
-| 10 step H0  | 28   |
-| 11 step H0  | 29~30|
 
+| up to 9.1.C |  | Tempo 295 | v9.2.I and above | Tempo 896 |
+|:---:|:---:|:---:|:---:|:---:|
+| Soft-OC (4x)<br>Modulation step | Semitones down |  | Predefined TEMPO<br>Modulation step | Note + Finetune |
+| 2  step H00 | 0 | A#3+40 | 2  step H00 | F_4+70 |
+| 2  step H10 | 4 | F#3+30 | 2  step H10 | C#4+90 |
+| 3  step H00 | 7 | D#3+40 | 3  step H00 | A#3+70 |
+| 3  step H10 | 9~10 | C_3+50 | 3  step H10 | G_3+C0 |
+| 4  step H00 | 12 | A#2+40 | 4  step H00 | F_3+70 |
+| 4  step H10 | 14 | G#3+30 | 4  step H10 | D#3+70 |
+| 5  step H00 | 16 | XX | 5  step H00 | C#3+A0 |
+| 5  step H10 | 17~18 | XX | 5  step H10 | B_2+E0 |
+| 6  step H00 | 19 | XX | 6  step H00 | A#2+70 |
+| 6  step H10 | 19 | XX | 6  step H20 | A_2+10 |
+| 7  step H00 | 21~22 | XX | 7  step H00 | G_2+C0 |
+| 8  step H00 | 24 | XX | 8  step H00 | F_2+70 |
+| 9  step H00 | 26 | XX | 9  step H00 | D#2+70 |
+| 10 step H00 | 28 | XX | 10 step H00 | C#2+90 |
+| 11 step H00 | 29~30 | XX | 11 step H00 | C_2+10 |
+
+(Table for TEMPO 448 same as 896 one but octave lower) 
+
+-----------------
+ > ===== Todo: ===== <br>
+ > ----- Redo Semitones for Soft-OC ----- <br>
+ > ----- Finish Tempo 295 ----- <br>
+ > ----- Verify lower steps T896 ----- <br>
+ > ----- Space between 2 versions ----- <br>
+-----------------
+
+*Error margin 7%/$10 note off*
 
 Notice how 2,4,8step H0 share same note, but are lowered by an octave, as modulation is exactly /2 each time!<br>
 Some steps will sound more detuned than others, so make sure to tune your tempo accordingly<br>
@@ -308,8 +346,6 @@ I would recommend placing extra **"`G`"** commands before **"`T`"** in order to 
 placing new groove before/after tempo change can make song hiccup for a brief moment)
 and put the new proper groove in all patterns when there's an empty space in the sequencer.
 
-
-
 # 8. Multihum
 
 [Twitter video of 3 tones singing from one Pulse channel](https://twitter.com/Infu_av/status/1301578269435801602?s=20)<br>
@@ -331,6 +367,12 @@ Type of waveform seems to affect only **`V`** command.<br>
 **`L`** command doesn't present any changes.<br>
 
 # 10. CPU USAGE
+
+-----------------
+ > ===== Todo: ===== <br>
+ > ----- Sort the commands from most resource hungry to not ----- <br>
+ > ----- Check if something changed for latest version ----- <br>
+-----------------
 
 Overclocking can be very taxing on the Gameboy's CPU, and reaching the "TOO BUSY!" state is more than easy.
 The faster the **"`TEMPO`"**, the faster the modulation, therefore CPU has to work harder to keep up.
@@ -375,7 +417,13 @@ If you're struggling with CPU then think about extending your modulaitons if pos
 
 ## 11. Quickstart mini guide (for impatient ones)
 
-1. Replace LSDj's hex value **`3E04E007`** with **`3E07E007`** using hex editor, save
+-----------------
+ > ===== Todo: ===== <br>
+ > ----- Redo the quickstart to consider newest version ----- <br>
+-----------------
+
+
+1. Replace LSDj's value **`3E04E007`** with **`3E07E007`** using hex editor, save
 2. Turn on LSDj, put down one note in Pulse channel, press play
 3. Apply table to this instrument, place commands one under another **"O`LR`"**, **"O`--`"**, **"H`00`"**<br>
 (just like **"[Controlling the Extra Hum](#5-controlling-the-extra-hum)"** chapter picture)<br>
@@ -422,6 +470,12 @@ all you need to do is to change Instrument mode to anything else than MANUAL,
 and in the SYNTH menu set PHASE end (right side) to 1E,
 then play around with it, experiment with expanded SPEED range!
 
+-----------------
+ > ===== Todo: ===== <br>
+ > ----- Redo the WAV channel a bit  ----- <br>
+ > ----- Test Recync ----- <br>
+ > ----- Add entire Noise channel section ----- <br>
+-----------------
 
 
 # 13. Another look at the tables - Summary
@@ -449,14 +503,29 @@ while engaging the exploration of sound design and pushing the limits!
 
 As you already know, to achieve 4x overclock you need to find first string of hex values **`3E04E007`**, 
 then change second value value `04` to `07`. What if we tried other values?<br>
-Using `06` multiplies tempo by 8, and `5` by 16! This greatly expands the pitch range of possible hums,
+Using `06` multiplies tempo by 8, and `05` by 16! This greatly expands the pitch range of possible hums,
 but unfortunately the 8x version cannot reach even half of LSDj available tempo with 2step `O`Hum
 before reaching "TOO BUSY" state, and that's while using just 1 channel!
 16x overclock version performs the poorest even on the lowest tempo, increased grooves, 2step 'O'Hum crashes Gameboy!
 
+-----------------
+ > ===== Todo: ===== <br>
+ > ----- Pitch table for speeds there? at least 8x ----- <br>
+ > ----- Fix the groove calculation ----- <br>
+-----------------
+
+
+
 Though in theory they have greater potential than 4x overclock, their stability is almost nonexistant in current state.
 
 ## LSDj Version Overclock differences:
+
+-----------------
+ > ===== Todo: ===== <br>
+ > ----- Sort versions there, mention this part in previous section ----- <br>
+ > ----- advantages or disadvantages of each ----- <br>
+-----------------
+
 
 Guide is being written while using LSDj 8.9.6 which may differ from future versions in some way,
 so I recommend to take a look at the changelog to see if there hasnt been any major changes!
