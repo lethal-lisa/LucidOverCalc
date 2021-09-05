@@ -33,7 +33,9 @@ New timer-driven sample playback breaks the overclocking -
 New samples sound fantastic but overclock is not compatible
 I tried couple solutions, and none work as good, but I'm still investigating!
 
-**Latest one you can use is 9.1.C** - please use this one!
+**Latest one you can overclock is 9.1.C**
+
+Version 9.1.I HAS 2 HIGHER TEMPOS built-in! No hex editing needed!
 
 detailed follow-up will appear in nearby future!
 
@@ -44,7 +46,7 @@ detailed follow-up will appear in nearby future!
 
 -----------------
  > ===== Todo: ===== <br>
- > ----- OldOC vs built in (even compatibility of saves ----- <br>
+ > ----- OldOC vs built in (even compatibility of saves) ----- <br>
  > ----- Redo emulator recommendations ----- <br>
  > ----- Redo mentioned versions ----- <br>
  > ----- Add F kit command usage ----- <br>
@@ -54,6 +56,7 @@ detailed follow-up will appear in nearby future!
  > ----- M command mention ----- <br>
  > ----- Redo screenshots ----- <br>
  > ----- Hex edit bash line(?) ----- <br>
+ > ----- Do not discriminate DMG performance ----- <br>
  > ----- Spreadsheet Groove Calc ----- <br>
  > ----- Spreadsheet Tempo Table ----- <br>
 -----------------
@@ -101,29 +104,21 @@ Modifying your ROM to be overclocked is actually fairly easy, possible to do on 
 This will not affect any other data of LSDj: your kits, palettes, all are safe.<br>
 Still, remember to backup your ROM before you modify your precious tracker!
 
-**`To benefit fully from this guide please use LSDj version above v8`**
 
-**=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-**
-**=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-**
-
-# IMPORTANT OVERCLOCKING NOTE!
-
-## VERSION 9.2.0 BREAKS OVERCLOCK! 
-
-New timer-driven sample playback breaks the overclocking
-New samples sound fantastic but overclock is not compatible
-I tried couple solutions, and none work as good, but I'm still investigating!
-
-**Latest one you can use is 9.1.C** - please use this one!
-
-detailed follow-up will appear in nearby future!
-
-**=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-**
-**=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-**
 
 
 ![HxD_2Searching2](https://user-images.githubusercontent.com/66220663/99194099-583d4780-2775-11eb-8362-c82aea4adeed.png)<br>
 *(picture showcasing step 2)*
+
+-----------------
+
+**NOTE:** Last overclockable version is **9.1.C !**
+
+===== **VERSIONS 9.2.0 to 9.2.G WILL FAIL!** ===== **VERSIONS 9.2.0 to 9.2.G WILL FAIL!** =====
+
+VERSION 9.2.I has 2 higher speed tempos you can choose, no overclocking hack is used there!
+
+-----------------
 
 **Step by step instructions:**
 1. Open up your LSDj ROM in the hex editor of your choice (I used HxD on Windows);
@@ -132,11 +127,6 @@ detailed follow-up will appear in nearby future!
   4. Save;
 
 Your LSDj's tempo should be *multiplied* by **four** now!
-
------------------
- > ===== Todo: =====
- > ----- Mention editable versions -----
------------------
 
 ## 3. Amplitude Modulation Synthesis - Overclocking Hum
 
@@ -236,30 +226,27 @@ where *step 0* is **O**`LR`, *all next steps* are **O**`--`<br>
 
 | up to 9.1.C |  | Tempo 295 | v9.2.I and above | Tempo 896 |
 |:---:|:---:|:---:|:---:|:---:|
-| Soft-OC (4x)<br>Modulation step | Semitones down |  | Predefined TEMPO<br>Modulation step | Note + Finetune |
-| 2  step H00 | 0 | A#3+40 | 2  step H00 | F_4+70 |
-| 2  step H10 | 4 | F#3+30 | 2  step H10 | C#4+90 |
-| 3  step H00 | 7 | D#3+40 | 3  step H00 | A#3+70 |
-| 3  step H10 | 9~10 | C_3+50 | 3  step H10 | G_3+C0 |
-| 4  step H00 | 12 | A#2+40 | 4  step H00 | F_3+70 |
-| 4  step H10 | 14 | G#3+30 | 4  step H10 | D#3+70 |
-| 5  step H00 | 16 | XX | 5  step H00 | C#3+A0 |
-| 5  step H10 | 17~18 | XX | 5  step H10 | B_2+E0 |
-| 6  step H00 | 19 | XX | 6  step H00 | A#2+70 |
-| 6  step H10 | 19 | XX | 6  step H20 | A_2+10 |
-| 7  step H00 | 21~22 | XX | 7  step H00 | G_2+C0 |
-| 8  step H00 | 24 | XX | 8  step H00 | F_2+70 |
-| 9  step H00 | 26 | XX | 9  step H00 | D#2+70 |
-| 10 step H00 | 28 | XX | 10 step H00 | C#2+90 |
-| 11 step H00 | 29~30 | XX | 11 step H00 | C_2+10 |
+| Soft-OC (4x)<br>Modulation step | Semitones<br>down | Note +<br>Finetune Up | Predefined TEMPO<br>Modulation step | Note +<br>Finetune Up |
+| *2  step H00* | *0*  | *A#4+40* | *2  step H00* | *F_4+70* |
+| 2  step H**1**0 | 4  | F#4+30 | 2  step H**1**0 | C#4+90 |
+| 3  step H00 | 7  | D#4+40 | 3  step H00 | A#3+70 |
+| 3  step H**1**0 | 10 | C_4+50 | 3  step H**1**0 | G_3+C0 |
+| *4  step H00* | *12* | *A#3+40* | *4  step H00* | *F_3+70* |
+| 4  step H**1**0 | 14 | G_3+F0 | 4  step H**1**0 | D#3+70 |
+| 5  step H00 | 16 | F#3+40 | 5  step H00 | C#3+A0 |
+| 5  step H**1**0 | 18 | E_3+50 | 5  step H**1**0 | B_2+F0 |
+| 6  step H00 | 19 | D#3+40 | 6  step H00 | A#2+70 |
+| 6  step H**1**0 | 21 | C#3+D0 | 6  step H**1**0 | A_2+10 |
+| 7  step H00 | 22 | C_3+90 | 7  step H00 | G_2+C0 |
+| *8  step H00* | *24* | *A#2+40* | *8  step H00* | *F_2+70* |
+| 9  step H00 | 26 | G#2+30 | 9  step H00 | D#2+70 |
+| 10 step H00 | 28 | F#2+60 | 10 step H00 | C#2+90 |
+| 11 step H00 | 30 | E_2+B0 | 11 step H00 | C_2+10 |
 
-(Table for TEMPO 448 same as 896 one but octave lower) 
+(Pitch for TEMPO 448 is same as 896 one but octave lower) 
 
 -----------------
  > ===== Todo: ===== <br>
- > ----- Redo Semitones for Soft-OC ----- <br>
- > ----- Finish Tempo 295 ----- <br>
- > ----- Verify lower steps T896 ----- <br>
  > ----- Space between 2 versions ----- <br>
 -----------------
 
