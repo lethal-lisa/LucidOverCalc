@@ -245,11 +245,6 @@ where *step 0* is **O**`LR`, *all next steps* are **O**`--`<br>
 
 (Pitch for TEMPO 448 is same as 896 one but octave lower) 
 
------------------
- > ===== Todo: ===== <br>
- > ----- Space between 2 versions ----- <br>
------------------
-
 *Error margin 7%/$10 note off*
 
 Notice how 2,4,8step H0 share same note, but are lowered by an octave, as modulation is exactly /2 each time!<br>
@@ -258,6 +253,36 @@ Note :*Modulations like H2 will sound particulary distorted and off tune*
 
 For precise frequency of every step check out AM calculators available in this repository
 made by Lisa and Pator, props for their hard work!
+
+
+-----------------
+ > ===== Todo: ===== <br>
+ > ----- list speed modifier chapter  ----- <br>
+ > ----- place hum table below hum commands? ----- <br>
+ > ----- mention more benefits from changing emulation speed ----- <br>
+-----------------
+
+## X. Emulation Speed modifier
+
+![BGBspeed](https://user-images.githubusercontent.com/66220663/132315591-d1449b1b-a5c0-4d91-8b58-8894ce86a7b5.png)
+<br>*(BGB's own emulation speed modifier)*
+
+Since the newest version takes approach of being fixed speed rather than customisable one, I thought about way to enable more power to the musician.
+BGB has option to slow down or speed up entire console, together with tempo and pitch of every note - if your emulator has slow down option you're probably able to set it to whatever speed you want!
+
+**Pitch wise** you choose emulation speed based on the 2step modulation, or whatever step you're looking for.<br>
+regardless of emulation speed you choose, it should still follow the hum table above!<br>
+
+Tempo wise it may vary per emulator:<br>
+
+-BGB uses 60fps as default, tempo formula looks like this:<br>
+(new fps / 60) * LSDj actual tempo = Your new tempo!<br>
+*Values below 60 will slow down the emulation, and above 60 will speed it up!*
+
+
+-for emulators using "1.00x" multiplier for emulation speed, it's even easier:<br>
+(Emulation speed multiplier) x LSDj actual tempo = Your new tempo!<br>
+*Values below 1x will slow down the emulation, and above 1x will speed it up!*
 
 
 # 7. Commands generating Hum
@@ -349,8 +374,11 @@ When using both **"`W`"** and **"`O`"** commands, try moving around commands so 
 ![Thetick](https://user-images.githubusercontent.com/66220663/100926126-d3735d00-34da-11eb-9d8f-b9b95f48620f.jpg)<br>
 *(Picture showcasing example settings for `P` effect, set groove to around 28 for optimal listening)*<br>
 
-Setting `PITCH` mode of your instrument to **TICK** will greatly affect command **`P`** and **`V`**, making **`P`** command scroll so fast and so greatly that it'll have smooth spring'ish sound at particular intensity, and increasing the speed of V command (intensity stays the same).<br>
-Type of waveform seems to affect only **`V`** command.<br>
+Setting `PITCH` mode of your instrument to **TICK** will greatly affect command **`P`** and **`V`**, making **`P`** command scroll so fast and so greatly that it'll have smooth spring'ish / squelch'ish sound at particular intensity:
+Wave width/duty will affect the sound timbre and volume, and you can affect the "phase" where the springy sounds starts with note at low, or high octave!<br>
+You control the squelch sound you make using different value of `P` command
+V command benefits from increasing the speed, but intensity stays the same.<br>
+Try affecting the vibrato wave in the PITCH mode, each value might influence sound in different way!<br>
 **`L`** command doesn't present any changes.<br>
 
 # 10. CPU USAGE
