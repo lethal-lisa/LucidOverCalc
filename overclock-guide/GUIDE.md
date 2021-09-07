@@ -80,45 +80,50 @@ providing much greater headroom than previous versions!
 **Benefits** of Software Overclocking LSDj are new wicked types of sound design,
 enabling multitimbrality on each channel and amplitude modulation synthesis!
 Overclocked LSDj will play any of your non-OC saves four times faster:
-4x speed of LSDj engine means that every table modulation, grooves, and whole sequencer will play four times faster.
-It will require something stronger CPU-wise than an original model GameBoy
-(GameBoy Color, GameBoy Advance, or an emulator like BGB for the best results),
-though no hardware mods are required at all!
+4x speed of LSDj engine means that every table modulation, synths, and whole sequencer will play four times faster.
+Because of increased CPU usage here, it's recommended to use GameBoy Color or above,
+Original gray brick may work to some extend, but it's easy to crash it
+though in any case hardware mods are required, you only need to edit the LSDj ROM!
+BGB, Sameboy and Gambatte as accurate emulators also provide fantastic experience!
 The guide below will explain many tips and tricks regarding overclocking,
 but it is designed for advanced LSDj users who are confident in normal LSDj operation and seek to get out more out of it.
 
-**Warning**: Even though my guide is there to help you with your OC experience,
-keep in mind that developer doens't support this technique,
-and might not be able to help you in case a song-breaking glitch happens!
-(though my experience has been very stable with this overclocking, putting the word of caution out)
+**Update**: 20.04.2021 Johan Kotlinski, LSDj Developer, announced new sample playback routine improving the quality of samples - unfortunately this broke possibility to overclock the every LSDj version after 9.1.C. I've been trying various codes provided by Johan, I tried to hack the tempo table, I tried tricks but nothing really worked - if something did, then in very hacky manner where rest of tempo values were broken or the results just unsatisfying. I've been investigating also other issues regarding the newer LSDj versions, only to discover that it actually has irregular ticks - Therefore throwing off the perfect ballance that was usually provided as default with overclockable LSDj versions. Keep in mind that problem I'm talking about is something a casual user would probably never notice, but that little discovery opened up the subject of overclocking LSDj!<br>
+01.09.2021 new update comes out, version 9.2.I (ending with I, like Infu!), brings back insane tempos again, but this time as the native feature! This ultimately motivated me to update the guide once again, and include all the knowledge I gathered till now!
 
-*Another note: all notes below were observed while using **BGB emulator** in **GBC mode** on Windows.
-Experience on other platforms may wary, but I'll be more than happy to expand the guide with
-notes from other platforms.*
+*Another: all notes below were observed while using **BGB emulator** in **GBC mode** on Windows, and just recently Sameboy with it's broad selection of various models, and I'm in the middle of noting down the differences!
 
 
+## X2. Which LSDj version to choose?
 
-## 2. How to Overclock LSDj ROM
+**9.2.I** has extremely limited tempo options (and also limited overclocking capabilities) but doesn't require hacking at all!
+
+**9.1.C** gives you full palette of what LSDj overclock overclock has to offer, customisable up to your absolute preference!
+This one requires little bit of effort to overclock it, and lacks fancy features new version offers.
+
+Earliest overclockable LSDj version that actually benefits from LSDj optimisations is... TO BE RESEARCHED!
+
+## 2. How to Overclock LSDj ROM (9.1.C and below)
+
+
+-----------------
+ > ===== Todo: ===== <br>
+ > ----- present Game Genie code option for old OC ----- <br>
+ > ----- find option to hack a rom on Android, and in browser ----- <br>
+ > ----- Mention failed OC methods, for archiving purposes ----- <br>
+-----------------
+
 
 Modifying your ROM to be overclocked is actually fairly easy, possible to do on any platform that has hex Editor.<br>
 This will not affect any other data of LSDj: your kits, palettes, all are safe.<br>
 Still, remember to backup your ROM before you modify your precious tracker!
 
-
+===== **VERSIONS 9.2.0 to 9.2.G WILL FAIL!** ===== **VERSIONS 9.2.0 to 9.2.G WILL FAIL!** =====
 
 
 ![HxD_2Searching2](https://user-images.githubusercontent.com/66220663/99194099-583d4780-2775-11eb-8362-c82aea4adeed.png)<br>
 *(picture showcasing step 2)*
 
------------------
-
-**NOTE:** Last overclockable version is **9.1.C !**
-
-===== **VERSIONS 9.2.0 to 9.2.G WILL FAIL!** ===== **VERSIONS 9.2.0 to 9.2.G WILL FAIL!** =====
-
-VERSION 9.2.I has 2 higher speed tempos you can choose, no overclocking hack is used there!
-
------------------
 
 **Step by step instructions:**
 1. Open up your LSDj ROM in the hex editor of your choice (I used HxD on Windows);
@@ -169,6 +174,7 @@ Because tempo is tied to many parameters, you need to adjust your:
 - Commands like D,K,R,W;
 - Instrument Command rate;
 - Wave instrument speeds;
+- Speech words;
 
 Because the tempo dictates the actual pitch of the hum,
 you will find yourself adjusting **`TEMPO`** to achieve desired pitch,
@@ -182,11 +188,12 @@ Using the formula above you should calculate that picture above runs actually 13
 
 It is highly recommended to use GBC and above for optimal performance,
 (or make sure your emulator is running in GBC mode) as DMG
-cannot handle modulation well in high speed on more than 1 channel.
+cannot handle intense modulation well in high speed on more than 1 channel.
+It is possible to make OC song using DMG, thought lower speeds are recommended!
 
 If you thought about using **2xOC-LSDj** synced together, don't expect a lot of stability -
-Intense moments in your songs will slightly desync them, very high **`TEMPO`** should be avoided to prevent that.
-For some reason I cannot start start all 8 channels at once on some songs, still investigating that.
+Each Intense moment in your song will slightly desync them little by little, so very high **`TEMPO`** should be avoided to prevent that, and keep them somewhat stable.
+Having synced LSDjs on high tempo and fully equipped 4 channel songs will simply fail, or make the other instance play back the absolute end of the song mode. Best to introduce channels as they happen, rather than starting it all at once. (empty /non busy chains should be fine)
 
 *Also small note*, as for now, using official LSDj patcher and upgrading ROM will overwrite the overclock,
 making you redo the process in hex editor, but that's not big issue!
