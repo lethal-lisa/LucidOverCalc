@@ -1,7 +1,7 @@
 /*
  * inc/gbhead.h
  * 
- * Lucid Patcher - GB ROM Header Info Header
+ * Lucid Patcher - GB ROM Header Info Module Header
  * 
  * Copyright 2021 Lisa Murray
  * 
@@ -85,6 +85,9 @@ typedef struct tagGBHEAD
 	unsigned char uHdrChkSum;
 	unsigned short uGlobalChkSum;
 } __attribute__((packed, aligned(4))) GBHEAD, *PGBHEAD;
+
+unsigned char mkGbHdrChksum (const PGBHEAD pHdr);
+inline long getRomSize (const PGBHEAD pHdr);
 
 #endif /* _GBHEAD_H_ */
 

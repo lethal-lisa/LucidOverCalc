@@ -27,6 +27,9 @@
 
 #include "inc/prompts.h"
 
+extern const char g_szAppName[];
+extern const char g_szAppVer[];
+
 void printGplNotice ();
 
 #endif /* _PATCHER_H_ */

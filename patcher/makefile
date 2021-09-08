@@ -50,6 +50,7 @@ LIBDIRS  :=
 
 OBJS     := ${TARGET}.o
 OBJS     += ${SOURCES}/prompts.o
+OBJS     += ${SOURCES}/gbhead.o
 
 ## ---------------------------------------------------------------------
 ## Set flags for code generation.
@@ -83,7 +84,6 @@ build: ${TARGET}
 ## Strip binaries.
 ${TARGET}: ${TARGET}.elf
 	-@echo 'Stripping symbols from "$<"... ("$<"->"$@")'
-	#${OBJCOPY} -v -O binary $< $@
 	${OBJCOPY} -vgO elf64-x86-64 $< $@
 
 ## Link objects.

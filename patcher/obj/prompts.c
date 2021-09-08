@@ -22,6 +22,7 @@
  * 
  */
 
+/*
 #include "../inc/prompts.h"
 
 #include <stdio.h>
@@ -75,13 +76,15 @@ int doPromptUser (const long cchCmd, char* pszCmd) {
 	// Retrieve command.
 	while (cchCmdLen < MIN_CCH_CMD) {
 		printf(">>> ");
-		gets(pszCmd);
+		fgets(pszCmd);
 		cchCmdLen = strlen(pszCmd);
 	}
 	
 	return 0;
 	
 }
+
+*/
 
 /* char* promptForLsdjFile (size_t cchFile, char* pszFile) {
 	

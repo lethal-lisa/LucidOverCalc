@@ -28,8 +28,8 @@
 #include <stdlib.h>
 #include <getopt.h>
 
-const char g_szAppName[32] = "Lucid Patcher";
-const char g_szAppVer[16] = "1.0";
+const char g_szAppName[] = "Lucid Patcher";
+const char g_szAppVer[] = "1.0";
 
 int main (int argc, char* argv[]) {
 	
@@ -73,11 +73,7 @@ int main (int argc, char* argv[]) {
 				
 			case 'h':
 				// Show help message.
-				printf("Help\n");
-				printf("\t-h/--help\t\tShow this help.\n");
-				printf("\t--gpl\t\t\tShow the GNU GPL3 notice.\n");
-				printf("\t-f/--file <file>\tSet file to use to <file>.\n");
-				printf("\n");
+				printHelp();
 				exit(EXIT_SUCCESS);
 				//break;
 				
@@ -107,7 +103,7 @@ int main (int argc, char* argv[]) {
 }
 
 // Regurgitate the GPL3 notice.
-void printGplNotice (const FILE* stream) {
+void printGplNotice () {
 	
 	printf("This program is free software; you can redistribute it and/or modify\n\
 it under the terms of the GNU General Public License as published by\n\
@@ -123,6 +119,17 @@ GNU General Public License for more details.\n\
 along with this program; if not, write to the Free Software\n\
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,\n\
 MA 02110-1301, USA.\n\n");
+	
+}
+
+// Show help message.
+void printHelp () {
+	
+	printf("Help\n");
+	printf("\t-h/--help\t\tShow this help.\n");
+	printf("\t--gpl\t\t\tShow the GNU GPL3 notice.\n");
+	printf("\t-f/--file <file>\tSet file to use to <file>.\n");
+	printf("\n");
 	
 }
 

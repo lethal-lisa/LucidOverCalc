@@ -1,7 +1,7 @@
 /*
- * inc/prompts.h
+ * obj/gbhead.c
  * 
- * Lucid Patcher - Prompts Module Header
+ * Lucid Patcher - GB ROM Header Info Module
  * 
  * Copyright 2021 Lisa Murray
  * 
@@ -20,25 +20,42 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301, USA.
  * 
- * 
  */
 
-#ifndef _PROMPTS_H_
-#define _PROMPTS_H_
-/*
-#define MIN_CCH_CMD 3
-#define MAX_CCH_CMD 256
+#include "../inc/gbhead.h"
 
-#define CMD_NONE 0
-#define CMD_EXIT 1
-#define CMD_HELP 2
-#define CMD_VER 3
+#include <stddef.h>
+#include <errno.h>
 
-typedef unsigned short int CMDID;
+unsigned char mkGbHdrChksum (const PGBHEAD pHdr) {
+	
+	if (pHdr == NULL) {
+		errno = EFAULT;
+		//perror("Null pointer passed in mkGbHdrChksum.");
+		return 0;
+	}
+	
+	unsigned char* pTemp = (unsigned char*) pHdr;
+	unsigned long int uChkSum = 0;
+	
+	int iByte;
+	for (iByte = 0x34; iByte < 0x4C; iByte++)
+		uChkSum = uChkSum - ((unsigned char*) pHdr)[iByte] - 1;
+	
+	return (unsigned char)(uChkSum & 0xFF);
+	
+}
 
-CMDID scanForPromptCmd (const char* pszText);
-int doPromptUser (const long cchCmd, char* pszCmd);
-*/
-#endif /* _PROMPTS_H_ */
+inline long getRomSize (const PGBHEAD pHdr) {
+	
+	if (pHdr == NULL) {
+		errno = EFAULT;
+		//perror("Null pointer passed in getRomSize.");
+		return 0;
+	}
+	
+	return (long)((32 << pHdr->uRomSize) * 1024);
+	
+}
 
 // EOF
