@@ -1,17 +1,27 @@
 ## Ignore project files:
+*.npp
 *.geany
 *.fbp
 
 ## Ignore archive files:
-*.tar
-*.gz
 *.zip
+*.ZIP
+*.rar
+*.RAR
+*.7z
+*.tar*
+*.gz
+*.bz2
+*.xz
+*.lzma
+*.tgz
 
 ## Ignore binaries:
-*.a
 *.o
-lib*
+*.elf
+*.a
+*.so
+*.dll
 *.exe
 
 ## EOF
-
