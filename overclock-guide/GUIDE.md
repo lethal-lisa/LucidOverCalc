@@ -3,6 +3,7 @@
 <br>
 ![CursedBoy](https://user-images.githubusercontent.com/66220663/99196146-5cbc2d00-2782-11eb-9b35-2709d25b2b4c.png)
 
+
 Chapters are ordered as it follows:
 
 01. [History and the Benefits of Soft-Overclocking Nowadays](#1-history-and-the-benefits-of-soft-overclocking-nowadays)
@@ -88,24 +89,37 @@ BGB, Sameboy and Gambatte as accurate emulators also provide fantastic experienc
 The guide below will explain many tips and tricks regarding overclocking,
 but it is designed for advanced LSDj users who are confident in normal LSDj operation and seek to get out more out of it.
 
-**Update**: 20.04.2021 Johan Kotlinski, LSDj Developer, announced new sample playback routine improving the quality of samples - unfortunately this broke possibility to overclock the every LSDj version after 9.1.C. I've been trying various codes provided by Johan, I tried to hack the tempo table, I tried tricks but nothing really worked - if something did, then in very hacky manner where rest of tempo values were broken or the results just unsatisfying. I've been investigating also other issues regarding the newer LSDj versions, only to discover that it actually has irregular ticks - Therefore throwing off the perfect ballance that was usually provided as default with overclockable LSDj versions. Keep in mind that problem I'm talking about is something a casual user would probably never notice, but that little discovery opened up the subject of overclocking LSDj!<br>
-01.09.2021 new update comes out, version 9.2.I (ending with I, like Infu!), brings back insane tempos again, but this time as the native feature! This ultimately motivated me to update the guide once again, and include all the knowledge I gathered till now!
+**Update**: 20.04.2021 Johan Kotlinski, LSDj Developer, announced new sample playback routine improving the quality of samples - 
+unfortunately this broke possibility to overclock the every LSDj version after 9.1.C.
+I've been trying various codes provided by Johan,
+I tried to hack the tempo table,
+I tried tricks but nothing really worked - 
+if something did, then in very hacky manner where rest of tempo values were broken or the results just unsatisfying.
+I've been investigating also other issues regarding the newer LSDj versions,
+only to discover that it actually has irregular ticks - 
+Therefore throwing off the perfect ballance that was usually provided as default with overclockable LSDj versions. 
+Keep in mind that problem I'm talking about is something a casual user would probably never notice, 
+but that little discovery opened up the subject of overclocking LSDj!<br>
+01.09.2021 new update comes out, version 9.2.I (ending with I, like Infu!), 
+brings back insane tempos again, but this time as the native feature! 
+This ultimately motivated me to update the guide once again, and include all the knowledge I gathered till now!
 
 
-*Another note: all notes below were observed while using **BGB emulator** in **GBC mode** on Windows, and just recently Sameboy with it's broad selection of various models, and I'm in the middle of noting down the differences!
+*Note note: all notes below were observed while using **BGB emulator** in **GBC mode** on Windows, and just recently Sameboy with it's broad selection of various models, and I'm in the middle of noting down the differences!
 
 
 ## X2. Which LSDj version to choose?
 
-**9.2.I** has extremely limited tempo options (and also limited overclocking capabilities) but doesn't require hacking at all!
+**9.2.I** has extremely limited tempo options (and also limited overclocking capabilities) but doesn't involve hacking at all!
 
 **9.1.C** gives you full palette of what LSDj overclock overclock has to offer, customisable up to your absolute preference!
-This one requires little bit of effort to overclock it, and lacks fancy features new version offers.
+This one requires little bit of effort to overclock it (well described here!), and lacks fancy features new version offers.
+
+9.1.C is the last overclockable version, and overclocking anything beyond it (9.2.0 and later ones) will fail!
 
 Earliest overclockable LSDj version that actually benefits from LSDj optimisations is... TO BE RESEARCHED!
 
-## 2. How to Overclock LSDj ROM (9.1.C and below)
-
+## 2. How to Overclock LSDj ROM
 
 -----------------
  > ===== Todo: ===== <br>
@@ -119,21 +133,20 @@ Modifying your ROM to be overclocked is actually fairly easy, possible to do on 
 This will not affect any other data of LSDj: your kits, palettes, all are safe.<br>
 Still, remember to backup your ROM before you modify your precious tracker!
 
-### ===== **VERSIONS 9.2.0 to 9.2.G WILL FAIL!** ===== USE 9.1.C FOR SUCCESSFUL 4xOC! =====
-
+===== **VERSIONS 9.2.0 to 9.2.G WILL FAIL!** =====
 
 ![HxD_2Searching2](https://user-images.githubusercontent.com/66220663/99194099-583d4780-2775-11eb-8362-c82aea4adeed.png)<br>
 *(picture showcasing step 2)*
 
 
-#### **Step by step instructions:**
+===== **Step by step instructions:** =====
 
-1. Open up your LSDj ROM in the hex editor of your choice (I used HxD on Windows);
+1. Open up your LSDj ROM (preferably 9.1.C) in the hex editor of your choice (I used HxD on Windows);
 2. Search first *hex-value* string **`3E04E007`**;
 3. Replace it with **`3E07E007`**; (Notice: We are changing esensially only second value `04` to `07`)
 4. Save;
 
-##### Your LSDj's tempo should be *multiplied* by **four** now!
+Your LSDj's tempo should be *multiplied* by **four** now!
 
 ## 3. Amplitude Modulation Synthesis - Overclocking Hum
 
@@ -148,6 +161,8 @@ while switching between **"`E`"**, **"`O`"** or **"`W`"** command, a click happe
 which when done in rapid succession generates the hum you can hear.
 This hum is generated with *Amplitude Modulation* synthesis, (or simply, AM synthesis)
 which can be thought of as an extra oscillator in the channel.
+
+*Said Hum is actually a Square Wave but for the purpose of this guide I don't call it "square wave" to prevent confusion with Pulse channels*
 
 AM synthesis, in the context of LSDj, works by rapidly changing volume, note or pulse width at a certain frequency.
 This frequency is generated by  placing mentioned above commands in the Table.
@@ -193,7 +208,7 @@ Using the formula above you should calculate that picture above runs actually 13
 
 For **9.2.I users** the formula is much more simplified:<br>
 
-#### **`BPM = 21504 (for 896, "/2" if 448) / [4 rows of your groove setting]`**<br>
+===== **`BPM = 21504 (for 896, "/2" if 448) / [4 rows of your groove setting]`** =====<br>
 
 It is highly recommended to use GBC and above for optimal performance,
 (or make sure your emulator is running in GBC mode) as DMG
@@ -225,13 +240,13 @@ it should look like on picture:<br>
 2 step modulation will decide the highest Hum pitch you can achieve using this tempo,
 any longer modulation will decrease pitch by certain amount of semitones.<br>
 Now tune your **"TEMPO"** value for highest Hum pitch you want available,
-and reach the other lower Hum notes using more steps in modulation, or by H1 command explaied below.
+and reach the other lower Hum notes using more steps in modulation, or by H1 command explained below.
+
 
 ### H10 - hop between steps
 
-Use loops like **"H`10`"** and **"H`00`"** right below to achieve modulation in between rows, by rapidly switching between two steps.
-It works only between first couple steps, trying to do that below 5step modulation
-will be difficult to tune and can start to sound like an arp on lower TEMPOs<br>
+Use loops like **"H`10`"** and **"H`00`"** right below to achieve modulation in between rows, by rapidly switching between two steps. Another way to call it is half step (e.g. 2,5step)
+It works best between first couple steps very well, but longer 6+ step modulations can sound like an arp instead of stable tone, especially on lower TEMPOs<br>
 ![3stepH1](https://user-images.githubusercontent.com/66220663/99185036-0ed20580-273f-11eb-8f57-2b729d880c0e.png)<br>
 *(picture showing **3 step H1** modulation)*<br>
 (side note: loop demonstrated above is slightly CPU intensive than it's **3 step H0** variant)
@@ -241,7 +256,8 @@ will be difficult to tune and can start to sound like an arp on lower TEMPOs<br>
 Regardless of the tempo, relation between Hum notes stay same!<br>
 Table below represents part of usable Hum frequencies combinations you can use in table,<br>
 where *step 0* is **O**`LR`, *all next steps* are **O**`--`<br>
-*finishing* with **"H"** **0**0 or **1**0 command.<br>
+*finishing* whole steps with **"H"** **0**0;<br>
+and half steps with H **1**0 command followed by **"H"** **0**0.<br>
 
 | up to 9.1.C |  | Tempo 295 | v9.2.I and above | Tempo 896 |
 |:---:|:---:|:---:|:---:|:---:|
@@ -262,13 +278,13 @@ where *step 0* is **O**`LR`, *all next steps* are **O**`--`<br>
 | 10 step H00 | 28 | F#2+60 | 10 step H00 | C#2+90 |
 | 11 step H00 | 30 | E_2+B0 | 11 step H00 | C_2+10 |
 
-(Pitch for TEMPO 448 is same as 896 one but octave lower) 
-
 *Error margin 7%/$10 note off*
+
+(Pitch for TEMPO 448 is same as 896 one but octave lower) 
 
 Notice how 2,4,8step H0 share same note, but are lowered by an octave, as modulation is exactly /2 each time!<br>
 Some steps will sound more detuned than others, so make sure to tune your tempo accordingly<br>
-Note :*Modulations like H2 will sound particulary distorted and off tune*
+Note :*Modulations including half steps may sound particulary distorted and off tune*
 
 For precise frequency of every step check out AM calculators available in this repository
 made by Lisa and Pator, props for their hard work!
@@ -294,7 +310,7 @@ regardless of emulation speed you choose, it should still follow the hum table a
 
 Tempo wise it may vary per emulator:<br>
 
--BGB uses 60fps as default, tempo formula looks like this:<br>
+-BGB uses 59.73fps as default (0) though I recommend keeping it 60fps clean calculation & post processing reasons, tempo formula looks like this:<br>
 (new fps / 60) * LSDj actual tempo = Your new tempo!<br>
 *Values below 60 will slow down the emulation, and above 60 will speed it up!*
 
@@ -393,7 +409,7 @@ When using both **"`W`"** and **"`O`"** commands, try moving around commands so 
 ![Thetick](https://user-images.githubusercontent.com/66220663/100926126-d3735d00-34da-11eb-9d8f-b9b95f48620f.jpg)<br>
 *(Picture showcasing example settings for `P` effect, set groove to around 28 for optimal listening)*<br>
 
-Setting `PITCH` mode of your instrument to **TICK** will greatly affect command **`P`** and **`V`**, making **`P`** command scroll so fast and so greatly that it'll have smooth spring'ish / squelch'ish sound at particular intensity:
+Setting `PITCH` mode of your instrument to **TICK** will greatly affect command **`P`** and **`V`**, making **`P`** command scroll so fast and so greatly that it'll have smooth spring'ish / squelch'ish 303 / Acid-like sound at particular intensity:
 Wave width/duty will affect the sound timbre and volume, and you can affect the "phase" where the springy sounds starts with note at low, or high octave!<br>
 You control the squelch sound you make using different value of `P` command
 V command benefits from increasing the speed, but intensity stays the same.<br>
