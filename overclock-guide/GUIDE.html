@@ -1,0 +1,754 @@
+<!DOCTYPE HTML>
+<html lang=en-us>
+<head>
+<meta charset=utf-8>
+<title>Overclock Guide</title>
+</head>
+<body>
+<h1>(ADVANCED) Soft-Overclocked LSDj Guide by Infu</h1>
+
+<p><a href="https://youtu.be/HDLD6zdxt2E"><strong>Sound sample/set video here!</strong></a><br>
+<br>
+<img src="https://user-images.githubusercontent.com/66220663/99196146-5cbc2d00-2782-11eb-9b35-2709d25b2b4c.png" alt="CursedBoy" /></p>
+
+<p>Chapters are ordered as it follows:</p>
+
+<ol>
+<li><a href="#1-history-and-the-benefits-of-soft-overclocking-nowadays">History and the Benefits of Soft-Overclocking Nowadays</a></li>
+<li><a href="#2-how-to-overclock-lsdj-rom">How to Overclock LSDj ROM</a></li>
+<li><a href="#3-amplitude-modulation-synthesis---overclocking-hum">Amplitude Modulation Synthesis - Overclocking Hum</a></li>
+<li><a href="#4-workflow-changes">Workflow changes (Groove/Tempo/BPM relation)</a></li>
+<li><a href="#5-controlling-the-extra-hum">Controlling the Extra Hum</a></li>
+<li><a href="#6-hum-pitch-table">Hum Pitch table</a></li>
+<li><a href="#7-commands-generating-hum">Commands generating Hum</a></li>
+<li><a href="#8-multihum">MultiHum</a></li>
+<li><a href="#9-pitch-tick-mode">PITCH TICK mode</a></li>
+<li><a href="#10-cpu-usage">CPU usage</a></li>
+<li><a href="#11-quickstart-mini-guide-for-impatient-ones">Quickstart mini guide <em>(for impatient ones)</em></a></li>
+<li><a href="#12-wav-channel">WAV channel</a></li>
+<li><a href="#13-another-look-at-the-tables---summary">Another look at the tables - Summary</a></li>
+<li><a href="#extra-notes">Extra notes,Credits</a><br></li>
+</ol>
+
+
+<p>For some practical examples I provided the LSDj .sav file (version 8.9.3) <em>for study only</em>, included in the same folder next to the guide!</p>
+
+<p><strong>=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-</strong>
+<strong>=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-</strong></p>
+
+<h1>IMPORTANT OVERCLOCKING NOTE!</h1>
+
+<h2>VERSIONS 9.2.0 - 9.2.H BREAKS OVERCLOCK!</h2>
+
+<p>New timer-driven sample playback breaks the overclocking -
+New samples sound fantastic but overclock is not compatible
+I tried couple solutions, and none work as good, but I&rsquo;m still investigating!</p>
+
+<p><strong>Latest one you can overclock is 9.1.C</strong></p>
+
+<p>Version 9.1.I HAS 2 HIGHER TEMPOS built-in! No hex editing needed!</p>
+
+<p>detailed follow-up will appear in nearby future!</p>
+
+<p><strong>=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-</strong>
+<strong>=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-</strong></p>
+
+<p><br></p>
+
+<hr />
+
+<blockquote><p>===== Todo: ===== <br>
+&mdash;&ndash; OldOC vs built in (even compatibility of saves) &mdash;&ndash; <br>
+&mdash;&ndash; Redo emulator recommendations &mdash;&ndash; <br>
+&mdash;&ndash; Redo mentioned versions &mdash;&ndash; <br>
+&mdash;&ndash; Add F kit command usage &mdash;&ndash; <br>
+&mdash;&ndash; Mentioning Player and its performance &mdash;&ndash; <br>
+&mdash;&ndash; Overclocked Emulator Mention &mdash;&ndash; <br>
+&mdash;&ndash; Multiply groove with higher $x OCs &mdash;&ndash; <br>
+&mdash;&ndash; M command mention &mdash;&ndash; <br>
+&mdash;&ndash; Redo screenshots &mdash;&ndash; <br>
+&mdash;&ndash; Hex edit bash line(?) &mdash;&ndash; <br>
+&mdash;&ndash; Do not discriminate DMG performance &mdash;&ndash; <br>
+&mdash;&ndash; Spreadsheet Groove Calc &mdash;&ndash; <br></p>
+
+<h2>&mdash;&ndash; Spreadsheet Tempo Table &mdash;&ndash; <br></h2></blockquote>
+
+<p><br></p>
+
+<hr />
+
+<h2>1. History and the Benefits of Soft-Overclocking Nowadays</h2>
+
+<p><strong>History</strong> of Software overclocking LSDj starts by Pain Perdu in 2017 using version 5.3.5.<a href="https://web.archive.org/web/20200601005830/https://chiptuneswin.com/blog/pauls-tech-talk-lsdj-5-3-5_4x-part-2-sandpaper-vs-eardrums/">(Archived link for the article here)</a>
+Results were impressive, but due to heavier CPU usage while overclocked,
+users would experience serious drawbacks,
+making usage less than desirable and unstable.
+<em>However</em>, version 8 improved dramatically in those terms,
+and now, even in heavy modulation situations where previous versions would crash or stop,
+Here there&rsquo;s no hint of any slow-down!
+Consequently, overclocking LSDj from version 8 onwards should be more than pleasureable experience,
+providing much greater headroom than previous versions!</p>
+
+<p><strong>Benefits</strong> of Software Overclocking LSDj are new wicked types of sound design,
+enabling multitimbrality on each channel and amplitude modulation synthesis!
+Overclocked LSDj will play any of your non-OC saves four times faster:
+4x speed of LSDj engine means that every table modulation, synths, and whole sequencer will play four times faster.
+Because of increased CPU usage here, it&rsquo;s recommended to use GameBoy Color or above,
+Original gray brick may work to some extend, but it&rsquo;s easy to crash it.
+NO hardware mods are required, you only need to edit the LSDj ROM file!
+BGB, Sameboy and Gambatte as accurate emulators also provide fantastic experience!
+The guide below will explain many tips and tricks regarding overclocking,
+but it is designed for advanced LSDj users who are confident in normal LSDj operation and seek to get out more out of it.</p>
+
+<p><strong>Update</strong>: 20.04.2021 Johan Kotlinski, LSDj Developer, announced new sample playback routine improving the quality of samples -
+unfortunately this broke possibility to overclock the every LSDj version after 9.1.C.
+I&rsquo;ve been trying various codes provided by Johan,
+I tried to hack the tempo table,
+I tried tricks but nothing really worked -
+if something did, then in very hacky manner where rest of tempo values were broken or the results just unsatisfying.
+I&rsquo;ve been investigating also other issues regarding the newer LSDj versions,
+only to discover that it actually has irregular ticks -
+Therefore throwing off the perfect ballance that was usually provided as default with overclockable LSDj versions.
+Keep in mind that problem I&rsquo;m talking about is something a casual user would probably never notice,
+but that little discovery opened up the subject of overclocking LSDj!<br>
+01.09.2021 new update comes out, version 9.2.I (ending with I, like Infu!),
+brings back insane tempos again, but this time as the native feature!
+This ultimately motivated me to update the guide once again, and include all the knowledge I gathered till now!</p>
+
+<p>*Note note: all notes below were observed while using <strong>BGB emulator</strong> in <strong>GBC mode</strong> on Windows, and just recently Sameboy with it&rsquo;s broad selection of various models, and I&rsquo;m in the middle of noting down the differences!</p>
+
+<h2>X2. Which LSDj version to choose?</h2>
+
+<p><strong>9.2.I</strong> has extremely limited tempo options (and also limited overclocking capabilities) but doesn&rsquo;t involve hacking at all!</p>
+
+<p><strong>9.1.C</strong> gives you full palette of what LSDj overclock overclock has to offer, customisable up to your absolute preference!
+This one requires little bit of effort to overclock it (well described here!), and lacks fancy features new version offers.</p>
+
+<p>9.1.C is the last overclockable version, and overclocking anything beyond it (9.2.0 and later ones) will fail!</p>
+
+<p>Earliest overclockable LSDj version that actually benefits from LSDj optimisations is&hellip; TO BE RESEARCHED!</p>
+
+<h2>2. How to Overclock LSDj ROM</h2>
+
+<hr />
+
+<blockquote><p>===== Todo: ===== <br>
+&mdash;&ndash; present Game Genie code option for old OC &mdash;&ndash; <br>
+&mdash;&ndash; find option to hack a rom on Android, and in browser &mdash;&ndash; <br></p>
+
+<h2>&mdash;&ndash; Mention failed OC methods, for archiving purposes &mdash;&ndash; <br></h2></blockquote>
+
+<p>Modifying your ROM to be overclocked is actually fairly easy, possible to do on any platform that has hex Editor.<br>
+This will not affect any other data of LSDj: your kits, palettes, all are safe.<br>
+Still, remember to backup your ROM before you modify your precious tracker!</p>
+
+<p>===== <strong>VERSIONS 9.2.0 to 9.2.G WILL FAIL!</strong> =====</p>
+
+<p><img src="https://user-images.githubusercontent.com/66220663/99194099-583d4780-2775-11eb-8362-c82aea4adeed.png" alt="HxD_2Searching2" /><br>
+<em>(picture showcasing step 2)</em></p>
+
+<p>===== <strong>Step by step instructions:</strong> =====</p>
+
+<ol>
+<li>Open up your LSDj ROM (preferably 9.1.C) in the hex editor of your choice (I used HxD on Windows);</li>
+<li>Search first <em>hex-value</em> string <strong><code>3E04E007</code></strong>;</li>
+<li>Replace it with <strong><code>3E07E007</code></strong>; (Notice: We are changing esensially only second value <code>04</code> to <code>07</code>)</li>
+<li>Save;</li>
+</ol>
+
+
+<p>Your LSDj&rsquo;s tempo should be <em>multiplied</em> by <strong>four</strong> now!</p>
+
+<h2>3. Amplitude Modulation Synthesis - Overclocking Hum</h2>
+
+<p>The magic of overclocking is largely dependant on LSDj&rsquo;s <strong><code>TEMPO</code></strong> parameter.
+It&rsquo;s responsible for LSDj&rsquo;s engine speed, therefore increasing it will speed up all modulation happening,
+and slowing it down will make your tables much slower.<br>
+When performing extremely rapid modulation (high tempo) of particular commands/effects
+(for example: a table with <strong>&ldquo;O<code>--</code>&rdquo;</strong>, <strong>&ldquo;O<code>LR</code>&rdquo;</strong> and <strong>&ldquo;H<code>00</code>&rdquo;</strong>)
+<strong>a hum of a specific pitch will be produced</strong>!<br>
+It happens because of Gameboy&rsquo;s natural behavior:<br>
+while switching between <strong>&ldquo;<code>E</code>&rdquo;</strong>, <strong>&ldquo;<code>O</code>&rdquo;</strong> or <strong>&ldquo;<code>W</code>&rdquo;</strong> command, a click happens
+which when done in rapid succession generates the hum you can hear.
+This hum is generated with <em>Amplitude Modulation</em> synthesis, (or simply, AM synthesis)
+which can be thought of as an extra oscillator in the channel.</p>
+
+<p><em>Said Hum is actually a Square Wave but for the purpose of this guide I don&rsquo;t call it &ldquo;square wave&rdquo; to prevent confusion with Pulse channels</em></p>
+
+<p>AM synthesis, in the context of LSDj, works by rapidly changing volume, note or pulse width at a certain frequency.
+This frequency is generated by  placing mentioned above commands in the Table.
+The <strong>Table speed</strong> is dependent on the <strong><code>TEMPO</code></strong> parameter,
+but the actual produced <strong>Hum frequency</strong> is dependent on how long the modulation is.
+The higher the tempo, the faster the table will be cycled through,
+thus the higher the initial pitch.
+<em>Initial</em>, because you can achieve even more by manipulating the table by increasing/decreasing the <strong>&ldquo;OFF/O<code>--</code>&rdquo;</strong> time.</p>
+
+<p>Said hum does not come out of nowhere, but shares the channel together with other sounds happening there,
+each one &ldquo;fighting each other, and one may strip other from some frequencies to fit in, which is absolutely normal behaviour,
+and you can design your sounds around that, giving one or the other more priority.</p>
+
+<h1>4. Workflow changes</h1>
+
+<p>There&rsquo;s multiple differences between normal stock LSDj and overclocked one that you&rsquo;ll need to get used to,
+especially when transferring your previous songs and using them there.
+Major change in OC version is that whole LSDJ <strong><code>TEMPO</code></strong> is multiplied by 4.
+That means that your standard 6tick-Groove song tempo 150 will play like it was 600!<br>
+Because tempo is tied to many parameters, you need to adjust your:</p>
+
+<p><img src="https://user-images.githubusercontent.com/66220663/99181572-27362600-2727-11eb-8884-2d84d3aff9fe.png" alt="bgb_Uf0q7VEqT3" /></p>
+
+<ul>
+<li>Grooves;</li>
+<li>Tables (Placing appropiate <strong>&ldquo;<code>G</code>&rdquo;</strong> command somewhere inside them so your modulation plays correctly);</li>
+<li>Commands like D,K,R,W;</li>
+<li>Instrument Command rate;</li>
+<li>Wave instrument speeds;</li>
+<li>Speech words;</li>
+</ul>
+
+
+<p>Because the tempo dictates the actual pitch of the hum,
+you will find yourself adjusting <strong><code>TEMPO</code></strong> to achieve desired pitch,
+so you need to separate the <strong><code>TEMPO = BPM</code></strong> workflow - Tempo is your instrument now!
+Instead, to actually achieve BPM you want (or precisely tell which one you&rsquo;re using) use following formula:</p>
+
+<h3><strong><code>BPM = (Tempo x 96)/[4 rows of your groove setting]</code></strong><br></h3>
+
+<p><em>[Note: 96 comes from having default 6 ticks per step groove, times 4 to achieve <code>ticks per beat</code>(24),
+then times 4 to reach actual value that OverClocked LSDj is using (96)]</em><br>
+Using the formula above you should calculate that picture above runs actually 138 BPM!<br>
+<em>A good practice</em> is to make sure your grooves are divisible by two in order to achieve 2x tempo if desired - Even better if main groove if divisible by 4!</p>
+
+<p>For <strong>9.2.I users</strong> the formula is much more simplified:<br></p>
+
+<p>===== <strong><code>BPM = 21504 (for 896, "/2" if 448) / [4 rows of your groove setting]</code></strong> =====<br></p>
+
+<p>It is highly recommended to use GBC and above for optimal performance,
+(or make sure your emulator is running in GBC mode) as DMG
+cannot handle intense modulation well in high speed on more than 1 channel.
+It is possible to make OC song using DMG, thought lower speeds are recommended!</p>
+
+<p>If you thought about using <strong>2xOC-LSDj</strong> synced together, don&rsquo;t expect a lot of stability -
+Each Intense moment in your song will slightly desync them little by little, so very high <strong><code>TEMPO</code></strong> should be avoided to prevent that, and keep them somewhat stable.
+Having synced LSDjs on high tempo and fully equipped 4 channel songs will simply fail, or make the other instance play back the absolute end of the song mode. Best to introduce channels as they happen, rather than starting it all at once. (empty /non busy chains should be fine)</p>
+
+<p>If you weren&rsquo;t naming instruments before, there&rsquo;s never been better time for it!<br>
+Organisation here matters, and least you can do is put the hum note in the instrument name, that will help you reduce duplicate instruments, but also may save duplicated tables in a silly way!</p>
+
+<p><em>Also small note</em>, as for now, using official LSDj patcher and upgrading ROM will overwrite the overclock,
+making you redo the process in hex editor, but that&rsquo;s not big issue!</p>
+
+<h1>5. Controlling the Extra Hum</h1>
+
+<p>Commands below enable you to create extra hum sharing the channel you&rsquo;re using it on.<br>
+The length of the modulation will decide the pitch of the hum.
+Minimal usable modulation is 2 step one, using <strong><code>O</code></strong> command <em>as an example</em>:<br>
+0 <code>00</code>  <code>00</code> <strong>O</strong><code>LR</code><br>
+1 <code>00</code>  <code>00</code> <strong>O</strong><code>--</code><br>
+2 <code>00</code>  <code>00</code> <strong>H</strong><code>00</code><br>
+where modulation takes 2 steps, and on 3rd one we <strong><code>H</code></strong>-op to the beginning of our table.<br>
+it should look like on picture:<br>
+<img src="https://user-images.githubusercontent.com/66220663/99184993-dd593a00-273e-11eb-9f58-609a79d87e71.png" alt="2stepH0" /><br>
+2 step modulation will decide the highest Hum pitch you can achieve using this tempo,
+any longer modulation will decrease pitch by certain amount of semitones.<br>
+Now tune your <strong>&ldquo;TEMPO&rdquo;</strong> value for highest Hum pitch you want available,
+and reach the other lower Hum notes using more steps in modulation, or by H1 command explained below.</p>
+
+<h3>H10 - hop between steps</h3>
+
+<p>Use loops like <strong>&ldquo;H<code>10</code>&rdquo;</strong> and <strong>&ldquo;H<code>00</code>&rdquo;</strong> right below to achieve modulation in between rows, by rapidly switching between two steps. Another way to call it is half step (e.g. 2,5step)
+It works best between first couple steps very well, but longer 6+ step modulations can sound like an arp instead of stable tone, especially on lower TEMPOs<br>
+<img src="https://user-images.githubusercontent.com/66220663/99185036-0ed20580-273f-11eb-8f57-2b729d880c0e.png" alt="3stepH1" /><br>
+<em>(picture showing <strong>3 step H1</strong> modulation)</em><br>
+(side note: loop demonstrated above is slightly CPU intensive than it&rsquo;s <strong>3 step H0</strong> variant)</p>
+
+<h2>6. Hum Pitch table</h2>
+
+<p>Regardless of the tempo, relation between Hum notes stay same!<br>
+Table below represents part of usable Hum frequencies combinations you can use in table,<br>
+where <em>step 0</em> is <strong>O</strong><code>LR</code>, <em>all next steps</em> are <strong>O</strong><code>--</code><br>
+<em>finishing</em> whole steps with <strong>&ldquo;H&rdquo;</strong> <strong>0</strong>0;<br>
+and half steps with H <strong>1</strong>0 command followed by <strong>&ldquo;H&rdquo;</strong> <strong>0</strong>0.<br></p>
+
+<table>
+<thead>
+<tr>
+<th style="text-align:center;"> up to 9.1.C </th>
+<th style="text-align:center;">  </th>
+<th style="text-align:center;"> Tempo 295 </th>
+<th style="text-align:center;"> v9.2.I and above </th>
+<th style="text-align:center;"> Tempo 896 </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;"> Soft-OC (4x)<br>Modulation step </td>
+<td style="text-align:center;"> Semitones<br>down </td>
+<td style="text-align:center;"> Note +<br>Finetune Up </td>
+<td style="text-align:center;"> Predefined TEMPO<br>Modulation step </td>
+<td style="text-align:center;"> Note +<br>Finetune Up </td>
+</tr>
+<tr>
+<td style="text-align:center;"> <em>2  step H00</em> </td>
+<td style="text-align:center;"> <em>0</em>  </td>
+<td style="text-align:center;"> <em>A#4+40</em> </td>
+<td style="text-align:center;"> <em>2  step H00</em> </td>
+<td style="text-align:center;"> <em>F_4+70</em> </td>
+</tr>
+<tr>
+<td style="text-align:center;"> 2  step H<strong>1</strong>0 </td>
+<td style="text-align:center;"> 4  </td>
+<td style="text-align:center;"> F#4+30 </td>
+<td style="text-align:center;"> 2  step H<strong>1</strong>0 </td>
+<td style="text-align:center;"> C#4+90 </td>
+</tr>
+<tr>
+<td style="text-align:center;"> 3  step H00 </td>
+<td style="text-align:center;"> 7  </td>
+<td style="text-align:center;"> D#4+40 </td>
+<td style="text-align:center;"> 3  step H00 </td>
+<td style="text-align:center;"> A#3+70 </td>
+</tr>
+<tr>
+<td style="text-align:center;"> 3  step H<strong>1</strong>0 </td>
+<td style="text-align:center;"> 10 </td>
+<td style="text-align:center;"> C_4+50 </td>
+<td style="text-align:center;"> 3  step H<strong>1</strong>0 </td>
+<td style="text-align:center;"> G_3+C0 </td>
+</tr>
+<tr>
+<td style="text-align:center;"> <em>4  step H00</em> </td>
+<td style="text-align:center;"> <em>12</em> </td>
+<td style="text-align:center;"> <em>A#3+40</em> </td>
+<td style="text-align:center;"> <em>4  step H00</em> </td>
+<td style="text-align:center;"> <em>F_3+70</em> </td>
+</tr>
+<tr>
+<td style="text-align:center;"> 4  step H<strong>1</strong>0 </td>
+<td style="text-align:center;"> 14 </td>
+<td style="text-align:center;"> G_3+F0 </td>
+<td style="text-align:center;"> 4  step H<strong>1</strong>0 </td>
+<td style="text-align:center;"> D#3+70 </td>
+</tr>
+<tr>
+<td style="text-align:center;"> 5  step H00 </td>
+<td style="text-align:center;"> 16 </td>
+<td style="text-align:center;"> F#3+40 </td>
+<td style="text-align:center;"> 5  step H00 </td>
+<td style="text-align:center;"> C#3+A0 </td>
+</tr>
+<tr>
+<td style="text-align:center;"> 5  step H<strong>1</strong>0 </td>
+<td style="text-align:center;"> 18 </td>
+<td style="text-align:center;"> E_3+50 </td>
+<td style="text-align:center;"> 5  step H<strong>1</strong>0 </td>
+<td style="text-align:center;"> B_2+F0 </td>
+</tr>
+<tr>
+<td style="text-align:center;"> 6  step H00 </td>
+<td style="text-align:center;"> 19 </td>
+<td style="text-align:center;"> D#3+40 </td>
+<td style="text-align:center;"> 6  step H00 </td>
+<td style="text-align:center;"> A#2+70 </td>
+</tr>
+<tr>
+<td style="text-align:center;"> 6  step H<strong>1</strong>0 </td>
+<td style="text-align:center;"> 21 </td>
+<td style="text-align:center;"> C#3+D0 </td>
+<td style="text-align:center;"> 6  step H<strong>1</strong>0 </td>
+<td style="text-align:center;"> A_2+10 </td>
+</tr>
+<tr>
+<td style="text-align:center;"> 7  step H00 </td>
+<td style="text-align:center;"> 22 </td>
+<td style="text-align:center;"> C_3+90 </td>
+<td style="text-align:center;"> 7  step H00 </td>
+<td style="text-align:center;"> G_2+C0 </td>
+</tr>
+<tr>
+<td style="text-align:center;"> <em>8  step H00</em> </td>
+<td style="text-align:center;"> <em>24</em> </td>
+<td style="text-align:center;"> <em>A#2+40</em> </td>
+<td style="text-align:center;"> <em>8  step H00</em> </td>
+<td style="text-align:center;"> <em>F_2+70</em> </td>
+</tr>
+<tr>
+<td style="text-align:center;"> 9  step H00 </td>
+<td style="text-align:center;"> 26 </td>
+<td style="text-align:center;"> G#2+30 </td>
+<td style="text-align:center;"> 9  step H00 </td>
+<td style="text-align:center;"> D#2+70 </td>
+</tr>
+<tr>
+<td style="text-align:center;"> 10 step H00 </td>
+<td style="text-align:center;"> 28 </td>
+<td style="text-align:center;"> F#2+60 </td>
+<td style="text-align:center;"> 10 step H00 </td>
+<td style="text-align:center;"> C#2+90 </td>
+</tr>
+<tr>
+<td style="text-align:center;"> 11 step H00 </td>
+<td style="text-align:center;"> 30 </td>
+<td style="text-align:center;"> E_2+B0 </td>
+<td style="text-align:center;"> 11 step H00 </td>
+<td style="text-align:center;"> C_2+10 </td>
+</tr>
+</tbody>
+</table>
+
+
+<p><em>Error margin 7%/$10 note off</em></p>
+
+<p>(Pitch for TEMPO 448 is same as 896 one but octave lower)</p>
+
+<p>Notice how 2,4,8step H0 share same note, but are lowered by an octave, as modulation is exactly /2 each time!<br>
+Some steps will sound more detuned than others, so make sure to tune your tempo accordingly<br>
+Note :<em>Modulations including half steps may sound particulary distorted and off tune</em></p>
+
+<p>For precise frequency of every step check out AM calculators available in this repository
+made by Lisa and Pator, props for their hard work!</p>
+
+<hr />
+
+<blockquote><p>===== Todo: ===== <br>
+&mdash;&ndash; list speed modifier chapter  &mdash;&ndash; <br>
+&mdash;&ndash; place hum table below hum commands? &mdash;&ndash; <br></p>
+
+<h2>&mdash;&ndash; mention more benefits from changing emulation speed &mdash;&ndash; <br></h2></blockquote>
+
+<h2>X. Emulation Speed modifier</h2>
+
+<p><img src="https://user-images.githubusercontent.com/66220663/132315591-d1449b1b-a5c0-4d91-8b58-8894ce86a7b5.png" alt="BGBspeed" />
+<br><em>(BGB&rsquo;s own emulation speed modifier)</em></p>
+
+<p>Since the newest version takes approach of being fixed speed rather than customisable one, I thought about way to enable more power to the musician.
+BGB has option to slow down or speed up entire console, together with tempo and pitch of every note - if your emulator has slow down option you&rsquo;re probably able to set it to whatever speed you want!</p>
+
+<p><strong>Pitch wise</strong> you choose emulation speed based on the 2step modulation, or whatever step you&rsquo;re looking for.<br>
+regardless of emulation speed you choose, it should still follow the hum table above!<br></p>
+
+<p>Tempo wise it may vary per emulator:<br></p>
+
+<p>-BGB uses 59.73fps as default (0) though I recommend keeping it 60fps clean calculation &amp; post processing reasons, tempo formula looks like this:<br>
+(new fps / 60) * LSDj actual tempo = Your new tempo!<br>
+<em>Values below 60 will slow down the emulation, and above 60 will speed it up!</em></p>
+
+<p>-for emulators using &ldquo;1.00x&rdquo; multiplier for emulation speed, it&rsquo;s even easier:<br>
+(Emulation speed multiplier) x LSDj actual tempo = Your new tempo!<br>
+<em>Values below 1x will slow down the emulation, and above 1x will speed it up!</em></p>
+
+<h1>7. Commands generating Hum</h1>
+
+<h2><strong>&ldquo;<code>O</code>&rdquo;</strong> command (any channel)</h2>
+
+<p><strong>&ldquo;<code>O</code>&rdquo;</strong> command generates hum <strong>idependently</strong> from the instrument&rsquo;s ADSR.<br>
+Note may be silent, but as long as instrument is still on, the <em>hum will continue</em>.<br>
+<strong><code>To enable</code></strong>, place <strong>&ldquo;O<code>LR</code>&rdquo;</strong> and <strong>&ldquo;O<code>--</code>&rdquo;</strong> commands in the table and loop them,<br>
+Can be stopped when you change instrument, <strong>&ldquo;<code>K</code>&rdquo;</strong> ill it or direct it to <strong>&ldquo;A<code>20</code>&rdquo;</strong>.<br>
+Hum will even appear if you pan left or right side, creating stereo hum.<br>
+<strong>&ldquo;<code>O</code>&rdquo;</strong> command hum will duck in the volume if wave width is set to 75%, therefore <strong>works best with wave width 12.5%</strong><br>
+The <strong>&ldquo;<code>O</code>&rdquo;</strong> command may be used on <strong>any</strong> channel you like.<br>
+One of the ways to control the hum&rsquo;s volume is to move around the steps where the <strong>&ldquo;<code>O</code>&rdquo;</strong> is active and where it&rsquo;s not.<br>
+Another way to look at the hum effect, think that every <strong>&ldquo;O<code>LR</code>&rdquo;</strong> step represents square wave at it&rsquo;s top,
+and every <strong>&ldquo;O<code>--</code>&rdquo;</strong> is square at it&rsquo;s bottom.<br>
+Try mixing in active and panned notes in between to shape the Hum&rsquo;s pitch and timbre!<br></p>
+
+<h2><strong>&ldquo;<code>W</code>&rdquo;</strong> command (pulse channels only)</h2>
+
+<p><img src="https://user-images.githubusercontent.com/66220663/99185631-0aa7e700-2743-11eb-8291-837d70a2f084.png" alt="4stepWave" /><br>
+<em>(Picture showing 4step H0 <strong>&ldquo;W&rdquo;</strong> table)</em><br>
+<strong>&ldquo;<code>W</code>&rdquo;</strong> command generates hum <strong>tied to</strong> instrument&rsquo;s ADSR.<br>
+If your note goes silent, the <em>hum will go silent too</em>.<br>
+<strong><code>To enable</code></strong>, place minimum 2 W commands of different width in the table and loop them,<br>
+Changing from thin to wide waveform will result in the loudest and grittiest hum.<br>
+Place more in between in various setups to alter the timbre and adjust the width to your liking.<br>
+<strong>&ldquo;<code>W</code>&rdquo;</strong> command also will produce high overtones that sounds like clicking!</p>
+
+<h2><strong>&ldquo;<code>E</code>&rdquo;</strong> command / VOL column (any channel)</h2>
+
+<p><img src="https://user-images.githubusercontent.com/66220663/100933220-ee4acf00-34e4-11eb-9f8d-fa65cf160640.png" alt="gaemboi_cWyW6aPk5Z" /><br>
+<strong>&ldquo;<code>E</code>&rdquo;</strong> command or VOL column generates hum <strong>overwriting</strong> instrument&rsquo;s ADSR.<br>
+<strong><code>To enable</code></strong>, there are 2 ways you can take:
+  1) place minimum 2 <strong>&ldquo;E&rdquo;</strong> commands of different volume in the table and loop them, <em>(CPU intense)</em><br>
+  2) place 2 different volume levels in VOL column and loop them. <em>(unable to perform H10 halfsteps this way)</em><br>
+Hum will be louder as the distance between lowest and highest volume values rises.<br>
+<strong>Works best on the wave width 75%</strong><br>
+Performing this in WAV channel with only use it&rsquo;s own 4 steps only <br>
+Different volumes will be affecting the timbre of the channel in different way!<br></p>
+
+<h2><strong>Transpose</strong> (any channel)</h2>
+
+<p>Using the transpose column in the table with minimum 2 step modulation (just H itself) will split the instrument pitch into 3,
+creating FM-like metallic sound.<br>
+3, because you have <em>Transposed</em> step next to another one (can be transposed or not) AND <em>tempo dependant hum</em> inbetween!<br>
+Using this on <strong>Noise</strong> channel can yeld new metalic pitch values this way!<br>
+Using different step modulation and different transpose values will affect in even differently on channel of your choice!</p>
+
+<p>IF POSSIBLE consider using it without a table, just using a <strong><code>C</code></strong> command in the phrase:<br>
+It simulates 3 step modulation from the table, and it&rsquo;s much less CPU intense!</p>
+
+<h2><strong>&ldquo;<code>R</code>&rdquo;</strong> command (any channel)</h2>
+
+<p>Use <strong>&ldquo;R<code>00-0F</code>&rdquo;</strong> in phrase to retrigger the long hum tables,
+giving you additional way to loop them without changing the table itself!<br>
+(Be careful, because it&rsquo;s more resource intensive to loop tables this way!)<br>
+First F digits of <strong>&ldquo;<code>R</code>&rdquo;</strong> commands will play the table up to chosen digit of the command<br>
+(i.e. <strong>&ldquo;R<code>04</code>&rdquo;</strong> will play first 4 steps of the table and <em>hop</em> back to the beginning)<br>
+Adjusting CMD rate of the instrument will make it work twice slower per value<br>
+(i.e using <strong><code>CMD 1</code></strong>, command <strong>&ldquo;R<code>04</code>&rdquo;</strong> will behave like <strong>&ldquo;R<code>08</code>&rdquo;</strong>)<br></p>
+
+<h2><strong>&ldquo;<code>T</code>&rdquo;</strong> command</h2>
+
+<p>LSDj allows the user to change the engine tempo on the fly using the <strong>&ldquo;<code>T</code>&rdquo;</strong> command.
+This affects the entire sequencer, therefore affecting the overclock hum pitch.
+The problem is that whole sequencer needs to be properly adjusted for this to work.
+Though I haven&rsquo;t done it properly myself, I think that grooves will do the work correctly!
+Because we are overclocking quite high,
+I think we could accurately adjust groove to the song, or make it swing a bit but still fit the song.
+I would recommend placing extra <strong>&ldquo;<code>G</code>&rdquo;</strong> commands before <strong>&ldquo;<code>T</code>&rdquo;</strong> in order to even out the tempo change,
+(pre <strong>&ldquo;<code>T</code>&rdquo;</strong> groove with old and new groove timing for the smoothest effect -
+placing new groove before/after tempo change can make song hiccup for a brief moment)
+and put the new proper groove in all patterns when there&rsquo;s an empty space in the sequencer.</p>
+
+<h1>8. Multihum</h1>
+
+<p><a href="https://twitter.com/Infu_av/status/1301578269435801602?s=20">Twitter video of 3 tones singing from one Pulse channel</a><br></p>
+
+<p><img src="https://user-images.githubusercontent.com/66220663/99185266-910ef980-2740-11eb-9bf0-aaaffd46d15d.png" alt="Multihum" /><br>
+<em>(picture above showing table used for first 4 notes in the Twitter video above)</em><br>
+Using combinations of <strong>&ldquo;<code>W</code>&rdquo;</strong> and <strong>&ldquo;<code>O</code>&rdquo;</strong> can yeld you multiple hums (O and E/VOL overlap each other in functionality),
+<em>but beware</em> that this technique makes the tuning even more difficult, and is extra taxing on the CPU. (refer to <a href="#10-cpu-usage">CPU usage</a> section for best tips how to manage CPU usage better!)
+Adding Transpose in the table adds ever more harmonics.
+When using both <strong>&ldquo;<code>W</code>&rdquo;</strong> and <strong>&ldquo;<code>O</code>&rdquo;</strong> commands, try moving around commands so <em>active</em> <strong>&ldquo;O<code>LR</code>&rdquo;</strong> commands hit thinner waves if we want the hum to be quieter, or experiment with their placement for differences in timbre.</p>
+
+<h1>9. PITCH TICK mode</h1>
+
+<p><img src="https://user-images.githubusercontent.com/66220663/100926126-d3735d00-34da-11eb-9d8f-b9b95f48620f.jpg" alt="Thetick" /><br>
+<em>(Picture showcasing example settings for <code>P</code> effect, set groove to around 28 for optimal listening)</em><br></p>
+
+<p>Setting <code>PITCH</code> mode of your instrument to <strong>TICK</strong> will greatly affect command <strong><code>P</code></strong> and <strong><code>V</code></strong>, making <strong><code>P</code></strong> command scroll so fast and so greatly that it&rsquo;ll have smooth spring'ish / squelch'ish 303 / Acid-like sound at particular intensity:
+Wave width/duty will affect the sound timbre and volume, and you can affect the &ldquo;phase&rdquo; where the springy sounds starts with note at low, or high octave!<br>
+You control the squelch sound you make using different value of <code>P</code> command
+V command benefits from increasing the speed, but intensity stays the same.<br>
+Try affecting the vibrato wave in the PITCH mode, each value might influence sound in different way!<br>
+<strong><code>L</code></strong> command doesn&rsquo;t present any changes.<br></p>
+
+<h1>10. CPU USAGE</h1>
+
+<hr />
+
+<blockquote><p>===== Todo: ===== <br>
+&mdash;&ndash; Sort the commands from most resource hungry to not &mdash;&ndash; <br></p>
+
+<h2>&mdash;&ndash; Check if something changed for latest version &mdash;&ndash; <br></h2></blockquote>
+
+<p>Overclocking can be very taxing on the Gameboy&rsquo;s CPU, and reaching the &ldquo;TOO BUSY!&rdquo; state is more than easy.
+The faster the <strong>&ldquo;<code>TEMPO</code>&rdquo;</strong>, the faster the modulation, therefore CPU has to work harder to keep up.
+If you&rsquo;re maintaining high <strong>&ldquo;<code>TEMPO</code>&rdquo;</strong> and using multiple effects/techniques playing at once
+this can lead to sequencer desync/slowdown, or crash Gameboy/LSDj! Here&rsquo;s couple factors I noticed:
+* <strong>Stacking exactly same Command/Value in tables puts extra pressure</strong>
+(i.e. Having multiple <strong>&ldquo;O<code>LR</code>&rdquo;</strong> in a row does no good and only the 1st one is needed);
+* Even empty table adds pressure, especially when <code>H</code>opped tighter;
+* Table is the lightest in STEP mode;
+* Transposing does nothing to CPU;
+* If possible, use commands in Phrase instead of using a table
+* lIVE MODE is more taxing than simple SONG mode;
+* Holding B button when sequence is playing puts pressure on CPU, because LSDj gets ready to mute/solo channels;
+* <strong>&ldquo;<code>E</code>&rdquo;</strong> command next to <strong>&ldquo;<code>V</code>&rdquo;</strong> and <strong>&ldquo;<code>R</code>&rdquo;</strong> are most CPU taxing commands;
+* <strong>&ldquo;<code>O</code>&rdquo;</strong> and <strong>&ldquo;<code>W</code>&rdquo;</strong> don&rsquo;t put as much pressure;
+* <strong><code>V</code></strong> there&rsquo;s almost no difference between x1-xF, left side does little impact on CPU each value;
+* Slower songs are also easier for CPU;
+* If you can, try to end tables with <strong>&ldquo;A<code>20</code>&rdquo;</strong> or <code>K</code>ill instead of <strong>&ldquo;<code>H</code>&rdquo;</strong>-opping over nothingness;<br>
+<strong>WAVE CHANNEL CPU USAGE:</strong>
+* MANUAL wave instrument almost do no impact;
+* ONCE/LOOP/PINGPONG do visibly more;
+* KITS are heavy as long as they are playing;
+* moving MODEs tax CPU more the lower SPEED parameter is;
+* Interesting enough, high notes affect the CPU more than lower ones!</p>
+
+<p>Most of the notes were taken during <em>max tempo intense multi channel</em> modulations,
+leavning very little headroom before reaching &ldquo;TOO BUSY!&rdquo; state.<br>
+Once again, it&rsquo;s highly recommended to use GBC and GBA if available,
+DMG brick cannot endure even half of what GBC can take.</p>
+
+<h4>Easier on CPU modulations</h4>
+
+<p>As said above, tightly looped Tables tax CPU more than those with <code>H</code> command placed much lower.
+There is a way to create same few-step modulation easier for CPU:<br>
+<img src="https://user-images.githubusercontent.com/66220663/100679058-91290f00-3366-11eb-8e89-94ce4d7ce917.jpg" alt="2 same modulations" /><br>
+<em>(Each table is presenting 2 variations of SAME EXACT SOUNDING modulation. It&rsquo;s because the distance betweeen ON and OFF is exactly the same!)</em><br>
+Maint point is that the <em>longer variation</em> is actually easier on CPU!<br>
+If you&rsquo;re struggling with CPU then think about extending your modulaitons if possible!</p>
+
+<hr />
+
+<h2>11. Quickstart mini guide (for impatient ones)</h2>
+
+<hr />
+
+<blockquote><p>===== Todo: ===== <br></p>
+
+<h2>&mdash;&ndash; Redo the quickstart to consider newest version &mdash;&ndash; <br></h2></blockquote>
+
+<ol>
+<li>Replace LSDj&rsquo;s value <strong><code>3E04E007</code></strong> with <strong><code>3E07E007</code></strong> using hex editor, save</li>
+<li>Turn on LSDj, put down one note in Pulse channel, press play</li>
+<li>Apply table to this instrument, place commands one under another <strong>&ldquo;O<code>LR</code>&rdquo;</strong>, <strong>&ldquo;O<code>--</code>&rdquo;</strong>, <strong>&ldquo;H<code>00</code>&rdquo;</strong><br>
+(just like <strong>&ldquo;<a href="#5-controlling-the-extra-hum">Controlling the Extra Hum</a>&rdquo;</strong> chapter picture)<br></li>
+<li>Manipulate the tempo, and later the note itself, matching it to the hum (notice how they are separate sound sources, how they can phase);</li>
+<li>In instrument table move <strong>&ldquo;H<code>00</code>&rdquo;</strong> one row lower (notice sound getting lower);</li>
+<li>Replace those 2 <strong>&ldquo;O&rdquo;</strong> commands with <strong>&ldquo;W&rdquo;</strong>, make them 2 different width;</li>
+<li>Again, play with the tempo, note and <strong>&ldquo;H&rdquo;</strong> placement in the table</li>
+<li>Adjust main groove to slow down sequence, place more notes,</li>
+<li>Copy the instrument and table, make second table have <strong>&ldquo;H<code>00</code>&rdquo;</strong> placed in different spot,</li>
+<li>Play those 2 instruments in 1 phrase (notice the hum changes when instruments/tables switch)</li>
+</ol>
+
+
+<p><strong>Check the <a href="#advanced-soft-overclocked-lsdj-guide-by-infu">table of Content on the top of the page</a> and redirect yourself to chapter that interests you,
+or would answer questions you have regarding Overclocked LSDj!</strong></p>
+
+<p>For some practical examples I provided the LSDj .sav file (version 8.9.3) <em>for study only</em>, included in the same folder next to the guide!</p>
+
+<hr />
+
+<h1>12. WAV Channel</h1>
+
+<p><img src="https://user-images.githubusercontent.com/66220663/99191684-1b1d8900-2766-11eb-85d2-c060c3f96977.png" alt="gaemboi_p3XF18LkmA" /><br></p>
+
+<p>Original guide from Pain Perdu only briefly described the WAV channel possibilities,
+and in the beginning I was sceptical to even put much modulation there
+because WAV channel is already powerful on its own, but here is something I discovered:
+You can create &ldquo;Distortion effect&rdquo; on your kick with <strong>&ldquo;O&rdquo;</strong> Hum modulation,
+(to preserve the &ldquo;kick&rdquo; part place think about placing the OC modulation lower in the Table,
+i.e. make it 4 steps lower and loop it with H04)
+while and on synths can help create acidy melody,
+or just serving as another layer for your bass, choice is yours!
+<strong>&ldquo;O&rdquo;</strong> plays with it&rsquo;s full loud potential when instrument finished playing in &ldquo;ONCE&rdquo; mode
+(Newest LSDj turns off WAV channel once intrument finished playing, enabling Hum to continue on its own)
+OR while SYNTH is playing make it louder when you turn WAV&rsquo;s volume down (like in pic above).
+When Hum plays over your waveforms, it&rsquo;s gonna be the loudest where
+distance between middle and top/bottom of the waveform is the greatest.<br>
+The smaller the waveform, the quieter the Hum.<br>
+All various ways to make sound in WAV channel tax the CPU differently,
+I noted down what I have noticed in <a href="#10-cpu-usage">CPU usage</a>!</p>
+
+<p>Thanks to the Overclock WAV instrument gets 4 additional faster SPEED values,
+worth keeping in mind while designing our SYNTHs!<br>
+In original Pain Perdu&rsquo;s guide, the &ldquo;Phase Bass&rdquo; was first suggested SYNTH for the user,
+all you need to do is to change Instrument mode to anything else than MANUAL,
+and in the SYNTH menu set PHASE end (right side) to 1E,
+then play around with it, experiment with expanded SPEED range!</p>
+
+<hr />
+
+<blockquote><p>===== Todo: ===== <br>
+&mdash;&ndash; Redo the WAV channel a bit  &mdash;&ndash; <br>
+&mdash;&ndash; Test Recync &mdash;&ndash; <br></p>
+
+<h2>&mdash;&ndash; Add entire Noise channel section &mdash;&ndash; <br></h2></blockquote>
+
+<h1>13. Another look at the tables - Summary</h1>
+
+<p>Looking at it the other way, 1 row of the Table in stock LSDj is split into 4 in Overclocked version!
+Any modulation squished into those will let you achieve interesting results.
+At extremely high tempos its even more, so any commands you put there and loop it tightly with <strong>&ldquo;H&rdquo;</strong> commands
+will create an interesting result usually unique for Overclocked LSDj only!</p>
+
+<p>This guide does not represent every single possibility, but tries to make known ways clear
+while engaging the exploration of sound design and pushing the limits!</p>
+
+<hr />
+
+<h1>Extra notes</h1>
+
+<h2>Other Overclock Multipliers</h2>
+
+<p><img src="https://user-images.githubusercontent.com/66220663/99615327-22b58a00-2a13-11eb-90b9-ff45cbbb5fb9.png" alt="rsz_index" /><br>
+<em>(picture showing from left to right Stock LSDj, 4x, 8x, 16x playing sequence all in the same way)</em></p>
+
+<p>As you already know, to achieve 4x overclock you need to find first string of hex values <strong><code>3E04E007</code></strong>,
+then change second value value <code>04</code> to <code>07</code>. What if we tried other values?<br>
+Using <code>06</code> multiplies tempo by 8, and <code>05</code> by 16! This greatly expands the pitch range of possible hums,
+but unfortunately the 8x version cannot reach even half of LSDj available tempo with 2step <code>O</code>Hum
+before reaching &ldquo;TOO BUSY&rdquo; state, and that&rsquo;s while using just 1 channel!
+16x overclock version performs the poorest even on the lowest tempo, increased grooves, 2step &lsquo;O'Hum crashes Gameboy!</p>
+
+<hr />
+
+<blockquote><p>===== Todo: ===== <br>
+&mdash;&ndash; Pitch table for speeds there? at least 8x &mdash;&ndash; <br></p>
+
+<h2>&mdash;&ndash; Fix the groove calculation &mdash;&ndash; <br></h2></blockquote>
+
+<p>Though in theory they have greater potential than 4x overclock, their stability is almost nonexistant in current state.</p>
+
+<h2>LSDj Version Overclock differences:</h2>
+
+<hr />
+
+<blockquote><p>===== Todo: ===== <br>
+&mdash;&ndash; Sort versions there, mention this part in previous section &mdash;&ndash; <br></p>
+
+<h2>&mdash;&ndash; advantages or disadvantages of each &mdash;&ndash; <br></h2></blockquote>
+
+<p>Guide is being written while using LSDj 8.9.6 which may differ from future versions in some way,
+so I recommend to take a look at the changelog to see if there hasnt been any major changes!</p>
+
+<p>Software Overclock technique works with all LSDj versions from 2.6.0 (included)
+all the way up to the latest one available. That said, this guide is written based on
+optimisations found in v8 and above allowing for comfortable and stable use -
+This means that any version below v8 won&rsquo;t perform well.</p>
+
+<h3>8.7.7</h3>
+
+<p>(This is version where I started using OC project!)
+Most noticeable difference is that WAV doesn&rsquo;t turn off compared to newer versions -
+which means no hum after instrument mode &ldquo;ONCE&rdquo; finishes playing.</p>
+
+<h5>Pre-8.8.0 - ADSR Tempo Related Drift</h5>
+
+<p>While using version 8.7.7 I noticed that the ADSR envelope tends to not be consistent -
+while it was sounding mostly correctly, on some chains like hihats or short pulse instruments placed one by one in a row,
+Lenght of each ADSR instrument &ldquo;drifts&rdquo; in relation to the engine&rsquo;s tempo.</p>
+
+<p>```
+To reproduce on LSDj (8.7.7):</p>
+
+<ul>
+<li>In Noise Channel create phrase with 16 steps of FD hihats</li>
+<li>Make ADSR for that instrument 61/00/&ndash;</li>
+<li>Set tempo to 195</li>
+</ul>
+
+
+<p>The user might hear the ADSR getting slightly shorter or longer in a regular, LFO-like manner.
+```</p>
+
+<p>This behaviour is more noticeable when using the overclocked version.
+This effect is mostly undesired and somewhat uncontrollable unless
+the user tunes the <code>TEMPO</code> <em>and</em> starts the song at a very specific moment (Though extremely not recommended)<br>
+Version 8.8.0 and onwards keeps the envelopes very stable, and it&rsquo;s drift is not an issue anymore</p>
+
+<p>Use version 8.8.7 if you wish to retain the old ADSR system, that is compatible with plenty of emulators and all Gameboy consoles.</p>
+
+<h3>Feature wishlist</h3>
+
+<ol>
+<li>Asymmetric tables (to reuse OC Tables in other instruments);</li>
+<li>Even higher tempo limit (for higher pitch range of Hum);</li>
+<li>Separate engine speed from tempo, or per table;</li>
+<li>CPU usage indicator;</li>
+<li>Alternative way to obtain Hum, in maybe more precise ways;</li>
+<li>Integrate Overclocking feature into patcher, prevent patcher from changing the OC value (or ask to replace);</li>
+</ol>
+
+
+<h1>Credits</h1>
+
+<p><strong>ABOC</strong> and <strong>Chiptune Cafe</strong> for being best Chiptune communities I know, motivated and supported me to finish this guide;<br>
+<strong>Pain Perdu</strong> for writing the initial Overclocking Guide for LSDj<br>
+<strong>Aquellex</strong> and <strong>DBOYD</strong> for direct help with the project <br>
+<strong>Lisa</strong> and <strong>Pator</strong> for coding their Overclocked Hum Pitch Finder programs and motivating me to finish this guide<br></p>
+</body>
+</html>
