@@ -1,12 +1,11 @@
 
-.PHONY: lucid objects patcher clean
+.PHONY: build install clean
 .SUFFIXES:
 .SUFFIXES: .bas
 
-.DEFAULT_GOAL := lucid
+.DEFAULT_GOAL := build
 
-MAIN_LUCID = lucidoc
-MAIN_PATCHER = patcher
+TARGET := lucidoc
 
 ## TODO: Clean OS detection up.
 EXE_SUFFIX =
@@ -17,24 +16,12 @@ ifdef OS_DOS
 	EXE_SUFFIX = .exe
 endif
 
-APP_LUCID := ${MAIN_LUCID}${EXE_SUFFIX}
-APP_PATCHER := ${MAIN_PATCHER}${EXE_SUFFIX}
-
-## HDRS := $(wildcard *.bi)
-HDR_SHARED := $(wildcard inc/shared/*.bi)
-HDR_OVERCALC := $(wildcard inc/overcalc/*.bi)
-HDR_OVERCALC += lucidoc.bi
-HDR_PATCHER := $(wildcard inc/patcher/*.bi)
-## HDRS_PATCHER += patcher.bi
-OBJ_SHARED := $(wildcard obj/shared/*.bas)
-OBJ_OVERCALC := $(wildcard obj/overcalc/*.bas)
-OBJ_PATCHER := $(wildcard obj/patcher/*.bas)
+OBJS         := $(patsubst %.bas,%.o,$(wildcard obj/*.bas))
 
 ## Set FBC flags.
-FBC = fbc
-FBCFLAGS = 
-COMMON_FLAGS = -maxerr 5 -w pedantic
-INC_FLAGS = -i 'inc/shared' -i 'inc/overcalc' -i 'inc/patcher'
+FBC          := fbc
+FBCFLAGS     :=
+COMMON_FLAGS := -maxerr 5 -w pedantic -i 'inc'
 ifdef EXOPTS
 	FBCFLAGS += ${EXOPTS}
 endif
@@ -59,40 +46,26 @@ ifdef DEBUG
 		FBCFLAGS += -edebug
 	endif
 endif
-FBCFLAGS += ${COMMON_FLAGS} ${INC_FLAGS}
+FBCFLAGS += ${COMMON_FLAGS}
 
-.INTERMEDIATE: obj/shared/%.o obj/overcalc/%.o obj/patcher/%.o
-.DELETE_ON_ERROR: 
+.INTERMEDIATE:
+.DELETE_ON_ERROR:
 
-lucid: ${APP_LUCID}
+build: ${TARGET}
+	chmod +x $<
 
-##patcher: ${APP_PATCHER}
+${OBJS}: %.o : %.bas
+	-@echo 'Compiling object "$@"... ("$<"->"$@")'
+	${FBC} ${FBCFLAGS} -c $<
 
-objects: ${OBJ_SHARED} ${OBJ_OVERCALC} ${OBJ_PATCHER}
-
-obj/shared/%.o: ${OBJ_SHARED}
-	${FBC} ${FBCFLAGS} -c $(patsubst %.o,%.bas,$@)
-
-obj/overcalc/%.o: ${OBJ_OVERCALC}
-	${FBC} ${FBCFLAGS} -c $(patsubst %.o,%.bas,$@)
-	
-obj/patcher/%.o: ${OBJ_PATCHER}
-	${FBC} ${FBCFLAGS} -c $(patsubst %.o,%.bas,$@)
-
-${APP_LUCID}: ${MAIN_LUCID}.bas ${HDR_SHARED} ${HDR_OVERCALC} $(patsubst %.bas,%.o,${OBJ_SHARED} ${OBJ_OVERCALC})
-	${FBC} ${FBCFLAGS} ${MAIN_LUCID}.bas $(patsubst %.bas,%.o,${OBJ_SHARED} ${OBJ_OVERCALC}) -x ${APP_LUCID}
-
-${APP_PATCHER}: ${MAIN_PATCHER}.bas ${HDR_SHARED} ${HDR_OVERCALC} $(patsubst %.bas,%.o,${OBJ_SHARED} ${OBJ_PATCHER})
-	${FBC} ${FBCFLAGS} ${MAIN_PATCHER}.bas $(patsubst %.bas,%.o,${OBJ_SHARED} ${OBJ_PATCHER}) -x ${APP_PATCHER}
+${TARGET}: ${OBJS}
+	-@echo 'Compiling binary "$@"... ("$^"->"$@")'
+	${FBC} ${FBCFLAGS} lucidoc.bas $^ -x $@
 
 .IGNORE: clean
 clean: MAKE_TERMOUT = /dev/stderr
 clean: MAKE_TERMERR = /dev/null
 clean:
-	rm -vf obj/shared/*.o
-	rm -vf obj/overcalc/*.o
-	rm -vf obj/patcher/*.o
-	rm -vf ${APP_LUCID}
-	rm -vf ${APP_PATCHER}
+	@rm -vf obj/*.o
 
 ## EOF

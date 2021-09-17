@@ -1,7 +1,7 @@
 
 #Pragma Once
 
-#Include "inc/shared/fbcolors.bi"
+#Include "inc/fbcolors.bi"
 
 '' Controls the usage of colored output.
 #IfnDef ENABLE_COLOR
