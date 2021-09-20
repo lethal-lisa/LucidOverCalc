@@ -26,9 +26,9 @@ For some practical examples I provided the LSDj .sav file (version 8.9.3) *for s
 **=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-**
 **=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-**
 
-# IMPORTANT OVERCLOCKING NOTE!
+# IMPORTANT OVERCLOCKING NOTE! 
 
-## VERSIONS 9.2.0 - 9.2.H BREAKS OVERCLOCK!
+### VERSIONS 9.2.0 - 9.2.H BREAKS OVERCLOCK!
 
 New timer-driven sample playback breaks the overclocking -
 New samples sound fantastic but overclock is not compatible
@@ -38,7 +38,7 @@ I tried couple solutions, and none work as good, but I'm still investigating!
 
 Version 9.1.I HAS 2 HIGHER TEMPOS built-in! No hex editing needed!
 
-detailed follow-up will appear in nearby future!
+**detailed follow-up is still being uploaded as you read this!**
 
 **=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-**
 **=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-**
@@ -55,6 +55,7 @@ detailed follow-up will appear in nearby future!
  > ----- Overclocked Emulator Mention ----- <br>
  > ----- Multiply groove with higher $x OCs ----- <br>
  > ----- M command mention ----- <br>
+ > ----- Recategorise commands ----- <br>
  > ----- Redo screenshots ----- <br>
  > ----- Hex edit bash line(?) ----- <br>
  > ----- Do not discriminate DMG performance ----- <br>
@@ -107,19 +108,34 @@ This ultimately motivated me to update the guide once again, and include all the
 
 *Note note: all notes below were observed while using **BGB emulator** in **GBC mode** on Windows, and just recently Sameboy with it's broad selection of various models, and I'm in the middle of noting down the differences!
 
+### 1b. Terminology used in the guide
 
-## X2. Which LSDj version to choose?
+-Each time I mention "Overclock" I talking about "software overclock" variant,<br>
+not hardware one *unless stated so in the sentence*;
 
-**9.2.I** has extremely limited tempo options (and also limited overclocking capabilities) but doesn't involve hacking at all!
+-Since Overclocking refers to modifying the clockspeed above supported values,<br>
+this means that new high tempos aren't "overclocked" in theory.<br>
+Now they are just normal "high-speed tempos".<br>
+For the sake of consistency, also because behaviour is exactly the same,<br>
+I still call them same way, differenciating only by versions!<br
 
-**9.1.C** gives you full palette of what LSDj overclock overclock has to offer, customisable up to your absolute preference!
-This one requires little bit of effort to overclock it (well described here!), and lacks fancy features new version offers.
+-Naming of the tempo elements have been changed over time:<br>
+9.1.C "75", "112", "224"; (since every value is x4)<br>
+9.2.I "299", "448", "896"; (actual tempo representation)<br>
+9.2.J "2X", "3X", "6X"; (to mark these are multiples of screen refresh rate)<br>
 
-9.1.C is the last overclockable version, and overclocking anything beyond it (9.2.0 and later ones) will fail!
+## 1c. Which LSDj version to choose?
 
-Earliest overclockable LSDj version that actually benefits from LSDj optimisations is... TO BE RESEARCHED!
+**9.2.I** and newer (the new way) has extremely limited tempo options (and also limited overclocking capabilities) but doesn't involve hacking at all!
 
-## 2. How to Overclock LSDj ROM
+**9.1.C** (the old way) gives you full control of what LSDj soft-overclock has to offer, customisable up to your absolute preference!
+This one requires little bit of effort to overclock it (well described step-by-step here!), and lacks fancy features new version offers.<br>
+
+*(more on the differences in one of the last bonus chapters!)*
+
+## 2. How to Overclock LSDj ROM (up to 9.1.C)
+
+(Versions 9.2.I and above have higher tempos available **without** editing the ROM at all!)
 
 -----------------
  > ===== Todo: ===== <br>
@@ -129,7 +145,7 @@ Earliest overclockable LSDj version that actually benefits from LSDj optimisatio
 -----------------
 
 
-Modifying your ROM to be overclocked is actually fairly easy, possible to do on any platform that has hex Editor.<br>
+Modifying your ROM to be overclocked is actually fairly easy, possible to do on any platform that has Hex Editor.<br>
 This will not affect any other data of LSDj: your kits, palettes, all are safe.<br>
 Still, remember to backup your ROM before you modify your precious tracker!
 
@@ -150,7 +166,7 @@ Your LSDj's tempo should be *multiplied* by **four** now!
 
 ## 3. Amplitude Modulation Synthesis - Overclocking Hum
 
-The magic of overclocking is largely dependant on LSDj's **`TEMPO`** parameter.
+The magic of soft-overclocking is largely dependant on LSDj's **`TEMPO`** parameter.
 It's responsible for LSDj's engine speed, therefore increasing it will speed up all modulation happening,
 and slowing it down will make your tables much slower.<br>
 When performing extremely rapid modulation (high tempo) of particular commands/effects
@@ -206,9 +222,11 @@ Using the formula above you should calculate that picture above runs actually 13
 *A good practice* is to make sure your grooves are divisible by two in order to achieve 2x tempo if desired - Even better if main groove if divisible by 4!
 
 
-For **9.2.I users** the formula is much more simplified:<br>
+For **9.2.I users** the formula is much more simplified here, here's 896 variant:<br>
 
-===== **`BPM = 21504 (for 896, "/2" if 448) / [4 rows of your groove setting]`** =====<br>
+===== **`BPM = 21504 / [4 rows of your groove setting]`** =====<br>
+
+For 448 variant, simply divide by 2 = 10752
 
 It is highly recommended to use GBC and above for optimal performance,
 (or make sure your emulator is running in GBC mode) as DMG
@@ -251,7 +269,7 @@ It works best between first couple steps very well, but longer 6+ step modulatio
 *(picture showing **3 step H1** modulation)*<br>
 (side note: loop demonstrated above is slightly CPU intensive than it's **3 step H0** variant)
 
-## 6. Hum Pitch table
+## 5b. Hum Pitch table
 
 Regardless of the tempo, relation between Hum notes stay same!<br>
 Table below represents part of usable Hum frequencies combinations you can use in table,<br>
@@ -288,36 +306,6 @@ Note :*Modulations including half steps may sound particulary distorted and off 
 
 For precise frequency of every step check out AM calculators available in this repository
 made by Lisa and Pator, props for their hard work!
-
-
------------------
- > ===== Todo: ===== <br>
- > ----- list speed modifier chapter  ----- <br>
- > ----- place hum table below hum commands? ----- <br>
- > ----- mention more benefits from changing emulation speed ----- <br>
------------------
-
-## X. Emulation Speed modifier
-
-![BGBspeed](https://user-images.githubusercontent.com/66220663/132315591-d1449b1b-a5c0-4d91-8b58-8894ce86a7b5.png)
-<br>*(BGB's own emulation speed modifier)*
-
-Since the newest version takes approach of being fixed speed rather than customisable one, I thought about way to enable more power to the musician.
-BGB has option to slow down or speed up entire console, together with tempo and pitch of every note - if your emulator has slow down option you're probably able to set it to whatever speed you want!
-
-**Pitch wise** you choose emulation speed based on the 2step modulation, or whatever step you're looking for.<br>
-regardless of emulation speed you choose, it should still follow the hum table above!<br>
-
-Tempo wise it may vary per emulator:<br>
-
--BGB uses 59.73fps as default (0) though I recommend keeping it 60fps clean calculation & post processing reasons, tempo formula looks like this:<br>
-(new fps / 60) * LSDj actual tempo = Your new tempo!<br>
-*Values below 60 will slow down the emulation, and above 60 will speed it up!*
-
-
--for emulators using "1.00x" multiplier for emulation speed, it's even easier:<br>
-(Emulation speed multiplier) x LSDj actual tempo = Your new tempo!<br>
-*Values below 1x will slow down the emulation, and above 1x will speed it up!*
 
 
 # 7. Commands generating Hum
@@ -359,7 +347,7 @@ Hum will be louder as the distance between lowest and highest volume values rise
 Performing this in WAV channel with only use it's own 4 steps only <br>
 Different volumes will be affecting the timbre of the channel in different way!<br>
 
-## **Transpose** (any channel)
+## **Transpose** (any channel) (this one actually does FM wait gotta fix it)
 
 Using the transpose column in the table with minimum 2 step modulation (just H itself) will split the instrument pitch into 3,
 creating FM-like metallic sound.<br>
@@ -423,6 +411,8 @@ Try affecting the vibrato wave in the PITCH mode, each value might influence sou
  > ----- Sort the commands from most resource hungry to not ----- <br>
  > ----- Check if something changed for latest version ----- <br>
 -----------------
+
+
 
 Overclocking can be very taxing on the Gameboy's CPU, and reaching the "TOO BUSY!" state is more than easy.
 The faster the **"`TEMPO`"**, the faster the modulation, therefore CPU has to work harder to keep up.
@@ -492,7 +482,83 @@ For some practical examples I provided the LSDj .sav file (version 8.9.3) *for s
 
 * * * * * * * * 
 
-# 12. WAV Channel
+-----------------
+ > ===== Todo: ===== <br>
+ > ----- list speed modifier chapter  ----- <br>
+ > ----- place hum table below hum commands? ----- <br>
+ > ----- mention more benefits from changing emulation speed ----- <br>
+-----------------
+
+## 12. Emulation Speed modifier
+
+![BGBspeed](https://user-images.githubusercontent.com/66220663/132315591-d1449b1b-a5c0-4d91-8b58-8894ce86a7b5.png)
+<br>*(BGB's own emulation speed modifier)*
+
+Since the newest version takes approach of being fixed speed rather than customisable one, I thought about way to enable more power to the musician.
+BGB has option to slow down or speed up entire console, together with tempo and pitch of every note - if your emulator has slow down option you're probably able to set it to whatever speed you want!
+
+**Pitch wise** you choose emulation speed based on the 2step modulation, or whatever step you're looking for.<br>
+regardless of emulation speed you choose, it should still follow the hum table above!<br>
+
+Tempo wise it may vary per emulator:<br>
+
+-BGB uses 59.73fps as default (0) though I recommend keeping it 60fps clean calculation & post processing reasons, tempo formula looks like this:<br>
+(new fps / 60) * LSDj actual tempo = Your new tempo!<br>
+*Values below 60 will slow down the emulation, and above 60 will speed it up!*
+
+
+-for emulators using "1.00x" multiplier for emulation speed, it's even easier:<br>
+(Emulation speed multiplier) x LSDj actual tempo = Your new tempo!<br>
+*Values below 1x will slow down the emulation, and above 1x will speed it up!*
+
+
+# 13. Expanded Noise Channel
+
+Gameboy metalic version of the noise provides little under 60 useful notes, about 4 per octave.<br>
+**Overclocking changes that!**, and depending on tempo we can get tons of notes in between!
+
+![ExtendedNoise](https://user-images.githubusercontent.com/66220663/133930810-502a1d42-f5c7-4456-a371-a4e559553e6a.gif)
+
+On the gif above you can see normally available noise notes on the left,<br>
+on the right we got expanded, proper full octave while on tempo 896!<br>
+
+We are using **C**hord commands to rapidly play 2 noise notes, allowing us to carefully tune additional noise notes in between, in FM style!
+
+Results are heavily dependant on the tempo we are on, and each note will be reacting differently to each chord command!<br>
+Red flashing boxes show the distance between each noise note occuring naturally - keep it in mind! - Each note will react differently to C31 (chord/arp command):<br>
+
+| Note<br>used | C cmd | 3 | semi<br>tones | 1 | semi<br>tones |
+|---|---|---|---|---|---|
+| C 3 | root/0 | G#3 | +7 | D#3 | +2 |
+| F 3 | root/0 | D 4 | +9 | G#3 | +3 |
+
+Because of those irregular distance between notes, each note might require to be tuned up accordingly!
+
+You probably noticed the F3 being redone as D3 with arp on it - Noise notes tend to be off tune and I found personally this one being tuned more accurate.<br>
+
+
+| Step | Effect | Notes and observations |
+|---|---|---|
+| 0 | --- |  |
+| 1 | C01 | Here's more/less how Chord commands |
+| 2 | C10 | progress one after another, |
+| 3 | C11 | While on Tempo 896, using **C 3**! |
+| 4 | C02 | You will notice how changing **C 3** to other notes |
+| 5 | C12 | can affect the intensity/pitch of the chord used |
+| 6 | C03 | in some particular rows! |
+| 7 | C22 |  |
+| 8 | C13 | Some combinations will make the noise note |
+| 9 | C04 | phase slowly with itself in FM like way! |
+| A | C30 | Best to be heard using: |
+| B | C32 | **C 3** with chord 30,14/33 |
+| C | C14 | **D 3** with chord 25/34 |
+| D | C33 | **F 3** with chord 10,32/14 |
+| E | C25 | **G#3** with chord 11,33 |
+| F | C34 | (slash indicating almost same sound) |
+
+
+
+# 14. WAV Channel
 
 ![gaemboi_p3XF18LkmA](https://user-images.githubusercontent.com/66220663/99191684-1b1d8900-2766-11eb-85d2-c060c3f96977.png)<br>
 
@@ -528,7 +594,7 @@ then play around with it, experiment with expanded SPEED range!
 -----------------
 
 
-# 13. Another look at the tables - Summary
+# 15. Another look at the tables - Summary
 
 Looking at it the other way, 1 row of the Table in stock LSDj is split into 4 in Overclocked version!
 Any modulation squished into those will let you achieve interesting results.
@@ -538,13 +604,11 @@ will create an interesting result usually unique for Overclocked LSDj only!
 This guide does not represent every single possibility, but tries to make known ways clear
 while engaging the exploration of sound design and pushing the limits!
 
-
-
 ------------------------
 
 
 
-# Extra notes
+# 16. Extra notes
 
 ## Other Overclock Multipliers
 
@@ -577,11 +641,17 @@ Though in theory they have greater potential than 4x overclock, their stability 
 -----------------
 
 
-Guide is being written while using LSDj 8.9.6 which may differ from future versions in some way,
+Guide was written while using LSDj 8.9.6 which may differ from future versions in some way,
 so I recommend to take a look at the changelog to see if there hasnt been any major changes!
 
+9.1.C is the **last** overclockable version, and overclocking anything beyond it (9.2.0 and later ones) will fail!
+
 Software Overclock technique works with all LSDj versions from 2.6.0 (included)
-all the way up to the latest one available. That said, this guide is written based on
+
+Earliest overclockable LSDj version that actually benefits from LSDj optimisations is... TO BE RESEARCHED!
+
+Software Overclock technique works with all LSDj versions from 2.6.0 (included)
+That said, this guide is written based on
 optimisations found in v8 and above allowing for comfortable and stable use - 
 This means that any version below v8 won't perform well.
 
@@ -613,7 +683,7 @@ Version 8.8.0 and onwards keeps the envelopes very stable, and it's drift is not
 
 Use version 8.8.7 if you wish to retain the old ADSR system, that is compatible with plenty of emulators and all Gameboy consoles.
 
-### Feature wishlist
+### Feature wishlist (outdated)
 
 1. Asymmetric tables (to reuse OC Tables in other instruments);
 2. Even higher tempo limit (for higher pitch range of Hum);
@@ -625,6 +695,7 @@ Use version 8.8.7 if you wish to retain the old ADSR system, that is compatible 
 # Credits
 
 **ABOC** and **Chiptune Cafe** for being best Chiptune communities I know, motivated and supported me to finish this guide;<br>
-**Pain Perdu** for writing the initial Overclocking Guide for LSDj<br>
-**Aquellex** and **DBOYD** for direct help with the project <br>
-**Lisa** and **Pator** for coding their Overclocked Hum Pitch Finder programs and motivating me to finish this guide<br>
+**Pain Perdu** for writing the initial Overclocking Guide for LSD;j<br>
+**Aquellex** and **DBOYD** for direct help with the project early on;<br>
+**Lisa** and **Pator** for coding their Overclocked Hum Pitch Finder programs and motivating me to finish this guide;<br>
+multiple lovely and helpful peeps over **GBdev** Discord server
