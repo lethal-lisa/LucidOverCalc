@@ -7,7 +7,7 @@
 Chapters are ordered as it follows:
 
 01. [History and the Benefits of Soft-Overclocking Nowadays](#1-history-and-the-benefits-of-soft-overclocking-nowadays)
-02. [How to Overclock LSDj ROM](#2-how-to-overclock-lsdj-rom)
+02. [How to Overclock LSDj ROM](#2-how-to-overclock-lsdj-rom-up-to-91c)
 03. [Amplitude Modulation Synthesis - Overclocking Hum](#3-amplitude-modulation-synthesis---overclocking-hum)
 04. [Workflow changes (Groove/Tempo/BPM relation)](#4-workflow-changes)
 05. [Controlling the Extra Hum](#5-controlling-the-extra-hum)
@@ -16,10 +16,12 @@ Chapters are ordered as it follows:
 08. [MultiHum](#8-multihum)
 09. [PITCH TICK mode](#9-pitch-tick-mode)
 10. [CPU usage](#10-cpu-usage)
-11. [Quickstart mini guide *(for impatient ones)*](#11-quickstart-mini-guide-for-impatient-ones)
-12. [WAV channel](#12-wav-channel)
-13. [Another look at the tables - Summary](#13-another-look-at-the-tables---summary)
-14. [Extra notes,Credits](#extra-notes)<br>
+11. [**Quickstart** mini guide *(for impatient ones)*](#11-quickstart-mini-guide-for-impatient-ones)
+12. [Actual Clockspeed Modifier](#12-actual-clockspeed-modifier)
+13. [Expanded Noise Channel](#13-expanded-noise-channel)
+14. [WAV channel](#14-wav-channel)
+15. [Another look at the Tables - Summary](#15-another-look-at-the-tables---summary)
+16. [Extra notes,Credits](#16-extra-notes)<br>
 
 For some practical examples I provided the LSDj .sav file (version 8.9.3) *for study only*, included in the same folder next to the guide!
 
@@ -244,7 +246,7 @@ Organisation here matters, and least you can do is put the hum note in the instr
 making you redo the process in hex editor, but that's not big issue!
 
 
-# 5. Controlling the Extra Hum
+## 5. Controlling the Extra Hum
 
 Commands below enable you to create extra hum sharing the channel you're using it on.<br>
 The length of the modulation will decide the pitch of the hum.
@@ -260,7 +262,6 @@ any longer modulation will decrease pitch by certain amount of semitones.<br>
 Now tune your **"TEMPO"** value for highest Hum pitch you want available,
 and reach the other lower Hum notes using more steps in modulation, or by H1 command explained below.
 
-
 ### H10 - hop between steps
 
 Use loops like **"H`10`"** and **"H`00`"** right below to achieve modulation in between rows, by rapidly switching between two steps. Another way to call it is half step (e.g. 2,5step)
@@ -269,7 +270,7 @@ It works best between first couple steps very well, but longer 6+ step modulatio
 *(picture showing **3 step H1** modulation)*<br>
 (side note: loop demonstrated above is slightly CPU intensive than it's **3 step H0** variant)
 
-## 5b. Hum Pitch table
+## 6. Hum Pitch table
 
 Regardless of the tempo, relation between Hum notes stay same!<br>
 Table below represents part of usable Hum frequencies combinations you can use in table,<br>
@@ -392,7 +393,7 @@ Using combinations of **"`W`"** and **"`O`"** can yeld you multiple hums (O and 
 Adding Transpose in the table adds ever more harmonics.
 When using both **"`W`"** and **"`O`"** commands, try moving around commands so *active* **"O`LR`"** commands hit thinner waves if we want the hum to be quieter, or experiment with their placement for differences in timbre.
 
-# 9. PITCH TICK mode
+## 9. PITCH TICK mode
 
 ![Thetick](https://user-images.githubusercontent.com/66220663/100926126-d3735d00-34da-11eb-9d8f-b9b95f48620f.jpg)<br>
 *(Picture showcasing example settings for `P` effect, set groove to around 28 for optimal listening)*<br>
@@ -404,7 +405,7 @@ V command benefits from increasing the speed, but intensity stays the same.<br>
 Try affecting the vibrato wave in the PITCH mode, each value might influence sound in different way!<br>
 **`L`** command doesn't present any changes.<br>
 
-# 10. CPU USAGE
+## 10. CPU USAGE
 
 -----------------
  > ===== Todo: ===== <br>
@@ -455,7 +456,7 @@ If you're struggling with CPU then think about extending your modulaitons if pos
 * * * * * * * * 
 
 
-## 11. Quickstart mini guide (for impatient ones)
+# 11. Quickstart mini guide (for impatient ones)
 
 -----------------
  > ===== Todo: ===== <br>
@@ -489,7 +490,10 @@ For some practical examples I provided the LSDj .sav file (version 8.9.3) *for s
  > ----- mention more benefits from changing emulation speed ----- <br>
 -----------------
 
-## 12. Emulation Speed modifier
+## 12. Actual Clockspeed Modifier
+
+or "Emulation Speed modifier", *or "hey mom look, I put software overclocked LSDj on hardware underclocked console!"*
+
 
 ![BGBspeed](https://user-images.githubusercontent.com/66220663/132315591-d1449b1b-a5c0-4d91-8b58-8894ce86a7b5.png)
 <br>*(BGB's own emulation speed modifier)*
@@ -502,7 +506,7 @@ regardless of emulation speed you choose, it should still follow the hum table a
 
 Tempo wise it may vary per emulator:<br>
 
--BGB uses 59.73fps as default (0) though I recommend keeping it 60fps clean calculation & post processing reasons, tempo formula looks like this:<br>
+-BGB uses Gameboy's original refresh rate 59.73fps as default (0) though I recommend keeping it 60fps clean calculation & post processing reasons, tempo formula looks like this:<br>
 (new fps / 60) * LSDj actual tempo = Your new tempo!<br>
 *Values below 60 will slow down the emulation, and above 60 will speed it up!*
 
